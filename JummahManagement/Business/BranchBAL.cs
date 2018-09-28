@@ -1,5 +1,6 @@
 ﻿using JummahManagement.Data;
 using System;
+using System.Data;
 
 namespace JummahManagement.Business
 {
@@ -19,6 +20,76 @@ namespace JummahManagement.Business
                 throw;
             }
         }
+
+        //Function to Load Branch by Branch ID
+        public DataTable LoadBranchByBranchID(string Branch_ID)
+        {
+            try
+            {
+                DataTable dt = bd.LoadBranchByBranchID(Branch_ID);
+                return dt;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //Function to Update Branch Details
+        public int UpdateBranchDetails(string Branch_ID, string Branch_Name, string JIP_Name, string JIP_Contact, string Branch_Building_No, string Branch_Street_Name, string Branch_City, string Branch_District)
+        {
+            int result = 0;
+            try
+            {
+                result = bd.UpdateBranchDetails(Branch_ID,Branch_Name,JIP_Name,JIP_Contact,Branch_Building_No,Branch_Street_Name,Branch_City, Branch_District);
+                return result;
+            }
+            catch (Exception)
+            {
+                return result;
+            }
+        }
+
+        //Function to Autoload Branch Name from Database to Front End
+        public DataTable GetAllBranchNames()
+        {
+            try
+            {
+                DataTable dt = bd.GetAllBranchNames();
+                return dt;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //Function to Get Branch ID from Branch Name to Front End
+        public DataTable GetAllBranchIDByBranchName(string BranchName)
+        {
+            try
+            {
+                DataTable dt = bd.GetAllBranchIDByBranchName(BranchName);
+                return dt;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //public DataTable LoadBranchByBranchID(string Branch_ID)
+        //{
+        //    try
+        //    {
+        //        DataTable dt = bd.LoadBranchByBranchID(Branch_ID);
+        //        return dt;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //}
     }
 
 }

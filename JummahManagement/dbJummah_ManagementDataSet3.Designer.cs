@@ -10,8 +10,6 @@
 
 #pragma warning disable 1591
 
-using System;
-
 namespace JummahManagement {
     
     
@@ -22,17 +20,17 @@ namespace JummahManagement {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("dbJummah_ManagementDataSet")]
+    [global::System.Xml.Serialization.XmlRootAttribute("dbJummah_ManagementDataSet3")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class dbJummah_ManagementDataSet : global::System.Data.DataSet {
+    public partial class dbJummah_ManagementDataSet3 : global::System.Data.DataSet {
         
-        private tbl_CityDataTable tabletbl_City;
+        private tbl_Jummah_Schedule_tempDataTable tabletbl_Jummah_Schedule_temp;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        public dbJummah_ManagementDataSet() {
+        public dbJummah_ManagementDataSet3() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -43,7 +41,7 @@ namespace JummahManagement {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        protected dbJummah_ManagementDataSet(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected dbJummah_ManagementDataSet3(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -56,8 +54,8 @@ namespace JummahManagement {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["tbl_City"] != null)) {
-                    base.Tables.Add(new tbl_CityDataTable(ds.Tables["tbl_City"]));
+                if ((ds.Tables["tbl_Jummah_Schedule_temp"] != null)) {
+                    base.Tables.Add(new tbl_Jummah_Schedule_tempDataTable(ds.Tables["tbl_Jummah_Schedule_temp"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -81,9 +79,9 @@ namespace JummahManagement {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public tbl_CityDataTable tbl_City {
+        public tbl_Jummah_Schedule_tempDataTable tbl_Jummah_Schedule_temp {
             get {
-                return this.tabletbl_City;
+                return this.tabletbl_Jummah_Schedule_temp;
             }
         }
         
@@ -129,7 +127,7 @@ namespace JummahManagement {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            dbJummah_ManagementDataSet cln = ((dbJummah_ManagementDataSet)(base.Clone()));
+            dbJummah_ManagementDataSet3 cln = ((dbJummah_ManagementDataSet3)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -154,8 +152,8 @@ namespace JummahManagement {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["tbl_City"] != null)) {
-                    base.Tables.Add(new tbl_CityDataTable(ds.Tables["tbl_City"]));
+                if ((ds.Tables["tbl_Jummah_Schedule_temp"] != null)) {
+                    base.Tables.Add(new tbl_Jummah_Schedule_tempDataTable(ds.Tables["tbl_Jummah_Schedule_temp"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -190,10 +188,10 @@ namespace JummahManagement {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tabletbl_City = ((tbl_CityDataTable)(base.Tables["tbl_City"]));
+            this.tabletbl_Jummah_Schedule_temp = ((tbl_Jummah_Schedule_tempDataTable)(base.Tables["tbl_Jummah_Schedule_temp"]));
             if ((initTable == true)) {
-                if ((this.tabletbl_City != null)) {
-                    this.tabletbl_City.InitVars();
+                if ((this.tabletbl_Jummah_Schedule_temp != null)) {
+                    this.tabletbl_Jummah_Schedule_temp.InitVars();
                 }
             }
         }
@@ -201,18 +199,18 @@ namespace JummahManagement {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "dbJummah_ManagementDataSet";
+            this.DataSetName = "dbJummah_ManagementDataSet3";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/dbJummah_ManagementDataSet.xsd";
+            this.Namespace = "http://tempuri.org/dbJummah_ManagementDataSet3.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tabletbl_City = new tbl_CityDataTable();
-            base.Tables.Add(this.tabletbl_City);
+            this.tabletbl_Jummah_Schedule_temp = new tbl_Jummah_Schedule_tempDataTable();
+            base.Tables.Add(this.tabletbl_Jummah_Schedule_temp);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        private bool ShouldSerializetbl_City() {
+        private bool ShouldSerializetbl_Jummah_Schedule_temp() {
             return false;
         }
         
@@ -227,7 +225,7 @@ namespace JummahManagement {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            dbJummah_ManagementDataSet ds = new dbJummah_ManagementDataSet();
+            dbJummah_ManagementDataSet3 ds = new dbJummah_ManagementDataSet3();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -272,23 +270,33 @@ namespace JummahManagement {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        public delegate void tbl_CityRowChangeEventHandler(object sender, tbl_CityRowChangeEvent e);
+        public delegate void tbl_Jummah_Schedule_tempRowChangeEventHandler(object sender, tbl_Jummah_Schedule_tempRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class tbl_CityDataTable : global::System.Data.TypedTableBase<tbl_CityRow> {
+        public partial class tbl_Jummah_Schedule_tempDataTable : global::System.Data.TypedTableBase<tbl_Jummah_Schedule_tempRow> {
             
-            private global::System.Data.DataColumn columnCity_ID;
+            private global::System.Data.DataColumn columnRow_Count;
             
-            private global::System.Data.DataColumn columnCity;
+            private global::System.Data.DataColumn columnDhae_Name;
+            
+            private global::System.Data.DataColumn columnDhae_Contact;
+            
+            private global::System.Data.DataColumn columnBranch_Name;
+            
+            private global::System.Data.DataColumn columnJIP_Name;
+            
+            private global::System.Data.DataColumn columnJIP_Contact;
+            
+            private global::System.Data.DataColumn columnDate;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public tbl_CityDataTable() {
-                this.TableName = "tbl_City";
+            public tbl_Jummah_Schedule_tempDataTable() {
+                this.TableName = "tbl_Jummah_Schedule_temp";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
@@ -296,7 +304,7 @@ namespace JummahManagement {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            internal tbl_CityDataTable(global::System.Data.DataTable table) {
+            internal tbl_Jummah_Schedule_tempDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -313,24 +321,64 @@ namespace JummahManagement {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            protected tbl_CityDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected tbl_Jummah_Schedule_tempDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn City_IDColumn {
+            public global::System.Data.DataColumn Row_CountColumn {
                 get {
-                    return this.columnCity_ID;
+                    return this.columnRow_Count;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn CityColumn {
+            public global::System.Data.DataColumn Dhae_NameColumn {
                 get {
-                    return this.columnCity;
+                    return this.columnDhae_Name;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn Dhae_ContactColumn {
+                get {
+                    return this.columnDhae_Contact;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn Branch_NameColumn {
+                get {
+                    return this.columnBranch_Name;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn JIP_NameColumn {
+                get {
+                    return this.columnJIP_Name;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn JIP_ContactColumn {
+                get {
+                    return this.columnJIP_Contact;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn DateColumn {
+                get {
+                    return this.columnDate;
                 }
             }
             
@@ -345,53 +393,51 @@ namespace JummahManagement {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public tbl_CityRow this[int index] {
+            public tbl_Jummah_Schedule_tempRow this[int index] {
                 get {
-                    return ((tbl_CityRow)(this.Rows[index]));
+                    return ((tbl_Jummah_Schedule_tempRow)(this.Rows[index]));
                 }
             }
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public event tbl_CityRowChangeEventHandler tbl_CityRowChanging;
+            public event tbl_Jummah_Schedule_tempRowChangeEventHandler tbl_Jummah_Schedule_tempRowChanging;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public event tbl_CityRowChangeEventHandler tbl_CityRowChanged;
+            public event tbl_Jummah_Schedule_tempRowChangeEventHandler tbl_Jummah_Schedule_tempRowChanged;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public event tbl_CityRowChangeEventHandler tbl_CityRowDeleting;
+            public event tbl_Jummah_Schedule_tempRowChangeEventHandler tbl_Jummah_Schedule_tempRowDeleting;
             
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public event tbl_CityRowChangeEventHandler tbl_CityRowDeleted;
+            public event tbl_Jummah_Schedule_tempRowChangeEventHandler tbl_Jummah_Schedule_tempRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void Addtbl_CityRow(tbl_CityRow row) {
+            public void Addtbl_Jummah_Schedule_tempRow(tbl_Jummah_Schedule_tempRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public tbl_CityRow Addtbl_CityRow(string City) {
-                tbl_CityRow rowtbl_CityRow = ((tbl_CityRow)(this.NewRow()));
+            public tbl_Jummah_Schedule_tempRow Addtbl_Jummah_Schedule_tempRow(int Row_Count, string Dhae_Name, string Dhae_Contact, string Branch_Name, string JIP_Name, string JIP_Contact, string Date) {
+                tbl_Jummah_Schedule_tempRow rowtbl_Jummah_Schedule_tempRow = ((tbl_Jummah_Schedule_tempRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        null,
-                        City};
-                rowtbl_CityRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowtbl_CityRow);
-                return rowtbl_CityRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public tbl_CityRow FindByCity_ID(int City_ID) {
-                return ((tbl_CityRow)(this.Rows.Find(new object[] {
-                            City_ID})));
+                        Row_Count,
+                        Dhae_Name,
+                        Dhae_Contact,
+                        Branch_Name,
+                        JIP_Name,
+                        JIP_Contact,
+                        Date};
+                rowtbl_Jummah_Schedule_tempRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowtbl_Jummah_Schedule_tempRow);
+                return rowtbl_Jummah_Schedule_tempRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public override global::System.Data.DataTable Clone() {
-                tbl_CityDataTable cln = ((tbl_CityDataTable)(base.Clone()));
+                tbl_Jummah_Schedule_tempDataTable cln = ((tbl_Jummah_Schedule_tempDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
@@ -399,59 +445,77 @@ namespace JummahManagement {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new tbl_CityDataTable();
+                return new tbl_Jummah_Schedule_tempDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             internal void InitVars() {
-                this.columnCity_ID = base.Columns["City_ID"];
-                this.columnCity = base.Columns["City"];
+                this.columnRow_Count = base.Columns["Row_Count"];
+                this.columnDhae_Name = base.Columns["Dhae_Name"];
+                this.columnDhae_Contact = base.Columns["Dhae_Contact"];
+                this.columnBranch_Name = base.Columns["Branch_Name"];
+                this.columnJIP_Name = base.Columns["JIP_Name"];
+                this.columnJIP_Contact = base.Columns["JIP_Contact"];
+                this.columnDate = base.Columns["Date"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             private void InitClass() {
-                this.columnCity_ID = new global::System.Data.DataColumn("City_ID", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCity_ID);
-                this.columnCity = new global::System.Data.DataColumn("City", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCity);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnCity_ID}, true));
-                this.columnCity_ID.AutoIncrement = true;
-                this.columnCity_ID.AutoIncrementSeed = -1;
-                this.columnCity_ID.AutoIncrementStep = -1;
-                this.columnCity_ID.AllowDBNull = false;
-                this.columnCity_ID.ReadOnly = true;
-                this.columnCity_ID.Unique = true;
-                this.columnCity.AllowDBNull = false;
-                this.columnCity.MaxLength = 50;
+                this.columnRow_Count = new global::System.Data.DataColumn("Row_Count", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRow_Count);
+                this.columnDhae_Name = new global::System.Data.DataColumn("Dhae_Name", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDhae_Name);
+                this.columnDhae_Contact = new global::System.Data.DataColumn("Dhae_Contact", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDhae_Contact);
+                this.columnBranch_Name = new global::System.Data.DataColumn("Branch_Name", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBranch_Name);
+                this.columnJIP_Name = new global::System.Data.DataColumn("JIP_Name", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnJIP_Name);
+                this.columnJIP_Contact = new global::System.Data.DataColumn("JIP_Contact", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnJIP_Contact);
+                this.columnDate = new global::System.Data.DataColumn("Date", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDate);
+                this.columnRow_Count.AllowDBNull = false;
+                this.columnDhae_Name.AllowDBNull = false;
+                this.columnDhae_Name.MaxLength = 50;
+                this.columnDhae_Contact.AllowDBNull = false;
+                this.columnDhae_Contact.MaxLength = 20;
+                this.columnBranch_Name.AllowDBNull = false;
+                this.columnBranch_Name.MaxLength = 50;
+                this.columnJIP_Name.AllowDBNull = false;
+                this.columnJIP_Name.MaxLength = 50;
+                this.columnJIP_Contact.AllowDBNull = false;
+                this.columnJIP_Contact.MaxLength = 50;
+                this.columnDate.AllowDBNull = false;
+                this.columnDate.MaxLength = 20;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public tbl_CityRow Newtbl_CityRow() {
-                return ((tbl_CityRow)(this.NewRow()));
+            public tbl_Jummah_Schedule_tempRow Newtbl_Jummah_Schedule_tempRow() {
+                return ((tbl_Jummah_Schedule_tempRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new tbl_CityRow(builder);
+                return new tbl_Jummah_Schedule_tempRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override global::System.Type GetRowType() {
-                return typeof(tbl_CityRow);
+                return typeof(tbl_Jummah_Schedule_tempRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.tbl_CityRowChanged != null)) {
-                    this.tbl_CityRowChanged(this, new tbl_CityRowChangeEvent(((tbl_CityRow)(e.Row)), e.Action));
+                if ((this.tbl_Jummah_Schedule_tempRowChanged != null)) {
+                    this.tbl_Jummah_Schedule_tempRowChanged(this, new tbl_Jummah_Schedule_tempRowChangeEvent(((tbl_Jummah_Schedule_tempRow)(e.Row)), e.Action));
                 }
             }
             
@@ -459,8 +523,8 @@ namespace JummahManagement {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.tbl_CityRowChanging != null)) {
-                    this.tbl_CityRowChanging(this, new tbl_CityRowChangeEvent(((tbl_CityRow)(e.Row)), e.Action));
+                if ((this.tbl_Jummah_Schedule_tempRowChanging != null)) {
+                    this.tbl_Jummah_Schedule_tempRowChanging(this, new tbl_Jummah_Schedule_tempRowChangeEvent(((tbl_Jummah_Schedule_tempRow)(e.Row)), e.Action));
                 }
             }
             
@@ -468,8 +532,8 @@ namespace JummahManagement {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.tbl_CityRowDeleted != null)) {
-                    this.tbl_CityRowDeleted(this, new tbl_CityRowChangeEvent(((tbl_CityRow)(e.Row)), e.Action));
+                if ((this.tbl_Jummah_Schedule_tempRowDeleted != null)) {
+                    this.tbl_Jummah_Schedule_tempRowDeleted(this, new tbl_Jummah_Schedule_tempRowChangeEvent(((tbl_Jummah_Schedule_tempRow)(e.Row)), e.Action));
                 }
             }
             
@@ -477,14 +541,14 @@ namespace JummahManagement {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.tbl_CityRowDeleting != null)) {
-                    this.tbl_CityRowDeleting(this, new tbl_CityRowChangeEvent(((tbl_CityRow)(e.Row)), e.Action));
+                if ((this.tbl_Jummah_Schedule_tempRowDeleting != null)) {
+                    this.tbl_Jummah_Schedule_tempRowDeleting(this, new tbl_Jummah_Schedule_tempRowChangeEvent(((tbl_Jummah_Schedule_tempRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void Removetbl_CityRow(tbl_CityRow row) {
+            public void Removetbl_Jummah_Schedule_tempRow(tbl_Jummah_Schedule_tempRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -493,7 +557,7 @@ namespace JummahManagement {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                dbJummah_ManagementDataSet ds = new dbJummah_ManagementDataSet();
+                dbJummah_ManagementDataSet3 ds = new dbJummah_ManagementDataSet3();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -511,7 +575,7 @@ namespace JummahManagement {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "tbl_CityDataTable";
+                attribute2.FixedValue = "tbl_Jummah_Schedule_tempDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -555,36 +619,91 @@ namespace JummahManagement {
         /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
-        public partial class tbl_CityRow : global::System.Data.DataRow {
+        public partial class tbl_Jummah_Schedule_tempRow : global::System.Data.DataRow {
             
-            private tbl_CityDataTable tabletbl_City;
+            private tbl_Jummah_Schedule_tempDataTable tabletbl_Jummah_Schedule_temp;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            internal tbl_CityRow(global::System.Data.DataRowBuilder rb) : 
+            internal tbl_Jummah_Schedule_tempRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tabletbl_City = ((tbl_CityDataTable)(this.Table));
+                this.tabletbl_Jummah_Schedule_temp = ((tbl_Jummah_Schedule_tempDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public int City_ID {
+            public int Row_Count {
                 get {
-                    return ((int)(this[this.tabletbl_City.City_IDColumn]));
+                    return ((int)(this[this.tabletbl_Jummah_Schedule_temp.Row_CountColumn]));
                 }
                 set {
-                    this[this.tabletbl_City.City_IDColumn] = value;
+                    this[this.tabletbl_Jummah_Schedule_temp.Row_CountColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string City {
+            public string Dhae_Name {
                 get {
-                    return ((string)(this[this.tabletbl_City.CityColumn]));
+                    return ((string)(this[this.tabletbl_Jummah_Schedule_temp.Dhae_NameColumn]));
                 }
                 set {
-                    this[this.tabletbl_City.CityColumn] = value;
+                    this[this.tabletbl_Jummah_Schedule_temp.Dhae_NameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Dhae_Contact {
+                get {
+                    return ((string)(this[this.tabletbl_Jummah_Schedule_temp.Dhae_ContactColumn]));
+                }
+                set {
+                    this[this.tabletbl_Jummah_Schedule_temp.Dhae_ContactColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Branch_Name {
+                get {
+                    return ((string)(this[this.tabletbl_Jummah_Schedule_temp.Branch_NameColumn]));
+                }
+                set {
+                    this[this.tabletbl_Jummah_Schedule_temp.Branch_NameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string JIP_Name {
+                get {
+                    return ((string)(this[this.tabletbl_Jummah_Schedule_temp.JIP_NameColumn]));
+                }
+                set {
+                    this[this.tabletbl_Jummah_Schedule_temp.JIP_NameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string JIP_Contact {
+                get {
+                    return ((string)(this[this.tabletbl_Jummah_Schedule_temp.JIP_ContactColumn]));
+                }
+                set {
+                    this[this.tabletbl_Jummah_Schedule_temp.JIP_ContactColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string Date {
+                get {
+                    return ((string)(this[this.tabletbl_Jummah_Schedule_temp.DateColumn]));
+                }
+                set {
+                    this[this.tabletbl_Jummah_Schedule_temp.DateColumn] = value;
                 }
             }
         }
@@ -593,22 +712,22 @@ namespace JummahManagement {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        public class tbl_CityRowChangeEvent : global::System.EventArgs {
+        public class tbl_Jummah_Schedule_tempRowChangeEvent : global::System.EventArgs {
             
-            private tbl_CityRow eventRow;
+            private tbl_Jummah_Schedule_tempRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public tbl_CityRowChangeEvent(tbl_CityRow row, global::System.Data.DataRowAction action) {
+            public tbl_Jummah_Schedule_tempRowChangeEvent(tbl_Jummah_Schedule_tempRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public tbl_CityRow Row {
+            public tbl_Jummah_Schedule_tempRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -624,7 +743,7 @@ namespace JummahManagement {
         }
     }
 }
-namespace JummahManagement.dbJummah_ManagementDataSetTableAdapters {
+namespace JummahManagement.dbJummah_ManagementDataSet3TableAdapters {
     
     
     /// <summary>
@@ -636,7 +755,7 @@ namespace JummahManagement.dbJummah_ManagementDataSetTableAdapters {
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class tbl_CityTableAdapter : global::System.ComponentModel.Component {
+    public partial class tbl_Jummah_Schedule_tempTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -650,7 +769,7 @@ namespace JummahManagement.dbJummah_ManagementDataSetTableAdapters {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        public tbl_CityTableAdapter() {
+        public tbl_Jummah_Schedule_tempTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -747,33 +866,28 @@ namespace JummahManagement.dbJummah_ManagementDataSetTableAdapters {
             this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
             global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "tbl_City";
-            tableMapping.ColumnMappings.Add("City_ID", "City_ID");
-            tableMapping.ColumnMappings.Add("City", "City");
+            tableMapping.DataSetTable = "tbl_Jummah_Schedule_temp";
+            tableMapping.ColumnMappings.Add("Row_Count", "Row_Count");
+            tableMapping.ColumnMappings.Add("Dhae_Name", "Dhae_Name");
+            tableMapping.ColumnMappings.Add("Dhae_Contact", "Dhae_Contact");
+            tableMapping.ColumnMappings.Add("Branch_Name", "Branch_Name");
+            tableMapping.ColumnMappings.Add("JIP_Name", "JIP_Name");
+            tableMapping.ColumnMappings.Add("JIP_Contact", "JIP_Contact");
+            tableMapping.ColumnMappings.Add("Date", "Date");
             this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
-            this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[tbl_City] WHERE (([City_ID] = @Original_City_ID) AND ([City] =" +
-                " @Original_City))";
-            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_City_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "City_ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_City", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "City", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[tbl_City] ([City]) VALUES (@City);\r\nSELECT City_ID, City FROM " +
-                "tbl_City WHERE (City_ID = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[tbl_Jummah_Schedule_temp] ([Row_Count], [Dhae_Name], [Dhae_Con" +
+                "tact], [Branch_Name], [JIP_Name], [JIP_Contact], [Date]) VALUES (@Row_Count, @Dh" +
+                "ae_Name, @Dhae_Contact, @Branch_Name, @JIP_Name, @JIP_Contact, @Date)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@City", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "City", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
-            this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[tbl_City] SET [City] = @City WHERE (([City_ID] = @Original_City_ID)" +
-                " AND ([City] = @Original_City));\r\nSELECT City_ID, City FROM tbl_City WHERE (City" +
-                "_ID = @City_ID)";
-            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@City", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "City", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_City_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "City_ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_City", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "City", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@City_ID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "City_ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Row_Count", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Row_Count", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Dhae_Name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Dhae_Name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Dhae_Contact", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Dhae_Contact", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Branch_Name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Branch_Name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@JIP_Name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "JIP_Name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@JIP_Contact", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "JIP_Contact", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Date", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Date", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -786,22 +900,19 @@ namespace JummahManagement.dbJummah_ManagementDataSetTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[2];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT City_ID, City FROM dbo.tbl_City";
+            this._commandCollection[0].CommandText = "SELECT Row_Count, Dhae_Name, Dhae_Contact, Branch_Name, JIP_Name, JIP_Contact, Da" +
+                "te FROM dbo.tbl_Jummah_Schedule_temp";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
-            this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "SELECT City_ID, City FROM dbo.tbl_City";
-            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(dbJummah_ManagementDataSet.tbl_CityDataTable dataTable) {
+        public virtual int Fill(dbJummah_ManagementDataSet3.tbl_Jummah_Schedule_tempDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -814,9 +925,9 @@ namespace JummahManagement.dbJummah_ManagementDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual dbJummah_ManagementDataSet.tbl_CityDataTable GetData() {
+        public virtual dbJummah_ManagementDataSet3.tbl_Jummah_Schedule_tempDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            dbJummah_ManagementDataSet.tbl_CityDataTable dataTable = new dbJummah_ManagementDataSet.tbl_CityDataTable();
+            dbJummah_ManagementDataSet3.tbl_Jummah_Schedule_tempDataTable dataTable = new dbJummah_ManagementDataSet3.tbl_Jummah_Schedule_tempDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -824,28 +935,15 @@ namespace JummahManagement.dbJummah_ManagementDataSetTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int FillBy(dbJummah_ManagementDataSet.tbl_CityDataTable dataTable) {
-            this.Adapter.SelectCommand = this.CommandCollection[1];
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(dbJummah_ManagementDataSet.tbl_CityDataTable dataTable) {
+        public virtual int Update(dbJummah_ManagementDataSet3.tbl_Jummah_Schedule_tempDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(dbJummah_ManagementDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "tbl_City");
+        public virtual int Update(dbJummah_ManagementDataSet3 dataSet) {
+            return this.Adapter.Update(dataSet, "tbl_Jummah_Schedule_temp");
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -866,41 +964,44 @@ namespace JummahManagement.dbJummah_ManagementDataSetTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_City_ID, string Original_City) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_City_ID));
-            if ((Original_City == null)) {
-                throw new global::System.ArgumentNullException("Original_City");
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((string)(Original_City));
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
-            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.DeleteCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.DeleteCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string City) {
-            if ((City == null)) {
-                throw new global::System.ArgumentNullException("City");
+        public virtual int Insert(int Row_Count, string Dhae_Name, string Dhae_Contact, string Branch_Name, string JIP_Name, string JIP_Contact, string Date) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(Row_Count));
+            if ((Dhae_Name == null)) {
+                throw new global::System.ArgumentNullException("Dhae_Name");
             }
             else {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(City));
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(Dhae_Name));
+            }
+            if ((Dhae_Contact == null)) {
+                throw new global::System.ArgumentNullException("Dhae_Contact");
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(Dhae_Contact));
+            }
+            if ((Branch_Name == null)) {
+                throw new global::System.ArgumentNullException("Branch_Name");
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(Branch_Name));
+            }
+            if ((JIP_Name == null)) {
+                throw new global::System.ArgumentNullException("JIP_Name");
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(JIP_Name));
+            }
+            if ((JIP_Contact == null)) {
+                throw new global::System.ArgumentNullException("JIP_Contact");
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(JIP_Contact));
+            }
+            if ((Date == null)) {
+                throw new global::System.ArgumentNullException("Date");
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[6].Value = ((string)(Date));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -917,54 +1018,6 @@ namespace JummahManagement.dbJummah_ManagementDataSetTableAdapters {
                 }
             }
         }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string City, int Original_City_ID, string Original_City, int City_ID) {
-            if ((City == null)) {
-                throw new global::System.ArgumentNullException("City");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(City));
-            }
-            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(Original_City_ID));
-            if ((Original_City == null)) {
-                throw new global::System.ArgumentNullException("Original_City");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(Original_City));
-            }
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(City_ID));
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
-            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.UpdateCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.UpdateCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string City, int Original_City_ID, string Original_City) {
-            return this.Update(City, Original_City_ID, Original_City, Original_City_ID);
-        }
-
-        internal static void Fill(object tbl_City)
-        {
-            throw new NotImplementedException();
-        }
     }
     
     /// <summary>
@@ -979,7 +1032,7 @@ namespace JummahManagement.dbJummah_ManagementDataSetTableAdapters {
         
         private UpdateOrderOption _updateOrder;
         
-        private tbl_CityTableAdapter _tbl_CityTableAdapter;
+        private tbl_Jummah_Schedule_tempTableAdapter _tbl_Jummah_Schedule_tempTableAdapter;
         
         private bool _backupDataSetBeforeUpdate;
         
@@ -1001,12 +1054,12 @@ namespace JummahManagement.dbJummah_ManagementDataSetTableAdapters {
         [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
             "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
             "a", "System.Drawing.Design.UITypeEditor")]
-        public tbl_CityTableAdapter tbl_CityTableAdapter {
+        public tbl_Jummah_Schedule_tempTableAdapter tbl_Jummah_Schedule_tempTableAdapter {
             get {
-                return this._tbl_CityTableAdapter;
+                return this._tbl_Jummah_Schedule_tempTableAdapter;
             }
             set {
-                this._tbl_CityTableAdapter = value;
+                this._tbl_Jummah_Schedule_tempTableAdapter = value;
             }
         }
         
@@ -1029,9 +1082,9 @@ namespace JummahManagement.dbJummah_ManagementDataSetTableAdapters {
                 if ((this._connection != null)) {
                     return this._connection;
                 }
-                if (((this._tbl_CityTableAdapter != null) 
-                            && (this._tbl_CityTableAdapter.Connection != null))) {
-                    return this._tbl_CityTableAdapter.Connection;
+                if (((this._tbl_Jummah_Schedule_tempTableAdapter != null) 
+                            && (this._tbl_Jummah_Schedule_tempTableAdapter.Connection != null))) {
+                    return this._tbl_Jummah_Schedule_tempTableAdapter.Connection;
                 }
                 return null;
             }
@@ -1046,7 +1099,7 @@ namespace JummahManagement.dbJummah_ManagementDataSetTableAdapters {
         public int TableAdapterInstanceCount {
             get {
                 int count = 0;
-                if ((this._tbl_CityTableAdapter != null)) {
+                if ((this._tbl_Jummah_Schedule_tempTableAdapter != null)) {
                     count = (count + 1);
                 }
                 return count;
@@ -1058,14 +1111,14 @@ namespace JummahManagement.dbJummah_ManagementDataSetTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        private int UpdateUpdatedRows(dbJummah_ManagementDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateUpdatedRows(dbJummah_ManagementDataSet3 dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
-            if ((this._tbl_CityTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.tbl_City.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._tbl_Jummah_Schedule_tempTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.tbl_Jummah_Schedule_temp.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._tbl_CityTableAdapter.Update(updatedRows));
+                    result = (result + this._tbl_Jummah_Schedule_tempTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -1077,13 +1130,13 @@ namespace JummahManagement.dbJummah_ManagementDataSetTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        private int UpdateInsertedRows(dbJummah_ManagementDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateInsertedRows(dbJummah_ManagementDataSet3 dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
-            if ((this._tbl_CityTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.tbl_City.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._tbl_Jummah_Schedule_tempTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.tbl_Jummah_Schedule_temp.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._tbl_CityTableAdapter.Update(addedRows));
+                    result = (result + this._tbl_Jummah_Schedule_tempTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -1095,13 +1148,13 @@ namespace JummahManagement.dbJummah_ManagementDataSetTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        private int UpdateDeletedRows(dbJummah_ManagementDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
+        private int UpdateDeletedRows(dbJummah_ManagementDataSet3 dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
-            if ((this._tbl_CityTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.tbl_City.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._tbl_Jummah_Schedule_tempTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.tbl_Jummah_Schedule_temp.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._tbl_CityTableAdapter.Update(deletedRows));
+                    result = (result + this._tbl_Jummah_Schedule_tempTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -1137,15 +1190,15 @@ namespace JummahManagement.dbJummah_ManagementDataSetTableAdapters {
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        public virtual int UpdateAll(dbJummah_ManagementDataSet dataSet) {
+        public virtual int UpdateAll(dbJummah_ManagementDataSet3 dataSet) {
             if ((dataSet == null)) {
                 throw new global::System.ArgumentNullException("dataSet");
             }
             if ((dataSet.HasChanges() == false)) {
                 return 0;
             }
-            if (((this._tbl_CityTableAdapter != null) 
-                        && (this.MatchTableAdapterConnection(this._tbl_CityTableAdapter.Connection) == false))) {
+            if (((this._tbl_Jummah_Schedule_tempTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._tbl_Jummah_Schedule_tempTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
                         "tring.");
             }
@@ -1181,13 +1234,13 @@ namespace JummahManagement.dbJummah_ManagementDataSetTableAdapters {
             try {
                 // ---- Prepare for update -----------
                 //
-                if ((this._tbl_CityTableAdapter != null)) {
-                    revertConnections.Add(this._tbl_CityTableAdapter, this._tbl_CityTableAdapter.Connection);
-                    this._tbl_CityTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
-                    this._tbl_CityTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
-                    if (this._tbl_CityTableAdapter.Adapter.AcceptChangesDuringUpdate) {
-                        this._tbl_CityTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
-                        adaptersWithAcceptChangesDuringUpdate.Add(this._tbl_CityTableAdapter.Adapter);
+                if ((this._tbl_Jummah_Schedule_tempTableAdapter != null)) {
+                    revertConnections.Add(this._tbl_Jummah_Schedule_tempTableAdapter, this._tbl_Jummah_Schedule_tempTableAdapter.Connection);
+                    this._tbl_Jummah_Schedule_tempTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
+                    this._tbl_Jummah_Schedule_tempTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
+                    if (this._tbl_Jummah_Schedule_tempTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._tbl_Jummah_Schedule_tempTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._tbl_Jummah_Schedule_tempTableAdapter.Adapter);
                     }
                 }
                 // 
@@ -1248,9 +1301,9 @@ namespace JummahManagement.dbJummah_ManagementDataSetTableAdapters {
                 if (workConnOpened) {
                     workConnection.Close();
                 }
-                if ((this._tbl_CityTableAdapter != null)) {
-                    this._tbl_CityTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._tbl_CityTableAdapter]));
-                    this._tbl_CityTableAdapter.Transaction = null;
+                if ((this._tbl_Jummah_Schedule_tempTableAdapter != null)) {
+                    this._tbl_Jummah_Schedule_tempTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._tbl_Jummah_Schedule_tempTableAdapter]));
+                    this._tbl_Jummah_Schedule_tempTableAdapter.Transaction = null;
                 }
                 if ((0 < adaptersWithAcceptChangesDuringUpdate.Count)) {
                     global::System.Data.Common.DataAdapter[] adapters = new System.Data.Common.DataAdapter[adaptersWithAcceptChangesDuringUpdate.Count];

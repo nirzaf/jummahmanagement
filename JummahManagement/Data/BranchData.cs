@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using JummahManagement;
 
 namespace JummahManagement.Data
 {
@@ -28,7 +29,7 @@ namespace JummahManagement.Data
                             try
                             {
                                 reader.Close();
-                                MessageBox.Show("This Branch is already exisits in the System");
+                                MessageBox.Show("This Branch is already exisits in the System");                              
                                 return result;
                             }
                             catch (Exception)
@@ -106,6 +107,92 @@ namespace JummahManagement.Data
                 {
                     throw;
                 }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //Function to Load Branch by Branch ID
+        public DataTable LoadBranchByBranchID(string Branch_ID)
+        {
+            try
+            {
+                if (ConnectionState.Closed == newCon.Con.State)
+                {
+                    newCon.Con.Open();
+                }
+                string query = "Select * From tbl_Branches Where Branch_ID = '" + Branch_ID + "'";
+                SqlDataAdapter sda = new SqlDataAdapter(query, newCon.Con);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                return dt;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //Function to Update Branch Details
+        public int UpdateBranchDetails(string Branch_ID, string Branch_Name, string JIP_Name, string JIP_Contact, string Branch_Building_No, string Branch_Street_Name, string Branch_City, string Branch_District)
+        {
+            int result = 0;
+            try
+            {
+                if (ConnectionState.Closed == newCon.Con.State)
+                {
+                    newCon.Con.Open();
+                }
+                SqlDataAdapter adp = new SqlDataAdapter("Update tbl_Branches set Branch_Name = ('" + Branch_Name + "'), JIP_Name = ('" + JIP_Name + "'),JIP_Contact = ('" + JIP_Contact + "'), No = ('" + Branch_Building_No + "'), Street_Name = ('" + Branch_Street_Name + "'), City = ('" + Branch_City + "'), District = ('" + Branch_District + "') Where Branch_ID = '" + Branch_ID + "'", newCon.Con);
+                DataTable dt = new DataTable();
+                adp.Fill(dt);
+                newCon.Con.Close();
+                result = 1;
+                return result;
+            }
+            catch (Exception)
+            {
+                return result;
+            }
+        }
+
+        //Function to Autoload Branch Name from Database to Front End
+        public DataTable GetAllBranchNames()
+        {
+            try
+            {
+                if (ConnectionState.Closed == newCon.Con.State)
+                {
+                    newCon.Con.Open();
+                }
+                string query = "Select Branch_Name From tbl_Branches";
+                SqlDataAdapter sda = new SqlDataAdapter(query, newCon.Con);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                return dt;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //Function to Get Branch ID from Branch Name to Front End
+        public DataTable GetAllBranchIDByBranchName(string BranchName)
+        {
+            try
+            {
+                if (ConnectionState.Closed == newCon.Con.State)
+                {
+                    newCon.Con.Open();
+                }
+                string query = "Select Branch_ID From tbl_Branches Where Branch_Name = '"+ BranchName +"'";
+                SqlDataAdapter sda = new SqlDataAdapter(query, newCon.Con);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                return dt;
             }
             catch (Exception)
             {
