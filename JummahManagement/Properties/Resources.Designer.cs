@@ -73,6 +73,16 @@ namespace JummahManagement.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap pdfs_512 {
+            get {
+                object obj = ResourceManager.GetObject("pdfs-512", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap system_search_hi {
             get {
                 object obj = ResourceManager.GetObject("system-search-hi", resourceCulture);

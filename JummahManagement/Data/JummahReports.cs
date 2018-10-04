@@ -1,19 +1,73 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using EnvDTE;
-using JummahManagement.Data;
 
 namespace JummahManagement.Data
 {
     class JummahReports
     {
         DataCon newCon = new DataCon();
+
+        //Function to Complete Jumma Report
+        public DataTable GetAll()
+        {
+            try
+            {
+                if (ConnectionState.Closed == newCon.Con.State)
+                {
+                    newCon.Con.Open();
+                }
+                SqlDataAdapter cmdCat = new SqlDataAdapter("SELECT * FROM tbl_Jummah_Schedule", newCon.Con);
+                DataTable dt = new DataTable();
+                cmdCat.Fill(dt);
+                return dt;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //Function to load Last four weeks jummah report for Dhae Name  
+        public DataTable LastMonthBranchReportByDate(string Date, string DhaeName)
+        {
+            try
+            {
+                if (ConnectionState.Closed == newCon.Con.State)
+                {
+                    newCon.Con.Open();
+                }
+                SqlDataAdapter cmdCat = new SqlDataAdapter("SELECT Branch_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "' AND Dhae_Name ='" + DhaeName + "' ", newCon.Con);
+                DataTable dt = new DataTable();
+                cmdCat.Fill(dt);
+                return dt;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //Function to load Last four weeks jummah report for Branch Name  
+        public DataTable LastMonthDhaeReportByDate(string Date, string BranchName)
+        {
+            try
+            {
+                if (ConnectionState.Closed == newCon.Con.State)
+                {
+                    newCon.Con.Open();
+                }
+                SqlDataAdapter cmdCat = new SqlDataAdapter("SELECT Dhae_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "' AND Branch_Name ='"+ BranchName +"' ", newCon.Con);
+                DataTable dt = new DataTable();
+                cmdCat.Fill(dt);
+                return dt;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         //Function to Load All Jummah Dhae Report by date
         public DataTable LoadDhaeReportByDate(string Date)
@@ -98,6 +152,51 @@ namespace JummahManagement.Data
             }
         }
 
+        //Function to Delete Selected Row from Temp Schedule List
+        public int DeleteTempRow(int RowID)
+        {
+            int result = 0;
+            try
+            {
+                if (ConnectionState.Closed == newCon.Con.State)
+                {
+                    newCon.Con.Open();
+                }
+                SqlCommand cmd = new SqlCommand("DELETE FROM tbl_Jummah_Schedule_temp Where ID = '" + RowID + "'", newCon.Con);
+                cmd.ExecuteNonQuery();
+                result = 1;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return result;
+            }
+        }
+
+        //Function to Delete Selected Row from Completed Schedule
+        public int DeleteScheduleRow(int ID)
+        {
+            int result = 0;
+            try
+            {
+                if (ConnectionState.Closed == newCon.Con.State)
+                {
+                    newCon.Con.Open();
+                }
+                SqlCommand cmd = new SqlCommand("DELETE FROM tbl_Jummah_Schedule Where ID = '" + ID + "'", newCon.Con);
+                cmd.ExecuteNonQuery();
+                result = 1;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return result;
+            }
+        }
+
+
         //Function to Insert Jumma  Schedule into Temporary Table
         public int AddJummaSchedule(int RowCount, string DhaeName, string DhaeContact, string BranchName, string JIPName, string JIPContact, string Date)
         {
@@ -109,8 +208,10 @@ namespace JummahManagement.Data
                     if (ConnectionState.Closed == newCon.Con.State)
                     {
                         newCon.Con.Open();
-                        SqlCommand Check_Branch = new SqlCommand("SELECT * FROM tbl_Branches WHERE Branch_ID = '" + DhaeName + "'", newCon.Con);
-                        SqlDataReader reader = Check_Branch.ExecuteReader();
+                        SqlCommand Check_Dhae = new SqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Dhae_Name = '" + DhaeName + "'", newCon.Con);
+                        SqlCommand Check_Branch = new SqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Branch_Name = '" + BranchName + "'", newCon.Con);
+                        SqlDataReader reader = Check_Dhae.ExecuteReader();
+                        SqlDataReader reader1 = Check_Branch.ExecuteReader();
 
                         if (reader.HasRows)
                         {
@@ -118,6 +219,19 @@ namespace JummahManagement.Data
                             {
                                 reader.Close();
                                 MessageBox.Show("This Dhae Assigned Already");
+                                return result;
+                            }
+                            catch (Exception)
+                            {
+                                throw;
+                            }
+                        }
+                        else if (reader1.HasRows)
+                        {
+                            try
+                            {
+                                reader.Close();
+                                MessageBox.Show("This Branch Assigned Already");
                                 return result;
                             }
                             catch (Exception)
@@ -148,15 +262,30 @@ namespace JummahManagement.Data
                     {
                         try
                         {
-                            SqlCommand Check_Branch = new SqlCommand("SELECT * FROM tbl_Branches WHERE Branch_ID = '" + DhaeName + "'", newCon.Con);
-                            SqlDataReader reader = Check_Branch.ExecuteReader();
+                            SqlCommand Check_Dhae = new SqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Dhae_Name = '" + DhaeName + "'", newCon.Con);
+                            SqlCommand Check_Branch = new SqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Branch_Name = '" + BranchName + "'", newCon.Con);
+                            SqlDataReader reader = Check_Dhae.ExecuteReader();
+                            SqlDataReader reader1 = Check_Branch.ExecuteReader();
 
                             if (reader.HasRows)
                             {
                                 try
                                 {
                                     reader.Close();
-                                    MessageBox.Show("This Branch is already exisits in the System");
+                                    MessageBox.Show("This Dhae Assigned Already");
+                                    return result;
+                                }
+                                catch (Exception)
+                                {
+                                    throw;
+                                }
+                            }
+                            else if (reader1.HasRows)
+                            {
+                                try
+                                {
+                                    reader.Close();
+                                    MessageBox.Show("This Branch Assigned Already");
                                     return result;
                                 }
                                 catch (Exception)
@@ -195,6 +324,26 @@ namespace JummahManagement.Data
                 {
                     throw;
                 }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //PDF Report by Date 
+        public DataTable PDFJummaScheduleReportByDate(string Date)
+        {
+            try
+            {
+                if (ConnectionState.Closed == newCon.Con.State)
+                {
+                    newCon.Con.Open();
+                }
+                SqlDataAdapter cmdCat = new SqlDataAdapter("SELECT Branch_Name,Dhae_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "'", newCon.Con);
+                DataTable dt = new DataTable();
+                cmdCat.Fill(dt);
+                return dt;
             }
             catch (Exception)
             {

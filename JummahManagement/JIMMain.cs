@@ -5,6 +5,13 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using Excell = Microsoft.Office.Interop.Excel;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+using System.IO;
+using Document = iTextSharp.text.Document;
+using System.Drawing;
+using Spire.Pdf;
+using Spire.Pdf.Graphics;
 
 namespace JummahManagement
 {
@@ -16,6 +23,8 @@ namespace JummahManagement
         JummahReports jr = new JummahReports();
         public string City_ID;
         public string City;
+        public string Temp_Schedule_ID;
+        public string Temp_ID;
         public main()
         {
             InitializeComponent();
@@ -24,9 +33,10 @@ namespace JummahManagement
         private void main_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'dbJummah_ManagementDataSet3.tbl_Jummah_Schedule_temp' table. You can move, or remove it, as needed.
-            tbl_Jummah_Schedule_tempTableAdapter.Fill(dbJummah_ManagementDataSet3.tbl_Jummah_Schedule_temp);
+             
             try
             {
+                tbl_Jummah_Schedule_tempTableAdapter.Fill(dbJummah_ManagementDataSet3.tbl_Jummah_Schedule_temp);
                 dtCityNames.DataSource = rb.GetCity();
                 dtCityNames.Columns["City_ID"].Visible = false;
                 // TODO: This line of code loads data into the 'dbJummah_ManagementDataSet2.tbl_Branches' table. You can move, or remove it, as needed.
@@ -36,21 +46,16 @@ namespace JummahManagement
                 // TODO: This line of code loads data into the 'dbJummah_ManagementDataSet.tbl_City' table. You can move, or remove it, as needed.
                 tbl_CityTableAdapter.Fill(this.dbJummah_ManagementDataSet.tbl_City);
                 FormLoad();
-                AutoCompleteStringCollection DhaeNames = new AutoCompleteStringCollection();
-                DataTable dt = db.GetAllDhaeNames();
-                foreach (DataRow dr in dt.Rows)
-                {
-                    DhaeNames.Add(dr[0].ToString());
-                }
-                txtJummaDhaeName.AutoCompleteCustomSource = DhaeNames;
-
-                AutoCompleteStringCollection BranchNames = new AutoCompleteStringCollection();
-                DataTable dtb = bb.GetAllBranchNames();
-                foreach (DataRow drb in dtb.Rows)
-                {
-                    BranchNames.Add(drb[0].ToString());
-                }
-                txtJummaBranchName.AutoCompleteCustomSource = BranchNames;
+                LoadBranchNames();
+                LoadDhaeNames();
+                LoadCityNames();
+                LoadCityNames1();
+                LoadDhaeNames1();
+                LoadBranchNames1();
+                LoadFilterByDhaeNameReport();
+                LoadFilterByBranchNameReport();
+                LoadFilterByDhaeContactNumber();
+                LoadFilterByJummahInchargePerson();
                 lblMessage.Text = "";
             }
             catch (Exception ex)
@@ -58,6 +63,139 @@ namespace JummahManagement
                 lblMessage.Text = ex.Message;
             }
 
+        }
+
+        public void LoadFilterByDhaeNameReport()
+        {
+            dtPickerScheduleReport.CustomFormat = "mm/DD/yyyy";
+            string SelectedDate = dtPickerScheduleReport.Value.ToShortDateString();
+            AutoCompleteStringCollection DhaeNames = new AutoCompleteStringCollection();
+            DataTable dtb = rb.JummaScheduleReportByDate(SelectedDate);
+            foreach (DataRow drb in dtb.Rows)
+            {
+                DhaeNames.Add(drb[2].ToString());
+            }
+            FilterByDhaeNameReport.AutoCompleteCustomSource = DhaeNames;
+        }
+
+        public void LoadFilterByDhaeContactNumber()
+        {
+            dtPickerScheduleReport.CustomFormat = "mm/DD/yyyy";
+            string SelectedDate = dtPickerScheduleReport.Value.ToShortDateString();
+            AutoCompleteStringCollection DhaeNumbers = new AutoCompleteStringCollection();
+            DataTable dtb = rb.JummaScheduleReportByDate(SelectedDate);
+            foreach (DataRow drb in dtb.Rows)
+            {
+                DhaeNumbers.Add(drb[3].ToString());
+            }
+            FilterByDhaeContactNumber.AutoCompleteCustomSource = DhaeNumbers;
+        }
+
+        public void LoadFilterByBranchNameReport()
+        {
+            dtPickerScheduleReport.CustomFormat = "mm/DD/yyyy";
+            string SelectedDate = dtPickerScheduleReport.Value.ToShortDateString();
+            AutoCompleteStringCollection BranchNames = new AutoCompleteStringCollection();
+            DataTable dtb = rb.JummaScheduleReportByDate(SelectedDate);
+            foreach (DataRow drb in dtb.Rows)
+            {
+                BranchNames.Add(drb[4].ToString());
+            }
+            FilterByBranchNameReport.AutoCompleteCustomSource = BranchNames;
+        }
+
+        public void LoadFilterByJummahInchargePerson()
+        {
+            dtPickerScheduleReport.CustomFormat = "mm/DD/yyyy";
+            string SelectedDate = dtPickerScheduleReport.Value.ToShortDateString();
+            AutoCompleteStringCollection JIP = new AutoCompleteStringCollection();
+            DataTable dtb = rb.JummaScheduleReportByDate(SelectedDate);
+            foreach (DataRow drb in dtb.Rows)
+            {
+                JIP.Add(drb[5].ToString());
+            }
+            FilterByInchargePersonReport.AutoCompleteCustomSource = JIP;
+        }
+
+        public void LoadFilter()
+        {
+            dtPickerScheduleReport.CustomFormat = "mm/DD/yyyy";
+            string SelectedDate = dtPickerScheduleReport.Value.ToShortDateString();
+            AutoCompleteStringCollection DhaeNumbers = new AutoCompleteStringCollection();
+            DataTable dtb = rb.JummaScheduleReportByDate(SelectedDate);
+            foreach (DataRow drb in dtb.Rows)
+            {
+                DhaeNumbers.Add(drb[2].ToString());
+            }
+            FilterByDhaeContactNumber.AutoCompleteCustomSource = DhaeNumbers;
+        }
+
+        public void LoadBranchNames()
+        {
+            AutoCompleteStringCollection BranchNames = new AutoCompleteStringCollection();
+            DataTable dtb = bb.GetAllBranchNames();
+            foreach (DataRow drb in dtb.Rows)
+            {
+                BranchNames.Add(drb[0].ToString());
+            }
+            txtJummaBranchName.AutoCompleteCustomSource = BranchNames;
+        }
+
+        public void LoadBranchNames1()
+        {
+            AutoCompleteStringCollection BranchNames = new AutoCompleteStringCollection();
+            DataTable dtb = bb.GetAllBranchNames();
+            foreach (DataRow drb in dtb.Rows)
+            {
+                BranchNames.Add(drb[0].ToString());
+            }
+            FilterByBranchName.AutoCompleteCustomSource = BranchNames;
+        }
+
+
+        public void LoadDhaeNames()
+        {
+            AutoCompleteStringCollection DhaeNames = new AutoCompleteStringCollection();
+            DataTable dt = db.GetAllDhaeNames();
+            foreach (DataRow dr in dt.Rows)
+            {
+                DhaeNames.Add(dr[0].ToString());
+            }
+            txtJummaDhaeName.AutoCompleteCustomSource = DhaeNames;
+        }
+
+        public void LoadDhaeNames1()
+        {
+            AutoCompleteStringCollection DhaeNames = new AutoCompleteStringCollection();
+            DataTable dt = db.GetAllDhaeNames();
+            foreach (DataRow dr in dt.Rows)
+            {
+                DhaeNames.Add(dr[0].ToString());
+            }
+            FilterByDhaeName.AutoCompleteCustomSource = DhaeNames;
+        }
+
+
+        public void LoadCityNames()
+        {
+            AutoCompleteStringCollection CityNames = new AutoCompleteStringCollection();
+            DataTable ctn = jr.GetCity();
+            foreach (DataRow ct in ctn.Rows)
+            {
+                CityNames.Add(ct[1].ToString());
+            }
+            TxtCityNames.AutoCompleteCustomSource = CityNames;
+        }
+
+        public void LoadCityNames1()
+        {
+            AutoCompleteStringCollection CityNames = new AutoCompleteStringCollection();
+            DataTable ctn = jr.GetCity();
+            foreach (DataRow ct in ctn.Rows)
+            {
+                CityNames.Add(ct[1].ToString());
+            }
+            TxtCityNames1.AutoCompleteCustomSource = CityNames;
         }
 
         //Function to Load Dhae Report & JIP Report
@@ -121,18 +259,21 @@ namespace JummahManagement
             }
         }
 
-
-        private void comboBox2_TextUpdate(object sender, EventArgs e)
-        {
-            cmbCity.DropDownStyle = ComboBoxStyle.DropDown;
-            cmbCity.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            cmbCity.AutoCompleteSource = AutoCompleteSource.ListItems;
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
-            txtAddNewCity.Visible = true;
-            btnAddNewCity.Visible = true;
+            if (txtAddNewCity.Visible == false && btnAddNewCity.Visible == false)
+            {
+                txtAddNewCity.Visible = true;
+                btnAddNewCity.Visible = true;
+                btnAddCity.Text = "-";
+                txtAddNewCity.Focus();
+            }
+            else
+            {
+                txtAddNewCity.Visible = false;
+                btnAddNewCity.Visible = false;
+                btnAddCity.Text = "+";
+            }
         }
 
         private void btnAddDhae_Click(object sender, EventArgs e)
@@ -142,8 +283,8 @@ namespace JummahManagement
             string DhaeContactNo = txtDhaeContact.Text.Trim();
             string HouseNo = txtHouseNo.Text.Trim();
             string StreetName = txtStreetName.Text.Trim();
-            string City = cmbCity.GetItemText(cmbCity.SelectedItem);
-            string District = cmbDistrict.GetItemText(cmbDistrict.SelectedItem);
+            string City = TxtCityNames.Text.Trim();
+            string District = TxtDistrictNames1.Text.Trim();
             int result = db.AddDhae(Dhae_ID,Dhae_Name,DhaeContactNo,HouseNo,StreetName,City,District);
                 if (result == 1)
                 {
@@ -164,8 +305,8 @@ namespace JummahManagement
             string JIT_Contact = txtJIT_Contact.Text.Trim();
             string BuildingNo = txtBuildingNo.Text.Trim();
             string StreetName = txtStreet.Text.Trim();
-            string City = cmbCityNames.GetItemText(cmbCityNames.SelectedItem);
-            string District = cmbDistrictNames.GetItemText(cmbDistrictNames.SelectedItem);
+            string City = TxtCityNames1.Text.Trim();
+            string District = TxtDistrictNames.Text.Trim();
 
             int result = bb.AddBranch(Branch_ID, Branch_Name, JIT_Name, JIT_Contact, BuildingNo, StreetName, City, District);
             if (result == 1)
@@ -188,7 +329,14 @@ namespace JummahManagement
                 lblMessage.Text =  "Added";
                 txtAddNewCity.Visible = false;
                 btnAddNewCity.Visible = false;
-                tbl_CityTableAdapter.Fill(dbJummah_ManagementDataSet.tbl_City);
+                AutoCompleteStringCollection CityNames = new AutoCompleteStringCollection();
+                DataTable ctn = jr.GetCity();
+                foreach (DataRow ct in ctn.Rows)
+                {
+                    CityNames.Add(ct[1].ToString());
+                }
+                TxtCityNames.AutoCompleteCustomSource = CityNames;
+
             }
             else
             {
@@ -198,20 +346,37 @@ namespace JummahManagement
 
         private void button2_Click(object sender, EventArgs e)
         {
-            txtAddnewCity1.Visible = true;
-            btnAddNewCity1.Visible = true;
+            if (txtAddNewCity1.Visible == false && btnAddNewCity1.Visible == false)
+            {
+                txtAddNewCity1.Visible = true;
+                btnAddNewCity1.Visible = true;
+                button2.Text = "-";
+                txtAddNewCity1.Focus();
+            }
+            else
+            {
+                txtAddNewCity1.Visible = false;
+                btnAddNewCity1.Visible = false;
+                button2.Text = "+";
+            }
         }
 
         private void btnAddNewCity1_Click(object sender, EventArgs e)
         {
-            string City = txtAddnewCity1.Text;
+            string City = txtAddNewCity1.Text;
             int result = db.AddCity(City);
             if (result == 1)
             {
                 lblMessage.Text = "Added";
-                txtAddNewCity.Visible = false;
-                btnAddNewCity.Visible = false;
-                tbl_CityTableAdapter.Fill(dbJummah_ManagementDataSet.tbl_City);
+                txtAddNewCity1.Visible = false;
+                btnAddNewCity1.Visible = false;
+                AutoCompleteStringCollection CityNames = new AutoCompleteStringCollection();
+                DataTable ctn = jr.GetCity();
+                foreach (DataRow ct in ctn.Rows)
+                {
+                    CityNames.Add(ct[1].ToString());
+                }
+                TxtCityNames.AutoCompleteCustomSource = CityNames;
             }
             else
             {
@@ -267,7 +432,7 @@ namespace JummahManagement
                     txtUpdateBranchStreetName.Text = dr[5].ToString();
                     txtUpdateBranchCity.Text = dr[6].ToString();
                     txtUpdateBranchDistrictName.Text = dr[7].ToString();
-                    lblMessage.Text = "Updated Successfully";
+                    //lblMessage.Text = "Updated Successfully";
                 }
                 if (txtUpdateBranchName.Text != "")
                 {
@@ -350,31 +515,22 @@ namespace JummahManagement
             try
             {
                 string UpdateBranchID = txtUpdateBranchID.Text.Trim();
-                string UpdateBranchName = txtUpdateBranchName.Text;
-                string UpdateBranchJIPName = txtUpdateJIPName.Text;
-                string UpdateBranchJIPContact = txtUpdateJIPContact.Text;
-                string UpdateBranchBuildingNo = txtUpdateBuildingNo.Text;
-                string UpdateBranchStreetName = txtUpdateBranchStreetName.Text;
-                string UpdateBranchCity = txtUpdateBranchCity.Text;
-                string UpdateBranchDistrict = txtUpdateBranchDistrictName.Text;
-
-
-                if (txtUpdateBranchName.Text != "")
-                {
-                    int result = bb.UpdateBranchDetails(UpdateBranchID, UpdateBranchName, UpdateBranchJIPName, UpdateBranchJIPContact, UpdateBranchBuildingNo, UpdateBranchStreetName, UpdateBranchCity, UpdateBranchDistrict);
-                    if (result == 1)
-                    {
-                        lblMessage.Text = "Branch Details Successfully Updated";
-                    }
-                    else
-                    {
-                        lblMessage.Text = "Please Enter Valid Branch ID to Update";
-                    }
-                }
-                else
-                {
-                    lblMessage.Text = "Please Enter Valid Branch ID to Update";
-                }
+                string UpdateBranchName = txtUpdateBranchName.Text.Trim();
+                string UpdateBranchJIPName = txtUpdateJIPName.Text.Trim();
+                string UpdateBranchJIPContact = txtUpdateJIPContact.Text.Trim();
+                string UpdateBranchBuildingNo = txtUpdateBuildingNo.Text.Trim();
+                string UpdateBranchStreetName = txtUpdateBranchStreetName.Text.Trim();
+                string UpdateBranchCity = txtUpdateBranchCity.Text.Trim();
+                string UpdateBranchDistrict = txtUpdateBranchDistrictName.Text.Trim();              
+                int result = bb.UpdateBranchDetails(UpdateBranchID, UpdateBranchName, UpdateBranchJIPName, UpdateBranchJIPContact, UpdateBranchBuildingNo, UpdateBranchStreetName, UpdateBranchCity, UpdateBranchDistrict);
+                if (result == 1)
+                  {
+                    lblMessage.Text = "Branch Details Successfully Updated";
+                  }
+                  else
+                  {
+                        lblMessage.Text = "Some thing went wrong";
+                  }              
             }
             catch (Exception ex)
             {
@@ -461,6 +617,31 @@ namespace JummahManagement
                 JummaDtPicker.CustomFormat = "dd/MM/yyyy";
                 string SelectedDate = JummaDtPicker.Value.ToShortDateString();
                 lblSelectedDate.Text = SelectedDate;
+
+                DateTime lastFriday = JummaDtPicker.Value.AddDays(-1);
+                while(lastFriday.DayOfWeek != DayOfWeek.Friday)
+                    lastFriday = lastFriday.AddDays(-1);
+                string LFDay = lastFriday.Date.ToString("yyyy/MM/dd").Trim();
+                label45.Text = LFDay;
+
+                DateTime PreviousFriday = lastFriday.Date.AddDays(-1);
+                while (PreviousFriday.DayOfWeek != DayOfWeek.Friday)
+                    PreviousFriday = PreviousFriday.AddDays(-1);
+                string PFDay = PreviousFriday.Date.ToString("yyyy/MM/dd").Trim();
+                label46.Text = PFDay;
+
+                DateTime ThirdFriday = PreviousFriday.Date.AddDays(-1);
+                while (ThirdFriday.DayOfWeek != DayOfWeek.Friday)
+                    ThirdFriday = ThirdFriday.AddDays(-1);
+                string TFDay = ThirdFriday.Date.ToString("yyyy/MM/dd").Trim();
+                label47.Text = TFDay;
+
+                DateTime FourthFriday = ThirdFriday.Date.AddDays(-1);
+                while (FourthFriday.DayOfWeek != DayOfWeek.Friday)
+                    FourthFriday = FourthFriday.AddDays(-1);
+                string FFDay = FourthFriday.Date.ToString("yyyy/MM/dd").Trim();
+                label48.Text = FFDay;
+
                 if (JummaDtPicker.Value.DayOfWeek == DayOfWeek.Friday)
                 {
                     lblMessage.Text = "You have Selected Firday (Jummah Day)";
@@ -515,7 +696,8 @@ namespace JummahManagement
                 }
                 else
                 {
-                    lblMessage.Text = "Something went wrong";
+                    lblMessage.Text = "Please Try Again";
+                    txtJummaBranchName.Focus();
                 }
                
             }
@@ -569,11 +751,11 @@ namespace JummahManagement
             {
                 try
                 {
-                    string DhaeNo = dr[3].ToString();
+                    string DhaeNo = dr[3].ToString().Trim();
                     string Date = SelectedDate;
-                    string BranchName = "Jummah_" + dr[4].ToString();
-                    string Contact = dr[6].ToString();
-                    string Incharge = "_(" + dr[5].ToString() + ")";
+                    string BranchName = "Jummah.." + dr[4].ToString().Trim();
+                    string Contact = dr[6].ToString().Trim();
+                    string Incharge = "..(" + dr[5].ToString().Trim() + ")";
                     dtDhaeReport.Rows.Add(DhaeNo, Date + BranchName + Contact + Incharge);
                     dtDhaeReport.RowHeadersVisible = false;
                 }
@@ -589,9 +771,9 @@ namespace JummahManagement
             {               
                 try
                 {
-                    string Contact = dr1[6].ToString();
-                    string Date = SelectedDate;
-                    string DhaeData = "_Jummah_" + dr1[2].ToString() + "_(" + dr1[3].ToString() + ")";
+                    string Contact = dr1[6].ToString().Trim();
+                    string Date = SelectedDate.Trim();
+                    string DhaeData = "..Jummah.." + dr1[2].ToString().Trim() + "..(" + dr1[3].ToString().Trim() + ")";
                     dtInchargeReport.Rows.Add(Contact, Date + DhaeData);
                     dtInchargeReport.RowHeadersVisible = false;
                 }
@@ -632,8 +814,10 @@ namespace JummahManagement
                 Excell.Workbook xlWorkBook;
                 Excell.Worksheet xlWorkSheet;
                 object misValue = System.Reflection.Missing.Value;
-                xlexcel = new Excell.Application();
-                xlexcel.Visible = true;
+                xlexcel = new Excell.Application
+                {
+                    Visible = true
+                };
                 xlWorkBook = xlexcel.Workbooks.Add(misValue);
                 xlWorkSheet = (Excell.Worksheet)xlWorkBook.Worksheets.get_Item(1);
                 Excell.Range CR = (Excell.Range)xlWorkSheet.Cells[1, 1];
@@ -657,8 +841,10 @@ namespace JummahManagement
                 Excell.Workbook xlWorkBook;
                 Excell.Worksheet xlWorkSheet;
                 object misValue = System.Reflection.Missing.Value;
-                xlexcel = new Excell.Application();
-                xlexcel.Visible = true;
+                xlexcel = new Excell.Application
+                {
+                    Visible = true
+                };
                 xlWorkBook = xlexcel.Workbooks.Add(misValue);
                 xlWorkSheet = (Excell.Worksheet)xlWorkBook.Worksheets.get_Item(1);
                 Excell.Range CR = (Excell.Range)xlWorkSheet.Cells[1, 1];
@@ -710,17 +896,21 @@ namespace JummahManagement
         {
             try
             {
+                LoadFilterByDhaeNameReport();
+                LoadFilterByBranchNameReport();
+                LoadFilterByDhaeContactNumber();
+                LoadFilterByJummahInchargePerson();
                 dtPickerScheduleReport.CustomFormat = "mm/DD/yyyy";
                 string SelectedDate = dtPickerScheduleReport.Value.ToShortDateString();
                 dtScheduleReport.DataSource = rb.JummaScheduleReportByDate(SelectedDate);
-                dtScheduleReport.Columns["ID"].Visible = false;
+               //dtScheduleReport.Columns["ID"].Visible = false;
                 dtScheduleReport.Columns["Row_count"].Visible = false;
+                //dtScheduleReport.RowHeadersVisible = false;
             }
             catch (Exception)
             {
-                lblMessage.Text = "Loading...";
+                lblMessage.Text = "Loading Error";
             }
-
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -774,8 +964,7 @@ namespace JummahManagement
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message; 
-            }
-            
+            }          
         }
 
         //Function to filter Schedule by Branch Name
@@ -851,5 +1040,423 @@ namespace JummahManagement
         {
             Reload();
         }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            int ID = Convert.ToInt32(Temp_Schedule_ID);
+            int result = rb.DeleteTempRow(ID);
+            try
+            {
+                if (result == 1)
+                {
+                    lblMessage.Text = "Selected Row Deleted";
+                    tbl_Jummah_Schedule_tempTableAdapter.Fill(dbJummah_ManagementDataSet3.tbl_Jummah_Schedule_temp);
+                }
+                else
+                {
+                    lblMessage.Text = "Oops; Some thing went wrong";
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message; 
+            }
+           
+        }
+
+        private void dtJummaSchedule_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+        }
+
+        private void DateTimePDFReportGenerator_ValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                DateTimePDFReportGenerator.CustomFormat = "mm/DD/yyyy";
+                string SelectedDate = DateTimePDFReportGenerator.Value.ToShortDateString();
+                DGVPDFReport.DataSource = rb.PDFJummaScheduleReportByDate(SelectedDate);
+                DGVPDFReport.RowHeadersVisible = false;
+                //dtScheduleReport.Columns["ID"].Visible = false;
+                //dtScheduleReport.Columns["Row_count"].Visible = false;
+            }
+            catch (Exception)
+            {
+                lblMessage.Text = "Loading...";
+            }
+        }
+
+        private void PicBoxPDFExport_Click(object sender, EventArgs e)
+        {
+            string Date = DateTimePDFReportGenerator.Value.ToShortDateString();
+            DataTable dt = rb.PDFJummaScheduleReportByDate(Date);
+            ExportToPdf(dt, Date);
+            lblMessage.Text = " PDF Created Successfully ";
+        }
+
+        public void ExportToPdf(DataTable dt, string Date)
+        {
+            Document document = new Document();
+            string filename = "Jumma_Report.PDF".AppendTimeStamp();
+            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(filename, FileMode.Create));
+            document.Open();
+            iTextSharp.text.Font font5 = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12);
+            PdfPTable table = new PdfPTable(dt.Columns.Count);
+            float[] widths = new float[] { 4f, 4f };
+
+            Paragraph header = new Paragraph("                           (" + Date + ") This week Jumma Branches and Dhae's List");
+            Paragraph line1 = new Paragraph("          ____________________________________________________________________");
+            Paragraph line2 = new Paragraph("                                                                          ");
+            Paragraph footer = new Paragraph("                                                       Sri Lanka Thowheedh Jama'ath");
+
+            table.SetWidths(widths);
+
+            table.WidthPercentage = 100;
+
+            foreach (DataRow r in dt.Rows)
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    table.AddCell(new Phrase(r[0].ToString(), font5));
+                    table.AddCell(new Phrase(r[1].ToString(), font5));
+                }
+            }
+            document.Add(header);
+            document.Add(line1);
+            document.Add(line2);
+            document.Add(table);
+            document.Add(footer);
+            document.Close();
+        }
+
+        static PdfPageTemplateElement CreateHeaderTemplate(Spire.Pdf.PdfDocument doc, PdfMargins margins)
+        {
+            //get page size
+            SizeF pageSize = doc.PageSettings.Size;
+
+            //create a PdfPageTemplateElement object as header space
+            PdfPageTemplateElement headerSpace = new PdfPageTemplateElement(pageSize.Width, margins.Top);
+            headerSpace.Foreground = false;
+
+            //declare two float variables
+            float x = margins.Left;
+            float y = 0;
+
+            //draw line in header space
+            PdfPen pen = new PdfPen(PdfBrushes.Gray, 1);
+            headerSpace.Graphics.DrawLine(pen, x, y + margins.Top - 2, pageSize.Width - x, y + margins.Top - 2);
+
+            //draw text in header space
+            PdfTrueTypeFont font = new PdfTrueTypeFont(new System.Drawing.Font("Impact", 25f, FontStyle.Bold));
+            PdfStringFormat format = new PdfStringFormat(PdfTextAlignment.Left);
+            String headerText = "HEADER TEXT";
+            SizeF size = font.MeasureString(headerText, format);
+            headerSpace.Graphics.DrawString(headerText, font, PdfBrushes.Gray, pageSize.Width - x - size.Width - 2, margins.Top - (size.Height + 5), format);
+
+            //return headerSpace
+            return headerSpace;
+        }
+
+        private void DGVDhaeDetails_KeyUp(object sender, KeyEventArgs e)
+        {
+          
+        }
+
+        private void FilterByDhaeName_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                BindingSource bsDvd = new BindingSource
+                {
+                    DataSource = DGVDhaeDetails.DataSource,
+                    Filter = string.Format("Dhae_Name LIKE '{0}%' OR Dhae_Name LIKE '% {0}%'", FilterByDhaeName.Text)
+                };
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+            }
+        }
+
+        private void FilterByBranchName_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                BindingSource bsDvd = new BindingSource
+                {
+                    DataSource = DGVBranchDetails.DataSource,
+                    Filter = string.Format("Branch_Name LIKE '{0}%' OR Branch_Name LIKE '% {0}%'", FilterByBranchName.Text)
+                };
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+            }
+        }
+
+        private void dtJummaSchedule_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (dtJummaSchedule.SelectedRows.Count > 0)
+                {
+                    Temp_Schedule_ID = dtJummaSchedule.SelectedRows[0].Cells[0].Value + string.Empty;
+                    label41.Text = Temp_Schedule_ID;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void dtScheduleReport_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (dtScheduleReport.SelectedRows.Count > 0)
+                {
+                    Temp_ID = dtScheduleReport.SelectedRows[0].Cells[0].Value + string.Empty;
+                    label44.Text = Temp_ID;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void BtnDeleteFromCompletedSchedule_Click(object sender, EventArgs e)
+        {
+            int ID = Convert.ToInt32(Temp_ID);
+            int result = rb.DeleteScheduleRow(ID);
+            try
+            {
+                if (result == 1)
+                {
+                    lblMessage.Text = "Selected Row Deleted";
+                    try
+                    {
+                        dtPickerScheduleReport.CustomFormat = "mm/DD/yyyy";
+                        string SelectedDate = dtPickerScheduleReport.Value.ToShortDateString();
+                        dtScheduleReport.DataSource = rb.JummaScheduleReportByDate(SelectedDate);
+                        //dtScheduleReport.Columns["ID"].Visible = false;
+                        dtScheduleReport.Columns["Row_count"].Visible = false;
+                        //dtScheduleReport.RowHeadersVisible = false;
+                    }
+                    catch (Exception)
+                    {
+                        lblMessage.Text = "Loading...";
+                    }
+                }
+                else
+                {
+                    lblMessage.Text = "Oops; Some thing went wrong";
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+            }
+        }
+
+        private void FilterByDhaeNameReport_Click(object sender, EventArgs e)
+        {
+            FilterByDhaeNameReport.Text = "";
+            FilterByDhaeNameReport.Focus();
+        }
+
+        private void FilterByDhaeContactNumber_Click(object sender, EventArgs e)
+        {
+            FilterByDhaeContactNumber.Text = "";
+            FilterByDhaeContactNumber.Focus();
+        }
+
+        private void FilterByBranchNameReport_Click(object sender, EventArgs e)
+        {
+            FilterByBranchNameReport.Text = "";
+            FilterByBranchNameReport.Focus();
+        }
+
+        private void FilterByInchargePersonReport_Click(object sender, EventArgs e)
+        {
+            FilterByInchargePersonReport.Text = "";
+            FilterByInchargePersonReport.Focus();
+        }
+
+        private void FilterByDhaeNameReport_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
+
+        private void FilterByDhaeNameReport_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                BindingSource bsDvd = new BindingSource
+                {
+                    DataSource = dtScheduleReport.DataSource,
+                    Filter = string.Format("Dhae_Name LIKE '{0}%' OR Dhae_Name LIKE '% {0}%'", FilterByDhaeNameReport.Text)
+                };
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+            }
+        }
+
+        private void FilterByDhaeContactNumber_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                BindingSource bsDvd = new BindingSource
+                {
+                    DataSource = dtScheduleReport.DataSource,
+                    Filter = string.Format("Dhae_Contact LIKE '{0}%' OR Dhae_Contact LIKE '% {0}%'", FilterByDhaeContactNumber.Text)
+                };
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+            }
+        }
+
+        private void FilterByBranchNameReport_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                BindingSource bsDvd = new BindingSource
+                {
+                    DataSource = dtScheduleReport.DataSource,
+                    Filter = string.Format("Branch_Name LIKE '{0}%' OR Branch_Name LIKE '% {0}%'", FilterByBranchNameReport.Text)
+                };
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+            }
+        }
+
+        private void FilterByInchargePersonReport_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                BindingSource bsDvd = new BindingSource
+                {
+                    DataSource = dtScheduleReport.DataSource,
+                    Filter = string.Format("JIP_Name LIKE '{0}%' OR JIP_Name LIKE '% {0}%'", FilterByInchargePersonReport.Text)
+                };
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+            }
+        }
+
+        private void txtJummaBranchName_KeyUp(object sender, KeyEventArgs e)
+        {
+                       
+        }
+
+        private void BtnCheckLastFourWeeks_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                LblReport.Text = "Last 4 Weeks Jummah Dhae details for selected branch";
+                panel6.Visible = true;
+                string Friday1 = label45.Text;
+                string Friday2 = label46.Text;
+                string Friday3 = label47.Text;
+                string Friday4 = label48.Text;
+                DataTable dt1 = rb.LastMonthDhaeReportByDate(Friday1, txtJummaBranchName.Text.Trim());
+                DataTable dt2 = rb.LastMonthDhaeReportByDate(Friday2, txtJummaBranchName.Text.Trim());
+                DataTable dt3 = rb.LastMonthDhaeReportByDate(Friday3, txtJummaBranchName.Text.Trim());
+                DataTable dt4 = rb.LastMonthDhaeReportByDate(Friday4, txtJummaBranchName.Text.Trim());
+
+                foreach (DataRow dr1 in dt1.Rows)
+                {
+                    LblBranch1.Text = dr1[0].ToString().Trim();
+                }
+
+                foreach (DataRow dr2 in dt2.Rows)
+                {
+                    LblBranch2.Text = dr2[0].ToString().Trim();
+                }
+
+                foreach (DataRow dr3 in dt3.Rows)
+                {
+                    LblBranch3.Text = dr3[0].ToString().Trim();
+                }
+
+                foreach (DataRow dr4 in dt4.Rows)
+                {
+                    LblBranch4.Text = dr4[0].ToString().Trim();
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+            }
+        }
+
+        private void BtnViewAllReport_Click(object sender, EventArgs e)
+        {
+            dtScheduleReport.DataSource = rb.GetAll(); 
+        }
+
+        private void BtnGetBranchNames_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                LblReport.Text = "Last 4 Weeks Jumma Branch details for selected Dhae";
+                if (panel6.Visible == false)
+                    panel6.Visible = true;
+                string Friday1 = label45.Text;
+                string Friday2 = label46.Text;
+                string Friday3 = label47.Text;
+                string Friday4 = label48.Text;
+                DataTable dt1 = rb.LastMonthBranchReportByDate(Friday1, txtJummaDhaeName.Text.Trim());
+                DataTable dt2 = rb.LastMonthBranchReportByDate(Friday2, txtJummaDhaeName.Text.Trim());
+                DataTable dt3 = rb.LastMonthBranchReportByDate(Friday3, txtJummaDhaeName.Text.Trim());
+                DataTable dt4 = rb.LastMonthBranchReportByDate(Friday4, txtJummaDhaeName.Text.Trim());
+
+                foreach (DataRow dr1 in dt1.Rows)
+                {
+                    LblBranch1.Text = dr1[0].ToString().Trim();
+                }
+
+                foreach (DataRow dr2 in dt2.Rows)
+                {
+                    LblBranch2.Text = dr2[0].ToString().Trim();
+                }
+
+                foreach (DataRow dr3 in dt3.Rows)
+                {
+                    LblBranch3.Text = dr3[0].ToString().Trim();
+                }
+
+                foreach (DataRow dr4 in dt4.Rows)
+                {
+                    LblBranch4.Text = dr4[0].ToString().Trim();
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+            }
+        }
     }
+
+    public static class MyExtensions
+    {
+        public static string AppendTimeStamp(this string fileName)
+        {
+            return string.Concat(
+                Path.GetFileNameWithoutExtension(fileName),
+                DateTime.Now.ToString("yyyyMMddHHmmssfff"),
+                Path.GetExtension(fileName)
+                );
+        }
+    }
+
 }
