@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace JummahManagement.Data
 {
@@ -8,8 +9,83 @@ namespace JummahManagement.Data
     {
         DataCon newCon = new DataCon();
 
+        //function to load suggested Dhae for Jummah
+        public DataSet SuggestedDhaeList(string Dhae1, string Dhae2, string Dhae3, string Dhae4)
+        {
+            try
+            {
+                if (ConnectionState.Closed == newCon.Con.State)
+                {
+                    newCon.Con.Open();
+                }
+                SqlDataAdapter cmdCat = new SqlDataAdapter("SELECT Dhae_Name FROM tbl_Dhae_temp Where Dhae_Name <> '" + Dhae1 + "' AND Dhae_Name <> '" + Dhae2 + "' AND Dhae_Name <> '" + Dhae3 + "' AND Dhae_Name <> '" + Dhae4 + "' ORDER BY NEWID()", newCon.Con);
+                DataSet ds = new DataSet();
+                cmdCat.Fill(ds);
+                return ds;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
-        //Function to Add City
+        //Function to Delete Dhaedata  from TempDhae table
+        public void DeleteDhaeFromTempTable(string DhaeName)
+        {
+            try
+            {
+                if (ConnectionState.Closed == newCon.Con.State)
+                {
+                    newCon.Con.Open();
+                }
+                SqlCommand adp = new SqlCommand("Delete From tbl_Dhae_temp Where Dhae_Name = ('" + DhaeName + "')", newCon.Con);
+                adp.ExecuteNonQuery();
+                newCon.Con.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        //function to create temp Dhae Table
+        public void CreateTempDhaeTable()
+        {
+            try
+            {
+                SqlCommand command = new SqlCommand(@"USE [dbJummah_Management]
+                        DROP TABLE [dbo].[tbl_Dhae_temp]
+                        SET ANSI_NULLS ON
+                        SET QUOTED_IDENTIFIER ON
+                        CREATE TABLE [dbo].[tbl_Dhae_temp](
+	                        [Dhae_ID] [int] NOT NULL,
+	                        [Dhae_Name] [nvarchar](100) NOT NULL,
+	                        [Dhae_Contact] [nvarchar](15) NOT NULL,
+	                        [House_No] [nchar](10) NULL,
+	                        [Street_Name] [nvarchar](50) NULL,
+	                        [City] [nvarchar](50) NULL,
+	                        [District] [nvarchar](20) NULL,
+                         CONSTRAINT [PK_tbl_Dhae_temp] PRIMARY KEY CLUSTERED 
+                        (
+	                        [Dhae_ID] ASC
+                        )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+                        ) ON [PRIMARY]", newCon.Con);
+                SqlCommand cmd = new SqlCommand(@"INSERT INTO tbl_Dhae_temp SELECT * FROM tbl_Dhae",newCon.Con);
+                if (ConnectionState.Closed == newCon.Con.State)
+                {
+                    newCon.Con.Open();
+                }
+                command.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();
+                newCon.Con.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        //Function to Add new City
         public int AddCity(string City)
         {
             try
@@ -104,8 +180,26 @@ namespace JummahManagement.Data
             }
         }
 
+        //function to insert Dhae Details in Temporary Dhae Details Table
+        public void InsertDhaeDetailsToTempTable(string DhaeName)
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand(@"INSERT INTO tbl_Dhae_temp SELECT * FROM tbl_Dhae Where Dhae_Name = '"+ DhaeName +"'", newCon.Con);
+                if (ConnectionState.Closed == newCon.Con.State)
+                {
+                    newCon.Con.Open();
+                }
+                cmd.ExecuteNonQuery();
+                newCon.Con.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
-        //Function to Add New Staff Details
+        //Function to Add New Dhae Details
         public int AddDhae(int Dhae_ID, string Dhae_Name, string Dhae_Contact, string House_No,string Street_Name, string City, string District)
         {
             try
@@ -116,8 +210,8 @@ namespace JummahManagement.Data
                     if (ConnectionState.Closed == newCon.Con.State)
                     {
                         newCon.Con.Open();
-                        SqlCommand Check_Dhae = new SqlCommand("SELECT * FROM tbl_Dhae WHERE Dhae_ID = '" + Dhae_ID + "'", newCon.Con);
-                        SqlDataReader reader = Check_Dhae.ExecuteReader();
+                        SqlCommand Check_Dhae_ID = new SqlCommand("SELECT * FROM tbl_Dhae WHERE Dhae_ID = '" + Dhae_ID + "'", newCon.Con);
+                        SqlDataReader reader = Check_Dhae_ID.ExecuteReader();
 
                         if (reader.HasRows)
                         {
@@ -208,106 +302,24 @@ namespace JummahManagement.Data
         }
 
         //Function to move the deleted Dhae details to Temporary Table
-        public int AddDhaeToDeleted(int Dhae_ID, string Dhae_Name, string Dhae_Contact, string House_No, string Street_Name, string City, string District)
+        public int InsertDhaeDetailsToDeleted(int Dhae_ID)
         {
+            int result = 0; 
             try
             {
-                int result = 0;
-                try
+                SqlCommand cmd = new SqlCommand(@"INSERT INTO tbl_Dhae_Deleted SELECT * FROM tbl_Dhae Where Dhae_ID = '" + Dhae_ID + "'", newCon.Con);
+                if (ConnectionState.Closed == newCon.Con.State)
                 {
-                    if (ConnectionState.Closed == newCon.Con.State)
-                    {
-                        newCon.Con.Open();
-                        SqlCommand Check_Dhae = new SqlCommand("SELECT * FROM tbl_Dhae_Deleted WHERE Dhae_ID = '" + Dhae_ID + "'", newCon.Con);
-                        SqlDataReader reader = Check_Dhae.ExecuteReader();
-
-                        if (reader.HasRows)
-                        {
-                            try
-                            {
-                                SqlCommand adp = new SqlCommand("Delete From tbl_Dhae Where Dhae_ID = ('" + Dhae_ID + "')", newCon.Con);
-                                adp.ExecuteNonQuery();
-                                result = 1;
-                                return result;
-                            }
-                            catch (Exception)
-                            {
-                                throw;
-                            }
-                        }
-                        else
-                        {
-                            try
-                            {
-                                SqlCommand cmd = new SqlCommand("INSERT INTO tbl_Dhae_Deleted (Dhae_ID,Dhae_Name,Dhae_Contact,House_No,Street_Name,City,District) VALUES ('" + Dhae_ID + "','" + Dhae_Name + "','" + Dhae_Contact + "','" + House_No + "','" + Street_Name + "','" + City + "','" + District + "')", newCon.Con);
-                                cmd.ExecuteNonQuery();
-                                result = 1;
-                                reader.Close();
-                                newCon.Con.Close();
-                                return result;
-                            }
-                            catch (Exception)
-                            {
-                                reader.Close();
-                                newCon.Con.Close();
-                                return result;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        try
-                        {
-                            SqlCommand Check_Dhae = new SqlCommand("SELECT * FROM tbl_Dhae_Deleted WHERE Dhae_ID = '" + Dhae_ID + "'", newCon.Con);
-                            SqlDataReader reader = Check_Dhae.ExecuteReader();
-
-                            if (reader.HasRows)
-                            {
-                                try
-                                {
-                                    reader.Close();
-                                    return result;
-                                }
-                                catch (Exception)
-                                {
-                                    throw;
-                                }
-                            }
-                            else
-                            {
-                                try
-                                {
-                                    SqlCommand cmd = new SqlCommand("INSERT INTO tbl_Dhae_Deleted (Dhae_ID,Dhae_Name,Dhae_Contact,House_No,Street_Name,City,District) VALUES ('" + Dhae_ID + "','" + Dhae_Name + "','" + Dhae_Contact + "','" + House_No + "','" + Street_Name + "','" + City + "','" + District + "')", newCon.Con);
-                                    cmd.ExecuteNonQuery();
-                                    result = 1;
-                                    reader.Close();
-                                    newCon.Con.Close();
-                                    return result;
-                                }
-                                catch (Exception)
-                                {
-                                    reader.Close();
-                                    newCon.Con.Close();
-                                    return result;
-                                }
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            newCon.Con.Close();
-                            throw;
-                        }
-
-                    }
+                    newCon.Con.Open();
                 }
-                catch (Exception)
-                {
-                    throw;
-                }
+                cmd.ExecuteNonQuery();
+                newCon.Con.Close();
+                result = 1;
+                return result;
             }
             catch (Exception)
             {
-                throw;
+                return result;
             }
         }
 
@@ -429,6 +441,27 @@ namespace JummahManagement.Data
                     newCon.Con.Open();
                 }
                 string query = "Select Dhae_Contact From tbl_Dhae Where Dhae_Name = '" + DhaeName + "'";
+                SqlDataAdapter sda = new SqlDataAdapter(query, newCon.Con);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                return dt;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //Function to Load Dhae Details by Dhae Name
+        public DataTable LoadDhaeDetailsByDhaeName(string DhaeName)
+        {
+            try
+            {
+                if (ConnectionState.Closed == newCon.Con.State)
+                {
+                    newCon.Con.Open();
+                }
+                string query = "Select * From tbl_Dhae Where Dhae_Name = '" + DhaeName + "'";
                 SqlDataAdapter sda = new SqlDataAdapter(query, newCon.Con);
                 DataTable dt = new DataTable();
                 sda.Fill(dt);

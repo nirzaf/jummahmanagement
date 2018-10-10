@@ -1,6 +1,7 @@
 ﻿using JummahManagement.Data;
 using System;
 using System.Data;
+using System.Windows.Forms;
 
 namespace JummahManagement.Business
 {
@@ -8,6 +9,20 @@ namespace JummahManagement.Business
     { 
         DhaeData dd = new DhaeData();
         JummahReports jr = new JummahReports();
+
+        //function to load suggested Dhae for Jummah
+        public DataSet SuggestedDhaeList(string Dhae1, string Dhae2, string Dhae3, string Dhae4)
+        {
+            try
+            {
+                DataSet dt = dd.SuggestedDhaeList(Dhae1,Dhae2,Dhae3,Dhae4);
+                return dt;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         //Function to Load All Jummah Dhae Report by date
         public DataTable LoadDhaeReportByDate(string Date)
@@ -22,6 +37,20 @@ namespace JummahManagement.Business
                 throw;
             }
         }
+
+        //Function to Delete Dhaedata  from TempDhae table
+        public void DeleteDhaeFromTempTable(string DhaeName)
+        {
+            try
+            {
+                dd.DeleteDhaeFromTempTable(DhaeName);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
 
         //Function to Add Dhae
         public int AddDhae(int Dhae_ID, string Dhae_Name, string Dhae_Contact, string House_No, string Street_Name, string City, string District)
@@ -150,5 +179,47 @@ namespace JummahManagement.Business
                 throw;
             }
         }
+
+        //Function to Load Dhae Details by Dhae Name
+        public DataTable LoadDhaeDetailsByDhaeName(string DhaeName)
+        {
+            try
+            {
+                DataTable dt = dd.LoadDhaeDetailsByDhaeName(DhaeName);
+                return dt;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void InsertDhaeDetailsToTempTable(string DhaeName)
+        {
+            try
+            {
+                dd.InsertDhaeDetailsToTempTable(DhaeName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        //Function to move the deleted Dhae details to Temporary Table
+        public int InsertDhaeDetailsToDeleted(int Dhae_ID)
+        {
+            int result = 0;
+            try
+            {
+                result = dd.InsertDhaeDetailsToDeleted(Dhae_ID);
+                return result;
+            }
+            catch (Exception)
+            {
+                return result;
+            }
+        }
+
     }
 }

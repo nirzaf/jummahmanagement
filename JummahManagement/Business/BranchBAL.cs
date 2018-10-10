@@ -35,6 +35,21 @@ namespace JummahManagement.Business
             }
         }
 
+        //Function to move the deleted Branch details to Temporary Table
+        public int InsertBranchDetailsToDeleted(string Branch_ID)
+        {
+            int result = 0;
+            try
+            {
+                result = bd.InsertBranchDetailsToDeleted(Branch_ID);
+                return result;
+            }
+            catch (Exception)
+            {
+                return result;
+            }
+        }
+
         //Function to Update Branch Details
         public int UpdateBranchDetails(string Branch_ID, string Branch_Name, string JIP_Name, string JIP_Contact, string Branch_Building_No, string Branch_Street_Name, string Branch_City, string Branch_District)
         {
@@ -78,18 +93,20 @@ namespace JummahManagement.Business
             }
         }
 
-        //public DataTable LoadBranchByBranchID(string Branch_ID)
-        //{
-        //    try
-        //    {
-        //        DataTable dt = bd.LoadBranchByBranchID(Branch_ID);
-        //        return dt;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
+        //Function to Delete Branch Details 
+        public int DeleteBranchDetails(string Branch_ID)
+        {
+            int result = 0;
+            try
+            {
+                result = bd.DeleteBranchDetails(Branch_ID);
+                return result;
+            }
+            catch (Exception)
+            {
+                return result;
+            }
+        }
     }
 
 }

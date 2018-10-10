@@ -12,6 +12,7 @@ using Document = iTextSharp.text.Document;
 using System.Drawing;
 using Spire.Pdf;
 using Spire.Pdf.Graphics;
+using System.Threading.Tasks;
 
 namespace JummahManagement
 {
@@ -20,20 +21,27 @@ namespace JummahManagement
         DhaeBAL db = new DhaeBAL();
         BranchBAL bb = new BranchBAL();
         ReportsBAL rb = new ReportsBAL();
+        DhaeData dd = new DhaeData();
         JummahReports jr = new JummahReports();
         public string City_ID;
         public string City;
         public string Temp_Schedule_ID;
+        private string Temp_Dhae_Name;
         public string Temp_ID;
+        private int xpos;
+        private int ypos;
+        private string mode;
+
         public main()
         {
             InitializeComponent();
+            
         }
 
         private void main_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'dbJummah_ManagementDataSet3.tbl_Jummah_Schedule_temp' table. You can move, or remove it, as needed.
-             
+            DhaeData dd = new DhaeData();
             try
             {
                 tbl_Jummah_Schedule_tempTableAdapter.Fill(dbJummah_ManagementDataSet3.tbl_Jummah_Schedule_temp);
@@ -57,6 +65,10 @@ namespace JummahManagement
                 LoadFilterByDhaeContactNumber();
                 LoadFilterByJummahInchargePerson();
                 lblMessage.Text = "";
+                L1.Text = "";
+                L2.Text = "";
+                L3.Text = "";
+                L4.Text = "";
             }
             catch (Exception ex)
             {
@@ -289,6 +301,7 @@ namespace JummahManagement
                 if (result == 1)
                 {
                     lblMessage.Text = "Successfully Added";
+                    LoadDhaeNames();
                     tbl_DhaeTableAdapter.Fill(dbJummah_ManagementDataSet1.tbl_Dhae);
                 }
                 else
@@ -312,6 +325,7 @@ namespace JummahManagement
             if (result == 1)
             {
                 lblMessage.Text =  "Successfully Added";
+                LoadBranchNames();
                 tbl_BranchesTableAdapter.Fill(this.dbJummah_ManagementDataSet2.tbl_Branches);
             }
             else
@@ -336,7 +350,7 @@ namespace JummahManagement
                     CityNames.Add(ct[1].ToString());
                 }
                 TxtCityNames.AutoCompleteCustomSource = CityNames;
-
+                TxtCityNames.Text = txtAddNewCity.Text;
             }
             else
             {
@@ -376,7 +390,8 @@ namespace JummahManagement
                 {
                     CityNames.Add(ct[1].ToString());
                 }
-                TxtCityNames.AutoCompleteCustomSource = CityNames;
+                TxtCityNames1.AutoCompleteCustomSource = CityNames;
+                TxtCityNames1.Text = txtAddNewCity1.Text;
             }
             else
             {
@@ -403,7 +418,6 @@ namespace JummahManagement
                     txtUpdateDhaeStreetName.Text = dr[4].ToString();
                     txtUpdateDhaeCity.Text = dr[5].ToString();
                     txtUpdateDhaeDistrict.Text = dr[6].ToString();
-                    lblMessage.Text = "Updated Successfully";
                 }
 
                 if (txtUpdateDhaeName.Text != "")
@@ -432,7 +446,6 @@ namespace JummahManagement
                     txtUpdateBranchStreetName.Text = dr[5].ToString();
                     txtUpdateBranchCity.Text = dr[6].ToString();
                     txtUpdateBranchDistrictName.Text = dr[7].ToString();
-                    //lblMessage.Text = "Updated Successfully";
                 }
                 if (txtUpdateBranchName.Text != "")
                 {
@@ -543,20 +556,9 @@ namespace JummahManagement
         private void btnDeleteDhaeDetails_Click(object sender, EventArgs e)
         {
             int Dhae_ID = Convert.ToInt32(txtDeleteDhaeByID.Text);
-            DataTable dt = db.LoadDhaeByDhaeID(Dhae_ID);
+            int result = db.InsertDhaeDetailsToDeleted(Dhae_ID);
             try
             {
-                foreach (DataRow dr in dt.Rows)
-                {
-                    string UpdateDhaeName = dr[1].ToString();
-                    string UpdateDhaeContactNo = dr[2].ToString();
-                    string UpdateDhaeHouseNo = dr[3].ToString();
-                    string UpdateDhaeStreetName = dr[4].ToString();
-                    string UpdateDhaeCity = dr[5].ToString();
-                    string UpdateDhaeDistrict = dr[6].ToString();
-
-                    int result = db.AddDhaeToDeleted(Dhae_ID, UpdateDhaeName, UpdateDhaeContactNo, UpdateDhaeHouseNo, UpdateDhaeStreetName, UpdateDhaeCity, UpdateDhaeDistrict);
-
                     if (result == 1)
                     {
                         int re = db.DeleteDhaeDetails(Dhae_ID);
@@ -574,13 +576,11 @@ namespace JummahManagement
                     {
                         lblMessage.Text = "Oops! ... Something Went wrong";
                     }
-                }
             }
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message;
             }
-
         }
 
         private void txtDeleteDhaeByID_Click(object sender, EventArgs e)
@@ -667,6 +667,7 @@ namespace JummahManagement
             try
             {
                 string DhaeName = txtJummaDhaeName.Text.Trim();
+                db.DeleteDhaeFromTempTable(DhaeName);
                 DataTable dt = db.LoadDhaeNoByDhaeName(DhaeName);
                 foreach (DataRow dr in dt.Rows)
                 {
@@ -729,6 +730,7 @@ namespace JummahManagement
                     newCon.Con.Close();
                 }
                 lblMessage.Text = "Successfully Jummah Schedule Added";
+                dd.CreateTempDhaeTable();
                 jr.DropAndRecreate();
                 string SelectedDate = JummaDtPicker.Value.ToShortDateString();
                 dtJummaSchedule.DataSource = db.LoadDhaeReportByDate(SelectedDate);
@@ -996,6 +998,7 @@ namespace JummahManagement
                           MessageBoxIcon.Question))
                     {
                         case DialogResult.Yes:
+                            dd.CreateTempDhaeTable();
                             jr.DropAndRecreate();
                             tbl_Jummah_Schedule_tempTableAdapter.Fill(dbJummah_ManagementDataSet3.tbl_Jummah_Schedule_temp);
                             break;
@@ -1045,6 +1048,8 @@ namespace JummahManagement
         {
             int ID = Convert.ToInt32(Temp_Schedule_ID);
             int result = rb.DeleteTempRow(ID);
+            db.InsertDhaeDetailsToTempTable(Temp_Dhae_Name);
+
             try
             {
                 if (result == 1)
@@ -1062,11 +1067,6 @@ namespace JummahManagement
                 lblMessage.Text = ex.Message; 
             }
            
-        }
-
-        private void dtJummaSchedule_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            
         }
 
         private void DateTimePDFReportGenerator_ValueChanged(object sender, EventArgs e)
@@ -1157,11 +1157,6 @@ namespace JummahManagement
             return headerSpace;
         }
 
-        private void DGVDhaeDetails_KeyUp(object sender, KeyEventArgs e)
-        {
-          
-        }
-
         private void FilterByDhaeName_KeyUp(object sender, KeyEventArgs e)
         {
             try
@@ -1201,6 +1196,7 @@ namespace JummahManagement
                 if (dtJummaSchedule.SelectedRows.Count > 0)
                 {
                     Temp_Schedule_ID = dtJummaSchedule.SelectedRows[0].Cells[0].Value + string.Empty;
+                    Temp_Dhae_Name = dtJummaSchedule.SelectedRows[0].Cells[1].Value + string.Empty;
                     label41.Text = Temp_Schedule_ID;
                 }
             }
@@ -1262,31 +1258,44 @@ namespace JummahManagement
 
         private void FilterByDhaeNameReport_Click(object sender, EventArgs e)
         {
-            FilterByDhaeNameReport.Text = "";
-            FilterByDhaeNameReport.Focus();
+
+            if (FilterByDhaeNameReport.Focus() == true)
+            {
+                FilterByBranchNameReport.Text = "Filter by Branch Name";
+                FilterByDhaeContactNumber.Text = "Filter by Dhae Contact Number";
+                FilterByInchargePersonReport.Text = "Filter By Incharge Person Name";
+                FilterByDhaeNameReport.Text = "";
+                FilterByDhaeNameReport.Focus();
+            }
         }
 
         private void FilterByDhaeContactNumber_Click(object sender, EventArgs e)
         {
-            FilterByDhaeContactNumber.Text = "";
-            FilterByDhaeContactNumber.Focus();
+            if (FilterByDhaeContactNumber.Focus() == true)
+            {
+                FilterByBranchNameReport.Text = "Filter by Branch Name";
+                FilterByInchargePersonReport.Text = "Filter By Incharge Person Name";
+                FilterByDhaeNameReport.Text = "Filter By Dhae Name Report";
+                FilterByDhaeContactNumber.Text = "";
+            }
         }
 
         private void FilterByBranchNameReport_Click(object sender, EventArgs e)
         {
-            FilterByBranchNameReport.Text = "";
+            FilterByDhaeContactNumber.Text = "Filter by Dhae Contact Number";
+            FilterByInchargePersonReport.Text = "Filter By Incharge Person Name";
+            FilterByDhaeNameReport.Text = "Filter By Dhae Name Report";
             FilterByBranchNameReport.Focus();
+            FilterByBranchNameReport.Text = "";
         }
 
         private void FilterByInchargePersonReport_Click(object sender, EventArgs e)
         {
-            FilterByInchargePersonReport.Text = "";
+            FilterByBranchNameReport.Text = "Filter by Branch Name";
+            FilterByDhaeContactNumber.Text = "Filter by Dhae Contact Number";
+            FilterByDhaeNameReport.Text = "Filter By Dhae Name Report";
             FilterByInchargePersonReport.Focus();
-        }
-
-        private void FilterByDhaeNameReport_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
+            FilterByInchargePersonReport.Text = "";
         }
 
         private void FilterByDhaeNameReport_KeyUp(object sender, KeyEventArgs e)
@@ -1353,44 +1362,56 @@ namespace JummahManagement
             }
         }
 
-        private void txtJummaBranchName_KeyUp(object sender, KeyEventArgs e)
-        {
-                       
-        }
-
         private void BtnCheckLastFourWeeks_Click(object sender, EventArgs e)
         {
             try
-            {
-                LblReport.Text = "Last 4 Weeks Jummah Dhae details for selected branch";
-                panel6.Visible = true;
-                string Friday1 = label45.Text;
-                string Friday2 = label46.Text;
-                string Friday3 = label47.Text;
-                string Friday4 = label48.Text;
-                DataTable dt1 = rb.LastMonthDhaeReportByDate(Friday1, txtJummaBranchName.Text.Trim());
-                DataTable dt2 = rb.LastMonthDhaeReportByDate(Friday2, txtJummaBranchName.Text.Trim());
-                DataTable dt3 = rb.LastMonthDhaeReportByDate(Friday3, txtJummaBranchName.Text.Trim());
-                DataTable dt4 = rb.LastMonthDhaeReportByDate(Friday4, txtJummaBranchName.Text.Trim());
+            {              
+                if (txtJummaBranchName.Text != "")
+                {                    
+                    LblReport.Text = "Last 4 Weeks Jummah Dhae details for selected branch";
+                    panel6.Visible = true;
+                    string Friday1 = label45.Text;
+                    string Friday2 = label46.Text;
+                    string Friday3 = label47.Text;
+                    string Friday4 = label48.Text;
+                    DataTable dt1 = rb.LastMonthDhaeReportByDate(Friday1, txtJummaBranchName.Text.Trim());
+                    DataTable dt2 = rb.LastMonthDhaeReportByDate(Friday2, txtJummaBranchName.Text.Trim());
+                    DataTable dt3 = rb.LastMonthDhaeReportByDate(Friday3, txtJummaBranchName.Text.Trim());
+                    DataTable dt4 = rb.LastMonthDhaeReportByDate(Friday4, txtJummaBranchName.Text.Trim());
 
-                foreach (DataRow dr1 in dt1.Rows)
-                {
-                    LblBranch1.Text = dr1[0].ToString().Trim();
+                    foreach (DataRow dr1 in dt1.Rows)
+                    {
+                        LblBranch1.Text = dr1[0].ToString().Trim();
+                    }
+
+                    foreach (DataRow dr2 in dt2.Rows)
+                    {
+                        LblBranch2.Text = dr2[0].ToString().Trim();
+                    }
+
+                    foreach (DataRow dr3 in dt3.Rows)
+                    {
+                        LblBranch3.Text = dr3[0].ToString().Trim();
+                    }
+
+                    foreach (DataRow dr4 in dt4.Rows)
+                    {
+                        LblBranch4.Text = dr4[0].ToString().Trim();
+                    }
+                    DataSet SuggestedDhae = db.SuggestedDhaeList(LblBranch1.Text, LblBranch2.Text, LblBranch3.Text, LblBranch4.Text);
+                    if (SuggestedDhae.Tables[0].Rows.Count > 0)
+                    {
+                        //Blink();
+                        L1.Text = Convert.ToString(SuggestedDhae.Tables[0].Rows[0].Field<string>(0));                     
+                        L2.Text = Convert.ToString(SuggestedDhae.Tables[0].Rows[1].Field<string>(0));                     
+                        L3.Text = Convert.ToString(SuggestedDhae.Tables[0].Rows[2].Field<string>(0));                     
+                        L4.Text = Convert.ToString(SuggestedDhae.Tables[0].Rows[3].Field<string>(0));                     
+                    }
+                   // Slider();
                 }
-
-                foreach (DataRow dr2 in dt2.Rows)
+                else
                 {
-                    LblBranch2.Text = dr2[0].ToString().Trim();
-                }
-
-                foreach (DataRow dr3 in dt3.Rows)
-                {
-                    LblBranch3.Text = dr3[0].ToString().Trim();
-                }
-
-                foreach (DataRow dr4 in dt4.Rows)
-                {
-                    LblBranch4.Text = dr4[0].ToString().Trim();
+                    lblMessage.Text = "Please Enter the Branch Name";
                 }
             }
             catch (Exception ex)
@@ -1398,6 +1419,31 @@ namespace JummahManagement
                 lblMessage.Text = ex.Message;
             }
         }
+
+        private async void Blink()
+        {
+            while (true)
+            {
+                await Task.Delay(500);
+                L1.BackColor =L1.BackColor == Color.White ? Color.Black : Color.White;
+                L2.BackColor =L2.BackColor == Color.White ? Color.Black : Color.White;
+                L3.BackColor =L3.BackColor == Color.White ? Color.Black : Color.White;
+                L4.BackColor =L4.BackColor == Color.White ? Color.Black : Color.White;
+            }
+        }
+
+        public void Slider()
+        {
+            xpos = LabelSlider.Location.X;
+
+            ypos = LabelSlider.Location.Y;
+
+            mode = "Left-to-Right";
+
+           TimerSlider.Start();
+        }
+
+
 
         private void BtnViewAllReport_Click(object sender, EventArgs e)
         {
@@ -1443,6 +1489,262 @@ namespace JummahManagement
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message;
+            }
+        }
+
+        private void TimerSlider_Tick(object sender, EventArgs e)
+        {
+            if (mode == "Left-to-Right")
+            {
+                if (Width == xpos)
+                {
+                    LabelSlider.Location = new Point(0, ypos);
+                    xpos = 0;
+                }
+                else
+                {
+                    LabelSlider.Location = new Point(xpos, ypos);
+                    xpos += 2;
+                }
+                      
+            }
+        }
+
+        private void BtnDeleteBranchDetails_Click(object sender, EventArgs e)
+        {
+            string Branch_ID = txtDeleteBranchByID.Text;
+            int result = bb.InsertBranchDetailsToDeleted(Branch_ID);
+            try
+            {
+                if (result == 1)
+                {
+                    int re = bb.DeleteBranchDetails(Branch_ID);
+                    if (re == 1)
+                    {
+                        lblMessage.Text = "Dhae Details Deleted Successfully";
+                        tbl_DhaeTableAdapter.Fill(dbJummah_ManagementDataSet1.tbl_Dhae);
+                    }
+                    else
+                    {
+                        lblMessage.Text = "Something Went wrong";
+                    }
+                }
+                else
+                {
+                    lblMessage.Text = "Oops! ... Something Went wrong";
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+            }
+        }
+
+        private void FilterByDhaeNameReport_TextChanged(object sender, EventArgs e)
+        {
+                FilterByBranchNameReport.Text = "Filter by Branch Name";
+                FilterByDhaeContactNumber.Text = "Filter by Dhae Contact Number";
+                FilterByInchargePersonReport.Text = "Filter By Incharge Person Name";
+                //FilterByDhaeNameReport.Text = "Filter By Dhae Name Report";           
+        }
+
+        private void SuggestedDhaeNames_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (txtJummaBranchName.Text != "")
+                {
+                    LblReport.Text = "Last 4 Weeks Jummah Dhae details for selected branch";
+                    panel6.Visible = true;
+                    string Friday1 = label45.Text;
+                    string Friday2 = label46.Text;
+                    string Friday3 = label47.Text;
+                    string Friday4 = label48.Text;
+                    DataTable dt1 = rb.LastMonthDhaeReportByDate(Friday1, txtJummaBranchName.Text.Trim());
+                    DataTable dt2 = rb.LastMonthDhaeReportByDate(Friday2, txtJummaBranchName.Text.Trim());
+                    DataTable dt3 = rb.LastMonthDhaeReportByDate(Friday3, txtJummaBranchName.Text.Trim());
+                    DataTable dt4 = rb.LastMonthDhaeReportByDate(Friday4, txtJummaBranchName.Text.Trim());
+
+                    foreach (DataRow dr1 in dt1.Rows)
+                    {
+                        LblBranch1.Text = dr1[0].ToString().Trim();
+                    }
+
+                    foreach (DataRow dr2 in dt2.Rows)
+                    {
+                        LblBranch2.Text = dr2[0].ToString().Trim();
+                    }
+
+                    foreach (DataRow dr3 in dt3.Rows)
+                    {
+                        LblBranch3.Text = dr3[0].ToString().Trim();
+                    }
+
+                    foreach (DataRow dr4 in dt4.Rows)
+                    {
+                        LblBranch4.Text = dr4[0].ToString().Trim();
+                    }
+                    DataSet SuggestedDhae = db.SuggestedDhaeList(LblBranch1.Text, LblBranch2.Text, LblBranch3.Text, LblBranch4.Text);
+                    if (SuggestedDhae.Tables[0].Rows.Count > 0)
+                    {
+                        //Blink();
+                        L1.Text = Convert.ToString(SuggestedDhae.Tables[0].Rows[0].Field<string>(0));
+                        L2.Text = Convert.ToString(SuggestedDhae.Tables[0].Rows[1].Field<string>(0));
+                        L3.Text = Convert.ToString(SuggestedDhae.Tables[0].Rows[2].Field<string>(0));
+                        L4.Text = Convert.ToString(SuggestedDhae.Tables[0].Rows[3].Field<string>(0));
+                    }
+                    // Slider();
+                }
+                else
+                {
+                    lblMessage.Text = "Please Enter the Branch Name";
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+            }
+        }
+
+        //Class to Copy datagrid view to excell 
+        private void CopyReports()
+        {
+            dtScheduleReport.SelectAll();
+            DataObject dataObj = dtScheduleReport.GetClipboardContent();
+            if (dataObj != null)
+                Clipboard.SetDataObject(dataObj);
+        }
+
+        private void ExportExcelReport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CopyReports();
+                Excell.Application xlexcel;
+                Excell.Workbook xlWorkBook;
+                Excell.Worksheet xlWorkSheet;
+                object misValue = System.Reflection.Missing.Value;
+                xlexcel = new Excell.Application
+                {
+                    Visible = true
+                };
+                xlWorkBook = xlexcel.Workbooks.Add(misValue);
+                xlWorkSheet = (Excell.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+                Excell.Range CR = (Excell.Range)xlWorkSheet.Cells[1, 1];
+                CR.Select();
+                xlWorkSheet.PasteSpecial(CR, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, true);
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+            }
+        }
+
+        private void L1_Click(object sender, EventArgs e)
+        {
+            txtJummaDhaeName.Text = L1.Text.Trim();
+        }
+
+        private void L2_Click(object sender, EventArgs e)
+        {
+            txtJummaDhaeName.Text = L2.Text.Trim();
+        }
+
+        private void L3_Click(object sender, EventArgs e)
+        {
+            txtJummaDhaeName.Text = L3.Text.Trim();
+        }
+
+        private void L4_Click(object sender, EventArgs e)
+        {
+            txtJummaDhaeName.Text = L4.Text.Trim();
+        }
+
+        private void FilterByDhaeContactNumber_TextChanged(object sender, EventArgs e)
+        {
+            FilterByBranchNameReport.Text = "Filter by Branch Name";
+            //FilterByDhaeContactNumber.Text = "Filter by Dhae Contact Number";
+            FilterByInchargePersonReport.Text = "Filter By Incharge Person Name";
+            FilterByDhaeNameReport.Text = "Filter By Dhae Name Report";
+        }
+
+        private void FilterByBranchNameReport_TextChanged(object sender, EventArgs e)
+        {
+            //FilterByBranchNameReport.Text = "Filter by Branch Name";
+            FilterByDhaeContactNumber.Text = "Filter by Dhae Contact Number";
+            FilterByInchargePersonReport.Text = "Filter By Incharge Person Name";
+            FilterByDhaeNameReport.Text = "Filter By Dhae Name Report";
+        }
+
+        private void FilterByInchargePersonReport_TextChanged(object sender, EventArgs e)
+        {
+            FilterByBranchNameReport.Text = "Filter by Branch Name";
+            FilterByDhaeContactNumber.Text = "Filter by Dhae Contact Number";
+            //FilterByInchargePersonReport.Text = "Filter By Incharge Person Name";
+            FilterByDhaeNameReport.Text = "Filter By Dhae Name Report";
+        }
+
+        private void DGVDhaeDetails_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (DGVDhaeDetails.SelectedRows.Count > 0)
+                {
+                    string Dhae_ID = DGVDhaeDetails.SelectedRows[0].Cells[0].Value + string.Empty;
+                    txtDhaeIDforUpdate.Text = Dhae_ID;
+
+                    int DhaeID = Convert.ToInt32(Dhae_ID);
+                    DataTable dt = db.LoadDhaeByDhaeID(DhaeID);
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        txtUpdateDhaeName.Text = dr[1].ToString();
+                        txtUpdateDhaeContactNo.Text = dr[2].ToString();
+                        txtUpdateDhaeHouseNo.Text = dr[3].ToString();
+                        txtUpdateDhaeStreetName.Text = dr[4].ToString();
+                        txtUpdateDhaeCity.Text = dr[5].ToString();
+                        txtUpdateDhaeDistrict.Text = dr[6].ToString();
+                    }
+
+                    if (txtUpdateDhaeName.Text != "")
+                    {
+                        txtDhaeIDforUpdate.Enabled = false;
+                    }
+                } 
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void DGVBranchDetails_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (DGVBranchDetails.SelectedRows.Count > 0)
+                {
+                    string Branch_ID = DGVBranchDetails.SelectedRows[0].Cells[0].Value + string.Empty;
+                    txtUpdateBranchID.Text = Branch_ID;
+                    DataTable dt = bb.LoadBranchByBranchID(Branch_ID);
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        txtUpdateBranchName.Text = dr[1].ToString();
+                        txtUpdateJIPName.Text = dr[2].ToString();
+                        txtUpdateJIPContact.Text = dr[3].ToString();
+                        txtUpdateBuildingNo.Text = dr[4].ToString();
+                        txtUpdateBranchStreetName.Text = dr[5].ToString();
+                        txtUpdateBranchCity.Text = dr[6].ToString();
+                        txtUpdateBranchDistrictName.Text = dr[7].ToString();
+                    }
+                    if (txtUpdateBranchName.Text != "")
+                    {
+                        txtBranchName.Enabled = false;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }

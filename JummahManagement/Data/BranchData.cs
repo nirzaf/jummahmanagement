@@ -114,6 +114,28 @@ namespace JummahManagement.Data
             }
         }
 
+        //Function to move the deleted Branch details to Temporary Table
+        public int InsertBranchDetailsToDeleted(string Branch_ID)
+        {
+            int result = 0;
+            try
+            {
+                SqlCommand cmd = new SqlCommand(@"INSERT INTO tbl_Branches_Deleted SELECT * FROM tbl_Branches Where Branch_ID = '" + Branch_ID + "'", newCon.Con);
+                if (ConnectionState.Closed == newCon.Con.State)
+                {
+                    newCon.Con.Open();
+                }
+                cmd.ExecuteNonQuery();
+                newCon.Con.Close();
+                result = 1;
+                return result;
+            }
+            catch (Exception)
+            {
+                return result;
+            }
+        }
+
         //Function to Load Branch by Branch ID
         public DataTable LoadBranchByBranchID(string Branch_ID)
         {
@@ -197,6 +219,27 @@ namespace JummahManagement.Data
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        //Function to Delete Branch Details 
+        public int DeleteBranchDetails(string Branch_ID)
+        {
+            int result = 0;
+            try
+            {
+                if (ConnectionState.Closed == newCon.Con.State)
+                {
+                    newCon.Con.Open();
+                }
+                SqlCommand adp = new SqlCommand("Delete From tbl_Branches Where Branch_ID = '" + Branch_ID + "'", newCon.Con);
+                adp.ExecuteNonQuery();
+                result = 1;
+                return result;
+            }
+            catch (Exception)
+            {
+                return result;
             }
         }
     }
