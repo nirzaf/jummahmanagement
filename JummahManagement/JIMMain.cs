@@ -1747,6 +1747,13 @@ namespace JummahManagement
                 throw;
             }
         }
+
+        private void BtnReload_Click(object sender, EventArgs e)
+        {
+            main jm = new main();
+            jm.Show();
+            Hide();
+        }
     }
 
     public static class MyExtensions

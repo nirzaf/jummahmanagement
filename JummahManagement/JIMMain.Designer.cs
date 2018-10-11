@@ -235,6 +235,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.TimerSlider = new System.Windows.Forms.Timer(this.components);
             this.SuggestedDhaeNames = new System.Windows.Forms.Timer(this.components);
+            this.BtnReload = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.JummaSchedule.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -2418,12 +2419,24 @@
             this.SuggestedDhaeNames.Interval = 10000;
             this.SuggestedDhaeNames.Tick += new System.EventHandler(this.SuggestedDhaeNames_Tick);
             // 
+            // BtnReload
+            // 
+            this.BtnReload.BackColor = System.Drawing.Color.White;
+            this.BtnReload.Location = new System.Drawing.Point(982, 2);
+            this.BtnReload.Name = "BtnReload";
+            this.BtnReload.Size = new System.Drawing.Size(103, 23);
+            this.BtnReload.TabIndex = 2;
+            this.BtnReload.Text = "Reload";
+            this.BtnReload.UseVisualStyleBackColor = false;
+            this.BtnReload.Click += new System.EventHandler(this.BtnReload_Click);
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1090, 877);
+            this.Controls.Add(this.BtnReload);
             this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -2694,6 +2707,7 @@
         private System.Windows.Forms.Label L1;
         private System.Windows.Forms.Timer SuggestedDhaeNames;
         private System.Windows.Forms.PictureBox ExportExcelReport;
+        private System.Windows.Forms.Button BtnReload;
     }
 }
 
