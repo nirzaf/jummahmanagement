@@ -86,99 +86,36 @@ namespace JummahManagement.Data
         }
 
         //Function to Add new City
-        public int AddCity(string City)
-        {
-            try
-            {
-                int result = 0;
-                try
-                {
-                    if (ConnectionState.Closed == newCon.Con.State)
-                    {
-                        newCon.Con.Open();
-                        SqlCommand Check_City = new SqlCommand("SELECT * FROM tbl_City WHERE City = '" + City + "'", newCon.Con);
-                        SqlDataReader reader = Check_City.ExecuteReader();
+	public int AddCity(string City)
+	{
 
-                        if (reader.HasRows)
-                        {
-                            try
-                            {
-                                reader.Close();
-                                return result;
-                            }
-                            catch (Exception)
-                            {
-                                throw;
-                            }
-                        }
-                        else
-                        {
-                            try
-                            {
-                                SqlCommand cmd = new SqlCommand("INSERT INTO tbl_City (City) VALUES ('" + City + "')", newCon.Con);
-                                cmd.ExecuteNonQuery();
-                                result = 1;
-                                reader.Close();
-                                newCon.Con.Close();
-                                return result;
-                            }
-                            catch (Exception)
-                            {
-                                reader.Close();
-                                newCon.Con.Close();
-                                return result;
-                            }
-                        }
+	    int result = 0;
+	    try
+	    {
+		// will throw an exception if there is an error connecting to the database
+		if(ConnectionState.Close == newCon.Con.State){
+			newCon.Con.Open();
+		}
 
-                    }
-                    else
-                    {
-                        SqlCommand Check_City = new SqlCommand("SELECT * FROM tbl_City WHERE City = '" + City + "'", newCon.Con);
-                        SqlDataReader reader = Check_City.ExecuteReader();
+		// removing whitespaces at start and end
+		City = City.Trim();
 
-                        if (reader.HasRows)
-                        {
-                            try
-                            {
-                                reader.Close();
-                                return result;
-                            }
-                            catch (Exception)
-                            {
-                                throw;
-                            }
-                        }
-                        else
-                        {
-                            try
-                            {
-                                SqlCommand cmd = new SqlCommand("INSERT INTO tbl_City (City) VALUES ('" + City + "')", newCon.Con);
-                                cmd.ExecuteNonQuery();
-                                result = 1;
-                                reader.Close();
-                                newCon.Con.Close();
-                                return result;
-                            }
-                            catch (Exception)
-                            {
-                                reader.Close();
-                                newCon.Con.Close();
-                                return result;
-                            }
-                        }
-                    }
-                }
-                catch (Exception)
-                {
+		//INSERT will return success only if the City is not exists in the table otherwise will throw an exception
+		SqlCommand Add_City_Query = new SqlCommand("INSERT INTO tbl_City (City) VALUES ('" + City + "')", newCon.Con);
+		Add_City_Query.ExecuteNonQuery();
+		//City is Added
+		result = 1;
+		newCon.Con.Close();
+		return result;
 
-                    throw;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+	    }
+	    catch (Exception ex)
+	    {
+		Console.WriteLine(ex.ToString());
+		return result;
+	    }
+
+	}
 
         //function to insert Dhae Details in Temporary Dhae Details Table
         public void InsertDhaeDetailsToTempTable(string DhaeName)
@@ -200,106 +137,34 @@ namespace JummahManagement.Data
         }
 
         //Function to Add New Dhae Details
-        public int AddDhae(int Dhae_ID, string Dhae_Name, string Dhae_Contact, string House_No,string Street_Name, string City, string District)
-        {
-            try
-            {
-                int result = 0;
-                try
-                {
-                    if (ConnectionState.Closed == newCon.Con.State)
-                    {
-                        newCon.Con.Open();
-                        SqlCommand Check_Dhae_ID = new SqlCommand("SELECT * FROM tbl_Dhae WHERE Dhae_ID = '" + Dhae_ID + "'", newCon.Con);
-                        SqlDataReader reader = Check_Dhae_ID.ExecuteReader();
+	public int AddDhae(int Dhae_ID, string Dhae_Name, string Dhae_Contact, string House_No,string Street_Name, string City, string District)
+        {	
+		int result = 0;
+	    try
+	    {
+		// will throw an exception if there is an error connecting to the database
+		//will be handled in the catch statement
+		if(ConnectionState.Close == newCon.Con.State){
+			newCon.Con.Open();
+		}
 
-                        if (reader.HasRows)
-                        {
-                            try
-                            {
-                                reader.Close();
-                                return result;
-                            }
-                            catch (Exception)
-                            {
-                                throw;
-                            }
-                        }
-                        else
-                        {
-                            try
-                            {
-                                SqlCommand cmd = new SqlCommand("INSERT INTO tbl_Dhae (Dhae_ID,Dhae_Name,Dhae_Contact,House_No,Street_Name,City,District) VALUES ('" + Dhae_ID + "','" + Dhae_Name + "','" + Dhae_Contact + "','" + House_No + "','" + Street_Name + "','" + City + "','" + District + "')", newCon.Con);
-                                cmd.ExecuteNonQuery();
-                                result = 1;
-                                reader.Close();
-                                newCon.Con.Close();
-                                return result;
-                            }
-                            catch (Exception)
-                            {
-                                reader.Close();
-                                newCon.Con.Close();
-                                return result;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        try
-                        {
-                            SqlCommand Check_Dhae = new SqlCommand("SELECT * FROM tbl_Dhae WHERE Dhae_ID = '" + Dhae_ID + "'", newCon.Con);
-                            SqlDataReader reader = Check_Dhae.ExecuteReader();
 
-                            if (reader.HasRows)
-                            {
-                                try
-                                {
-                                    reader.Close();
-                                    return result;
-                                }
-                                catch (Exception)
-                                {
-                                    throw;
-                                }
-                            }
-                            else
-                            {
-                                try
-                                {
-                                    SqlCommand cmd = new SqlCommand("INSERT INTO tbl_Dhae (Dhae_ID,Dhae_Name,Dhae_Contact,House_No,Street_Name,City,District) VALUES ('" + Dhae_ID + "','" + Dhae_Name + "','" + Dhae_Contact + "','" + House_No + "','" + Street_Name + "','" + City + "','" + District + "')", newCon.Con); 
-                                    cmd.ExecuteNonQuery();
-                                    result = 1;
-                                    reader.Close();
-                                    newCon.Con.Close();
-                                    return result;
-                                }
-                                catch (Exception)
-                                {
-                                    reader.Close();
-                                    newCon.Con.Close();
-                                    return result;
-                                }
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            newCon.Con.Close();
-                            throw;
-                        }
+		//INSERT will return success only if the City is not exists in the table otherwise will throw an exception
+		SqlCommand Add_Dhae_Query = new SqlCommand("INSERT INTO tbl_Dhae (Dhae_ID,Dhae_Name,Dhae_Contact,House_No,Street_Name,City,District) VALUES ('" + Dhae_ID + "','" + Dhae_Name + "','" + Dhae_Contact + "','" + House_No + "','" + Street_Name + "','" + City + "','" + District + "')", newCon.Con);
+		Add_Dhae_Query.ExecuteNonQuery();
+		//Dhae is Added
+		result = 1;
+		newCon.Con.Close();
+		return result;
 
-                    }
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+	    }
+	    catch (Exception ex)
+	    {
+		Console.WriteLine(ex.ToString());
+		return result;
+	    }
+
+	}
 
         //Function to move the deleted Dhae details to Temporary Table
         public int InsertDhaeDetailsToDeleted(int Dhae_ID)
