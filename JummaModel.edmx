@@ -1,0 +1,349 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dbJummah_ManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tbl_Branches">
+          <Key>
+            <PropertyRef Name="Branch_ID" />
+          </Key>
+          <Property Name="Branch_ID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Branch_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="JIP_Name" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="JIP_Contact" Type="nchar" MaxLength="15" Nullable="false" />
+          <Property Name="No" Type="int" />
+          <Property Name="Street_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="District" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_Branches_Deleted">
+          <Key>
+            <PropertyRef Name="Branch_ID" />
+          </Key>
+          <Property Name="Branch_ID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Branch_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="JIP_Name" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="JIP_Contact" Type="nchar" MaxLength="15" Nullable="false" />
+          <Property Name="No" Type="int" />
+          <Property Name="Street_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="District" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbl_City">
+          <Key>
+            <PropertyRef Name="City_ID" />
+          </Key>
+          <Property Name="City_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Dhae">
+          <Key>
+            <PropertyRef Name="Dhae_ID" />
+          </Key>
+          <Property Name="Dhae_ID" Type="int" Nullable="false" />
+          <Property Name="Dhae_Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Dhae_Contact" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="House_No" Type="nchar" MaxLength="10" />
+          <Property Name="Street_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="District" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="tbl_Dhae_Deleted">
+          <Key>
+            <PropertyRef Name="Dhae_ID" />
+          </Key>
+          <Property Name="Dhae_ID" Type="int" Nullable="false" />
+          <Property Name="Dhae_Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Dhae_Contact" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="House_No" Type="nchar" MaxLength="10" />
+          <Property Name="Street_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="District" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="tbl_Jummah_Schedule">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Row_Count" Type="int" Nullable="false" />
+          <Property Name="Dhae_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Dhae_Contact" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Branch_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="JIP_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="JIP_Contact" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Date" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Jummah_Schedule_temp">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Row_Count" Type="int" Nullable="false" />
+          <Property Name="Dhae_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Dhae_Contact" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Branch_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="JIP_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="JIP_Contact" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Date" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="dbJummah_ManagementModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Branches" EntityType="Self.tbl_Branches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Branches_Deleted" EntityType="Self.tbl_Branches_Deleted" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_City" EntityType="Self.tbl_City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Dhae" EntityType="Self.tbl_Dhae" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Dhae_Deleted" EntityType="Self.tbl_Dhae_Deleted" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Jummah_Schedule" EntityType="Self.tbl_Jummah_Schedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Jummah_Schedule_temp" EntityType="Self.tbl_Jummah_Schedule_temp" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbJummah_ManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tbl_Branches">
+          <Key>
+            <PropertyRef Name="Branch_ID" />
+          </Key>
+          <Property Name="Branch_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Branch_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="JIP_Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="JIP_Contact" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="No" Type="Int32" />
+          <Property Name="Street_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="District" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbl_Branches_Deleted">
+          <Key>
+            <PropertyRef Name="Branch_ID" />
+          </Key>
+          <Property Name="Branch_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Branch_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="JIP_Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="JIP_Contact" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="No" Type="Int32" />
+          <Property Name="Street_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="District" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbl_City">
+          <Key>
+            <PropertyRef Name="City_ID" />
+          </Key>
+          <Property Name="City_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Dhae">
+          <Key>
+            <PropertyRef Name="Dhae_ID" />
+          </Key>
+          <Property Name="Dhae_ID" Type="Int32" Nullable="false" />
+          <Property Name="Dhae_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Dhae_Contact" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="House_No" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Street_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="District" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbl_Dhae_Deleted">
+          <Key>
+            <PropertyRef Name="Dhae_ID" />
+          </Key>
+          <Property Name="Dhae_ID" Type="Int32" Nullable="false" />
+          <Property Name="Dhae_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Dhae_Contact" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="House_No" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Street_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="District" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tbl_Jummah_Schedule">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Row_Count" Type="Int32" Nullable="false" />
+          <Property Name="Dhae_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Dhae_Contact" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Branch_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="JIP_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="JIP_Contact" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Jummah_Schedule_temp">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Row_Count" Type="Int32" Nullable="false" />
+          <Property Name="Dhae_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Dhae_Contact" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Branch_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="JIP_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="JIP_Contact" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="dbJummah_ManagementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="tbl_Branches" EntityType="Self.tbl_Branches" />
+          <EntitySet Name="tbl_Branches_Deleted" EntityType="Self.tbl_Branches_Deleted" />
+          <EntitySet Name="tbl_City" EntityType="Self.tbl_City" />
+          <EntitySet Name="tbl_Dhae" EntityType="Self.tbl_Dhae" />
+          <EntitySet Name="tbl_Dhae_Deleted" EntityType="Self.tbl_Dhae_Deleted" />
+          <EntitySet Name="tbl_Jummah_Schedule" EntityType="Self.tbl_Jummah_Schedule" />
+          <EntitySet Name="tbl_Jummah_Schedule_temp" EntityType="Self.tbl_Jummah_Schedule_temp" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbJummah_ManagementModelStoreContainer" CdmEntityContainer="dbJummah_ManagementEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="dbJummah_ManagementModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Branches">
+            <EntityTypeMapping TypeName="dbJummah_ManagementModel.tbl_Branches">
+              <MappingFragment StoreEntitySet="tbl_Branches">
+                <ScalarProperty Name="Branch_ID" ColumnName="Branch_ID" />
+                <ScalarProperty Name="Branch_Name" ColumnName="Branch_Name" />
+                <ScalarProperty Name="JIP_Name" ColumnName="JIP_Name" />
+                <ScalarProperty Name="JIP_Contact" ColumnName="JIP_Contact" />
+                <ScalarProperty Name="No" ColumnName="No" />
+                <ScalarProperty Name="Street_Name" ColumnName="Street_Name" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="District" ColumnName="District" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Branches_Deleted">
+            <EntityTypeMapping TypeName="dbJummah_ManagementModel.tbl_Branches_Deleted">
+              <MappingFragment StoreEntitySet="tbl_Branches_Deleted">
+                <ScalarProperty Name="Branch_ID" ColumnName="Branch_ID" />
+                <ScalarProperty Name="Branch_Name" ColumnName="Branch_Name" />
+                <ScalarProperty Name="JIP_Name" ColumnName="JIP_Name" />
+                <ScalarProperty Name="JIP_Contact" ColumnName="JIP_Contact" />
+                <ScalarProperty Name="No" ColumnName="No" />
+                <ScalarProperty Name="Street_Name" ColumnName="Street_Name" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="District" ColumnName="District" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_City">
+            <EntityTypeMapping TypeName="dbJummah_ManagementModel.tbl_City">
+              <MappingFragment StoreEntitySet="tbl_City">
+                <ScalarProperty Name="City_ID" ColumnName="City_ID" />
+                <ScalarProperty Name="City" ColumnName="City" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Dhae">
+            <EntityTypeMapping TypeName="dbJummah_ManagementModel.tbl_Dhae">
+              <MappingFragment StoreEntitySet="tbl_Dhae">
+                <ScalarProperty Name="Dhae_ID" ColumnName="Dhae_ID" />
+                <ScalarProperty Name="Dhae_Name" ColumnName="Dhae_Name" />
+                <ScalarProperty Name="Dhae_Contact" ColumnName="Dhae_Contact" />
+                <ScalarProperty Name="House_No" ColumnName="House_No" />
+                <ScalarProperty Name="Street_Name" ColumnName="Street_Name" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="District" ColumnName="District" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Dhae_Deleted">
+            <EntityTypeMapping TypeName="dbJummah_ManagementModel.tbl_Dhae_Deleted">
+              <MappingFragment StoreEntitySet="tbl_Dhae_Deleted">
+                <ScalarProperty Name="Dhae_ID" ColumnName="Dhae_ID" />
+                <ScalarProperty Name="Dhae_Name" ColumnName="Dhae_Name" />
+                <ScalarProperty Name="Dhae_Contact" ColumnName="Dhae_Contact" />
+                <ScalarProperty Name="House_No" ColumnName="House_No" />
+                <ScalarProperty Name="Street_Name" ColumnName="Street_Name" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="District" ColumnName="District" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Jummah_Schedule">
+            <EntityTypeMapping TypeName="dbJummah_ManagementModel.tbl_Jummah_Schedule">
+              <MappingFragment StoreEntitySet="tbl_Jummah_Schedule">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Row_Count" ColumnName="Row_Count" />
+                <ScalarProperty Name="Dhae_Name" ColumnName="Dhae_Name" />
+                <ScalarProperty Name="Dhae_Contact" ColumnName="Dhae_Contact" />
+                <ScalarProperty Name="Branch_Name" ColumnName="Branch_Name" />
+                <ScalarProperty Name="JIP_Name" ColumnName="JIP_Name" />
+                <ScalarProperty Name="JIP_Contact" ColumnName="JIP_Contact" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Jummah_Schedule_temp">
+            <EntityTypeMapping TypeName="dbJummah_ManagementModel.tbl_Jummah_Schedule_temp">
+              <MappingFragment StoreEntitySet="tbl_Jummah_Schedule_temp">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Row_Count" ColumnName="Row_Count" />
+                <ScalarProperty Name="Dhae_Name" ColumnName="Dhae_Name" />
+                <ScalarProperty Name="Dhae_Contact" ColumnName="Dhae_Contact" />
+                <ScalarProperty Name="Branch_Name" ColumnName="Branch_Name" />
+                <ScalarProperty Name="JIP_Name" ColumnName="JIP_Name" />
+                <ScalarProperty Name="JIP_Contact" ColumnName="JIP_Contact" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

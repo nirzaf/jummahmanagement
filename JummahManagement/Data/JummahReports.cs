@@ -9,18 +9,42 @@ namespace JummahManagement.Data
     {
         DataCon newCon = new DataCon();
 
+        //Function to Complete DGV Dt Jumma Schedule
+        public DataTable LoadDGVdtJummaSchedule()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                if (newCon.Con.State == ConnectionState.Closed)
+                {
+                    newCon.Con.Open();
+                }
+                SqlDataAdapter cmdCat = new SqlDataAdapter("SELECT * FROM tbl_Jummah_Schedule_temp", newCon.Con);
+                cmdCat.Fill(dt);
+                newCon.CloseSQLConnecion();
+                return dt;
+            }
+            catch (Exception)
+            {
+                newCon.CloseSQLConnecion();
+                dt = null;
+                return dt;
+            }
+        }
+
         //Function to Complete Jumma Report
         public DataTable GetAll()
         {
             try
             {
-                if (ConnectionState.Closed == newCon.Con.State)
+                if (newCon.Con.State == ConnectionState.Closed)
                 {
                     newCon.Con.Open();
                 }
                 SqlDataAdapter cmdCat = new SqlDataAdapter("SELECT * FROM tbl_Jummah_Schedule", newCon.Con);
                 DataTable dt = new DataTable();
                 cmdCat.Fill(dt);
+                newCon.CloseSQLConnecion();
                 return dt;
             }
             catch (Exception)
@@ -34,13 +58,14 @@ namespace JummahManagement.Data
         {
             try
             {
-                if (ConnectionState.Closed == newCon.Con.State)
+                if (newCon.Con.State == ConnectionState.Closed)
                 {
                     newCon.Con.Open();
                 }
                 SqlDataAdapter cmdCat = new SqlDataAdapter("SELECT Branch_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "' AND Dhae_Name ='" + DhaeName + "' ", newCon.Con);
                 DataTable dt = new DataTable();
                 cmdCat.Fill(dt);
+                newCon.CloseSQLConnecion();
                 return dt;
             }
             catch (Exception)
@@ -54,13 +79,14 @@ namespace JummahManagement.Data
         {
             try
             {
-                if (ConnectionState.Closed == newCon.Con.State)
+                if (newCon.Con.State == ConnectionState.Closed)
                 {
                     newCon.Con.Open();
                 }
                 SqlDataAdapter cmdCat = new SqlDataAdapter("SELECT Dhae_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "' AND Branch_Name ='"+ BranchName +"' ", newCon.Con);
                 DataTable dt = new DataTable();
                 cmdCat.Fill(dt);
+                newCon.CloseSQLConnecion();
                 return dt;
             }
             catch (Exception)
@@ -74,15 +100,16 @@ namespace JummahManagement.Data
         {
             try
             {
-                if (ConnectionState.Closed == newCon.Con.State)
+                if (newCon.Con.State == ConnectionState.Closed)
                 {
                     newCon.Con.Open();
                 }
-                string query = "Select * From tbl_Jummah_Schedule Where Date = '" + Date + "'";
-                SqlDataAdapter sda = new SqlDataAdapter(query, newCon.Con);
+                SqlDataAdapter cmdCat = new SqlDataAdapter("Select * From tbl_Jummah_Schedule Where Date = '" + Date + "'", newCon.Con);
                 DataTable dt = new DataTable();
-                sda.Fill(dt);
+                cmdCat.Fill(dt);
+                newCon.CloseSQLConnecion();
                 return dt;
+
             }
             catch (Exception)
             {
@@ -95,13 +122,15 @@ namespace JummahManagement.Data
         {
             try
             {
-                if (ConnectionState.Closed == newCon.Con.State)
+                if (newCon.Con.State == ConnectionState.Closed)
                 {
                     newCon.Con.Open();
                 }
-                SqlDataAdapter cmdCat = new SqlDataAdapter("SELECT * FROM tbl_City", newCon.Con);
+                SqlDataAdapter cmdCat = new SqlDataAdapter("GetCities", newCon.Con);
+                cmdCat.SelectCommand.CommandType = CommandType.StoredProcedure;
                 DataTable dt = new DataTable();
                 cmdCat.Fill(dt);
+                newCon.CloseSQLConnecion();
                 return dt;
             }
             catch (Exception)
@@ -115,18 +144,20 @@ namespace JummahManagement.Data
         {
             int result = 0;
             try
-            {              
-                if (ConnectionState.Closed == newCon.Con.State)
+            {
+                if (newCon.Con.State == ConnectionState.Closed)
                 {
                     newCon.Con.Open();
                 }
                 SqlCommand cmd = new SqlCommand("UPDATE tbl_City SET City = '"+ CityName +"' WHERE City_ID = '"+ CityID +"'", newCon.Con);
                 cmd.ExecuteNonQuery();
                 result = 1;
+                newCon.CloseSQLConnecion();
                 return result;
             }
             catch (Exception ex)
             {
+                newCon.CloseSQLConnecion();
                 MessageBox.Show(ex.Message);
                 return result;
             }
@@ -137,12 +168,13 @@ namespace JummahManagement.Data
         {
             try
             {
-                if (ConnectionState.Closed == newCon.Con.State)
+                if (newCon.Con.State == ConnectionState.Closed)
                 {
                     newCon.Con.Open();
                 }
                 SqlDataAdapter cmdCat = new SqlDataAdapter("SELECT * FROM tbl_Jummah_Schedule Where Date = '"+ Date +"'", newCon.Con);
                 DataTable dt = new DataTable();
+                newCon.CloseSQLConnecion();
                 cmdCat.Fill(dt);
                 return dt;
             }
@@ -158,17 +190,19 @@ namespace JummahManagement.Data
             int result = 0;
             try
             {
-                if (ConnectionState.Closed == newCon.Con.State)
+                if (newCon.Con.State == ConnectionState.Closed)
                 {
                     newCon.Con.Open();
                 }
                 SqlCommand cmd = new SqlCommand("DELETE FROM tbl_Jummah_Schedule_temp Where ID = '" + RowID + "'", newCon.Con);
                 cmd.ExecuteNonQuery();
                 result = 1;
+                newCon.CloseSQLConnecion();
                 return result;
             }
             catch (Exception ex)
             {
+                newCon.CloseSQLConnecion();
                 MessageBox.Show(ex.Message);
                 return result;
             }
@@ -180,17 +214,19 @@ namespace JummahManagement.Data
             int result = 0;
             try
             {
-                if (ConnectionState.Closed == newCon.Con.State)
+                if (newCon.Con.State == ConnectionState.Closed)
                 {
                     newCon.Con.Open();
                 }
                 SqlCommand cmd = new SqlCommand("DELETE FROM tbl_Jummah_Schedule Where ID = '" + ID + "'", newCon.Con);
                 cmd.ExecuteNonQuery();
                 result = 1;
+                newCon.CloseSQLConnecion();
                 return result;
             }
             catch (Exception ex)
             {
+                newCon.CloseSQLConnecion();
                 MessageBox.Show(ex.Message);
                 return result;
             }
@@ -205,9 +241,8 @@ namespace JummahManagement.Data
                 int result = 0;
                 try
                 {
-                    if (ConnectionState.Closed == newCon.Con.State)
+                    if (newCon.Con.State == ConnectionState.Open)
                     {
-                        newCon.Con.Open();
                         SqlCommand Check_Dhae = new SqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Dhae_Name = '" + DhaeName + "'", newCon.Con);
                         SqlCommand Check_Branch = new SqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Branch_Name = '" + BranchName + "'", newCon.Con);
                         SqlDataReader reader = Check_Dhae.ExecuteReader();
@@ -223,6 +258,7 @@ namespace JummahManagement.Data
                             }
                             catch (Exception)
                             {
+                                newCon.CloseSQLConnecion();
                                 throw;
                             }
                         }
@@ -236,6 +272,7 @@ namespace JummahManagement.Data
                             }
                             catch (Exception)
                             {
+                                newCon.CloseSQLConnecion();
                                 throw;
                             }
                         }
@@ -247,13 +284,13 @@ namespace JummahManagement.Data
                                 cmd.ExecuteNonQuery();
                                 result = 1;
                                 reader.Close();
-                                newCon.Con.Close();
+                                newCon.CloseSQLConnecion();
                                 return result;
                             }
                             catch (Exception)
                             {
                                 reader.Close();
-                                newCon.Con.Close();
+                                newCon.CloseSQLConnecion();
                                 return result;
                             }
                         }
@@ -262,6 +299,10 @@ namespace JummahManagement.Data
                     {
                         try
                         {
+                            if (newCon.Con.State == ConnectionState.Closed)
+                            {
+                                newCon.Con.Open();
+                            }
                             SqlCommand Check_Dhae = new SqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Dhae_Name = '" + DhaeName + "'", newCon.Con);
                             SqlCommand Check_Branch = new SqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Branch_Name = '" + BranchName + "'", newCon.Con);
                             SqlDataReader reader = Check_Dhae.ExecuteReader();
@@ -277,6 +318,7 @@ namespace JummahManagement.Data
                                 }
                                 catch (Exception)
                                 {
+                                    newCon.CloseSQLConnecion();
                                     throw;
                                 }
                             }
@@ -286,10 +328,12 @@ namespace JummahManagement.Data
                                 {
                                     reader.Close();
                                     MessageBox.Show("This Branch Assigned Already");
+                                    newCon.CloseSQLConnecion();
                                     return result;
                                 }
                                 catch (Exception)
                                 {
+                                    newCon.CloseSQLConnecion();
                                     throw;
                                 }
                             }
@@ -297,17 +341,21 @@ namespace JummahManagement.Data
                             {
                                 try
                                 {
+                                    if (newCon.Con.State == ConnectionState.Closed)
+                                    {
+                                        newCon.Con.Open();
+                                    }
                                     SqlCommand cmd = new SqlCommand("INSERT INTO tbl_Jummah_Schedule_temp (Row_Count,Dhae_Name,Dhae_Contact,Branch_Name,JIP_Name,JIP_Contact,Date) VALUES ('" + RowCount + "','" + DhaeName + "','" + DhaeContact + "','" + BranchName + "','" + JIPName + "','" + JIPContact + "','" + Date + "')", newCon.Con);
                                     cmd.ExecuteNonQuery();
                                     result = 1;
                                     reader.Close();
-                                    newCon.Con.Close();
+                                    newCon.CloseSQLConnecion();
                                     return result;
                                 }
                                 catch (Exception)
                                 {
                                     reader.Close();
-                                    newCon.Con.Close();
+                                    newCon.CloseSQLConnecion();
                                     return result;
                                 }
                             }
@@ -336,13 +384,14 @@ namespace JummahManagement.Data
         {
             try
             {
-                if (ConnectionState.Closed == newCon.Con.State)
+                if (newCon.Con.State == ConnectionState.Closed)
                 {
                     newCon.Con.Open();
                 }
                 SqlDataAdapter cmdCat = new SqlDataAdapter("SELECT Branch_Name,Dhae_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "'", newCon.Con);
                 DataTable dt = new DataTable();
                 cmdCat.Fill(dt);
+                newCon.CloseSQLConnecion();
                 return dt;
             }
             catch (Exception)
@@ -356,7 +405,7 @@ namespace JummahManagement.Data
         {
             try
             {
-                    SqlCommand command = new SqlCommand(@"USE [dbJummah_Management]
+                    SqlCommand command = new SqlCommand(@"USE [JummahManagement]
                             DROP TABLE [dbo].[tbl_Jummah_Schedule_temp]
                             CREATE TABLE [dbo].[tbl_Jummah_Schedule_temp](
 	                            [ID] [int] IDENTITY(1,1) NOT NULL,
@@ -372,15 +421,16 @@ namespace JummahManagement.Data
 	                            [ID] ASC
                             )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
                             ) ON [PRIMARY]", newCon.Con);
-                if (ConnectionState.Closed == newCon.Con.State)
+                if (newCon.Con.State == ConnectionState.Closed)
                 {
                     newCon.Con.Open();
                 }
                 command.ExecuteNonQuery();
-                newCon.Con.Close();             
+                newCon.CloseSQLConnecion();
             }
             catch (Exception ex)
             {
+                newCon.CloseSQLConnecion();
                 MessageBox.Show(ex.Message);
             }
         }

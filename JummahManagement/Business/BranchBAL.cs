@@ -1,12 +1,72 @@
 ﻿using JummahManagement.Data;
 using System;
 using System.Data;
+using System.Windows.Forms;
 
 namespace JummahManagement.Business
 {
     class BranchBAL
     {
         BranchData bd = new BranchData();
+
+
+        //Function to Load all Branches
+        public DataTable LoadAllBraches()
+        {
+            try
+            {
+                DataTable dt = bd.LoadAllBraches();
+                return dt;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //Function to Load all Branches
+        public DataTable LoadBracheDetails()
+        {
+            try
+            {
+                DataTable dt = bd.LoadBracheDetails();
+                return dt;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        //Get Branch Count 
+        public DataTable GetRowCountForTempBranchTempTable()
+        {
+            try
+            {
+                DataTable dt = bd.GetRowCountForTempBranchTempTable();
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                throw;
+            }
+        }
+
+        //Function to Delete Branch data  From TempDhae table
+        public void DeleteBranchFromTempTable(string BranchName)
+        {
+            try
+            {
+                bd.DeleteBranchFromTempTable(BranchName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         //Function to Add Branch
         public int AddBranch(string Branch_ID, string Branch_Name, string JIP_Name, string JIP_Contact, string Building_No, string Street_Name, string City, string District)
         {
@@ -15,6 +75,19 @@ namespace JummahManagement.Business
                 int result = bd.AddBranch(Branch_ID,Branch_Name,JIP_Name,JIP_Contact,Building_No,Street_Name, City, District);
                 return result;
             }        
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        //Function to create temp branch Table
+        public void CreateTempBranchTable()
+        {
+            try
+            {
+                bd.CreateTempBranchTable();
+            }
             catch (Exception)
             {
                 throw;

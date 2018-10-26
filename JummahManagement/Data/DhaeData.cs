@@ -14,13 +14,14 @@ namespace JummahManagement.Data
         {
             try
             {
-                if (ConnectionState.Closed == newCon.Con.State)
+                if (newCon.Con.State == ConnectionState.Closed)
                 {
                     newCon.Con.Open();
                 }
                 SqlDataAdapter cmdCat = new SqlDataAdapter("SELECT Dhae_Name FROM tbl_Dhae_temp Where Dhae_Name <> '" + Dhae1 + "' AND Dhae_Name <> '" + Dhae2 + "' AND Dhae_Name <> '" + Dhae3 + "' AND Dhae_Name <> '" + Dhae4 + "' ORDER BY NEWID()", newCon.Con);
                 DataSet ds = new DataSet();
                 cmdCat.Fill(ds);
+                newCon.CloseSQLConnecion();
                 return ds;
             }
             catch (Exception)
@@ -34,13 +35,13 @@ namespace JummahManagement.Data
         {
             try
             {
-                if (ConnectionState.Closed == newCon.Con.State)
+                if (newCon.Con.State == ConnectionState.Closed)
                 {
                     newCon.Con.Open();
                 }
                 SqlCommand adp = new SqlCommand("Delete From tbl_Dhae_temp Where Dhae_Name = ('" + DhaeName + "')", newCon.Con);
                 adp.ExecuteNonQuery();
-                newCon.Con.Close();
+                newCon.CloseSQLConnecion();
             }
             catch (Exception ex)
             {
@@ -48,12 +49,12 @@ namespace JummahManagement.Data
             }
         }
 
-        //function to create temp Dhae Table
+        //Function to create temp Dhae Table
         public void CreateTempDhaeTable()
         {
             try
             {
-                SqlCommand command = new SqlCommand(@"USE [dbJummah_Management]
+                SqlCommand command = new SqlCommand(@"USE [JummahManagement]
                         DROP TABLE [dbo].[tbl_Dhae_temp]
                         SET ANSI_NULLS ON
                         SET QUOTED_IDENTIFIER ON
@@ -70,14 +71,19 @@ namespace JummahManagement.Data
 	                        [Dhae_ID] ASC
                         )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
                         ) ON [PRIMARY]", newCon.Con);
-                SqlCommand cmd = new SqlCommand(@"INSERT INTO tbl_Dhae_temp SELECT * FROM tbl_Dhae",newCon.Con);
-                if (ConnectionState.Closed == newCon.Con.State)
+                SqlCommand cmd = new SqlCommand(@"INSERT INTO tbl_Dhae_temp SELECT * FROM tbl_Dhae", newCon.Con);
+                if (newCon.Con.State == ConnectionState.Closed)
                 {
                     newCon.Con.Open();
                 }
                 command.ExecuteNonQuery();
+                newCon.CloseSQLConnecion();
+                if (newCon.Con.State == ConnectionState.Closed)
+                {
+                    newCon.Con.Open();
+                }
                 cmd.ExecuteNonQuery();
-                newCon.Con.Close();
+                newCon.CloseSQLConnecion();
             }
             catch (Exception ex)
             {
@@ -93,9 +99,8 @@ namespace JummahManagement.Data
                 int result = 0;
                 try
                 {
-                    if (ConnectionState.Closed == newCon.Con.State)
+                    if (newCon.Con.State == ConnectionState.Open)
                     {
-                        newCon.Con.Open();
                         SqlCommand Check_City = new SqlCommand("SELECT * FROM tbl_City WHERE City = '" + City + "'", newCon.Con);
                         SqlDataReader reader = Check_City.ExecuteReader();
 
@@ -119,13 +124,13 @@ namespace JummahManagement.Data
                                 cmd.ExecuteNonQuery();
                                 result = 1;
                                 reader.Close();
-                                newCon.Con.Close();
+                                newCon.CloseSQLConnecion();
                                 return result;
                             }
                             catch (Exception)
                             {
                                 reader.Close();
-                                newCon.Con.Close();
+                                newCon.CloseSQLConnecion();
                                 return result;
                             }
                         }
@@ -133,6 +138,10 @@ namespace JummahManagement.Data
                     }
                     else
                     {
+                        if (newCon.Con.State == ConnectionState.Closed)
+                        {
+                            newCon.Con.Open();
+                        }
                         SqlCommand Check_City = new SqlCommand("SELECT * FROM tbl_City WHERE City = '" + City + "'", newCon.Con);
                         SqlDataReader reader = Check_City.ExecuteReader();
 
@@ -156,13 +165,13 @@ namespace JummahManagement.Data
                                 cmd.ExecuteNonQuery();
                                 result = 1;
                                 reader.Close();
-                                newCon.Con.Close();
+                                newCon.CloseSQLConnecion();
                                 return result;
                             }
                             catch (Exception)
                             {
                                 reader.Close();
-                                newCon.Con.Close();
+                                newCon.CloseSQLConnecion();
                                 return result;
                             }
                         }
@@ -170,7 +179,6 @@ namespace JummahManagement.Data
                 }
                 catch (Exception)
                 {
-
                     throw;
                 }
             }
@@ -186,12 +194,12 @@ namespace JummahManagement.Data
             try
             {
                 SqlCommand cmd = new SqlCommand(@"INSERT INTO tbl_Dhae_temp SELECT * FROM tbl_Dhae Where Dhae_Name = '"+ DhaeName +"'", newCon.Con);
-                if (ConnectionState.Closed == newCon.Con.State)
+                if (newCon.Con.State == ConnectionState.Closed)
                 {
                     newCon.Con.Open();
                 }
                 cmd.ExecuteNonQuery();
-                newCon.Con.Close();
+                newCon.CloseSQLConnecion();
             }
             catch (Exception ex)
             {
@@ -207,9 +215,8 @@ namespace JummahManagement.Data
                 int result = 0;
                 try
                 {
-                    if (ConnectionState.Closed == newCon.Con.State)
+                    if (newCon.Con.State == ConnectionState.Open)
                     {
-                        newCon.Con.Open();
                         SqlCommand Check_Dhae_ID = new SqlCommand("SELECT * FROM tbl_Dhae WHERE Dhae_ID = '" + Dhae_ID + "'", newCon.Con);
                         SqlDataReader reader = Check_Dhae_ID.ExecuteReader();
 
@@ -218,11 +225,13 @@ namespace JummahManagement.Data
                             try
                             {
                                 reader.Close();
+                                newCon.CloseSQLConnecion();
                                 return result;
                             }
                             catch (Exception)
                             {
-                                throw;
+                                newCon.CloseSQLConnecion();
+                                return result;
                             }
                         }
                         else
@@ -233,13 +242,13 @@ namespace JummahManagement.Data
                                 cmd.ExecuteNonQuery();
                                 result = 1;
                                 reader.Close();
-                                newCon.Con.Close();
+                                newCon.CloseSQLConnecion();
                                 return result;
                             }
                             catch (Exception)
                             {
                                 reader.Close();
-                                newCon.Con.Close();
+                                newCon.CloseSQLConnecion();
                                 return result;
                             }
                         }
@@ -248,6 +257,10 @@ namespace JummahManagement.Data
                     {
                         try
                         {
+                            if (newCon.Con.State == ConnectionState.Closed)
+                            {
+                                newCon.Con.Open();
+                            }
                             SqlCommand Check_Dhae = new SqlCommand("SELECT * FROM tbl_Dhae WHERE Dhae_ID = '" + Dhae_ID + "'", newCon.Con);
                             SqlDataReader reader = Check_Dhae.ExecuteReader();
 
@@ -256,47 +269,55 @@ namespace JummahManagement.Data
                                 try
                                 {
                                     reader.Close();
+                                    newCon.CloseSQLConnecion();
                                     return result;
                                 }
                                 catch (Exception)
                                 {
-                                    throw;
+                                    newCon.CloseSQLConnecion();
+                                    return result;
                                 }
                             }
                             else
                             {
                                 try
                                 {
+                                    if (newCon.Con.State == ConnectionState.Closed)
+                                    {
+                                        newCon.Con.Open();
+                                    }
                                     SqlCommand cmd = new SqlCommand("INSERT INTO tbl_Dhae (Dhae_ID,Dhae_Name,Dhae_Contact,House_No,Street_Name,City,District) VALUES ('" + Dhae_ID + "','" + Dhae_Name + "','" + Dhae_Contact + "','" + House_No + "','" + Street_Name + "','" + City + "','" + District + "')", newCon.Con); 
                                     cmd.ExecuteNonQuery();
                                     result = 1;
                                     reader.Close();
-                                    newCon.Con.Close();
+                                    newCon.CloseSQLConnecion();
                                     return result;
                                 }
                                 catch (Exception)
                                 {
                                     reader.Close();
-                                    newCon.Con.Close();
+                                    newCon.CloseSQLConnecion();
                                     return result;
                                 }
                             }
                         }
                         catch (Exception)
                         {
-                            newCon.Con.Close();
-                            throw;
+                            newCon.CloseSQLConnecion();
+                            return result;
                         }
 
                     }
                 }
                 catch (Exception)
                 {
-                    throw;
+                    newCon.CloseSQLConnecion();
+                    return result;
                 }
             }
             catch (Exception)
             {
+                newCon.CloseSQLConnecion();
                 throw;
             }
         }
@@ -307,18 +328,19 @@ namespace JummahManagement.Data
             int result = 0; 
             try
             {
-                SqlCommand cmd = new SqlCommand(@"INSERT INTO tbl_Dhae_Deleted SELECT * FROM tbl_Dhae Where Dhae_ID = '" + Dhae_ID + "'", newCon.Con);
-                if (ConnectionState.Closed == newCon.Con.State)
+                if (newCon.Con.State == ConnectionState.Closed)
                 {
                     newCon.Con.Open();
                 }
+                SqlCommand cmd = new SqlCommand(@"INSERT INTO tbl_Dhae_Deleted SELECT * FROM tbl_Dhae Where Dhae_ID = '" + Dhae_ID + "'", newCon.Con);                
                 cmd.ExecuteNonQuery();
-                newCon.Con.Close();
                 result = 1;
+                newCon.CloseSQLConnecion();
                 return result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                MessageBox.Show(ex.Message);
                 return result;
             }
         }
@@ -328,7 +350,7 @@ namespace JummahManagement.Data
         {
             try
             {
-                if (ConnectionState.Closed == newCon.Con.State)
+                if (newCon.Con.State == ConnectionState.Closed)
                 {
                     newCon.Con.Open();
                 }
@@ -336,10 +358,35 @@ namespace JummahManagement.Data
                 SqlDataAdapter sda = new SqlDataAdapter(query, newCon.Con);
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
+                newCon.CloseSQLConnecion();
                 return dt;
             }
             catch (Exception)
             {
+                newCon.CloseSQLConnecion();
+                throw;
+            }
+        }
+
+        //Function to Load All Dhae Details
+        public DataTable LoadDhaes()
+        {
+            try
+            {
+                if (newCon.Con.State == ConnectionState.Closed)
+                {
+                    newCon.Con.Open();
+                }
+                string query = "Select Dhae_ID,Dhae_Name,Dhae_Contact,City,District From tbl_Dhae";
+                SqlDataAdapter sda = new SqlDataAdapter(query, newCon.Con);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                newCon.CloseSQLConnecion();
+                return dt;
+            }
+            catch (Exception)
+            {
+                newCon.CloseSQLConnecion();
                 throw;
             }
         }
@@ -349,7 +396,7 @@ namespace JummahManagement.Data
         {
             try
             {
-                if (ConnectionState.Closed == newCon.Con.State)
+                if (newCon.Con.State == ConnectionState.Closed)
                 {
                     newCon.Con.Open();
                 }
@@ -357,10 +404,12 @@ namespace JummahManagement.Data
                 SqlDataAdapter sda = new SqlDataAdapter(query, newCon.Con);
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
+                newCon.CloseSQLConnecion();
                 return dt;
             }
             catch (Exception)
             {
+                newCon.CloseSQLConnecion();
                 throw;
             }
         }
@@ -371,19 +420,20 @@ namespace JummahManagement.Data
             int result = 0;
             try
             {
-                if (ConnectionState.Closed == newCon.Con.State)
+                if (newCon.Con.State == ConnectionState.Closed)
                 {
                     newCon.Con.Open();
                 }
                 SqlDataAdapter adp = new SqlDataAdapter("Update tbl_Dhae set Dhae_Name = ('" + Dhae_Name + "'), Dhae_Contact = ('" + Dhae_Contact + "'), House_No = ('" + Dhae_House_No + "'), Street_Name = ('" + Dhae_Street_Name + "'), City = ('" + Dhae_City + "'), District = ('" + Dhae_District + "') Where Dhae_ID = '" + Dhae_ID + "'", newCon.Con);
                 DataTable dt = new DataTable();
                 adp.Fill(dt);
-                newCon.Con.Close();
                 result = 1;
+                newCon.CloseSQLConnecion();
                 return result;
             }
             catch (Exception)
             {
+                newCon.CloseSQLConnecion();
                 return result;
             }
         }
@@ -395,17 +445,19 @@ namespace JummahManagement.Data
             int result = 0;
             try
             {
-                if (ConnectionState.Closed == newCon.Con.State)
+                if (newCon.Con.State == ConnectionState.Closed)
                 {
                     newCon.Con.Open();
                 }
                 SqlCommand adp = new SqlCommand("Delete From tbl_Dhae Where Dhae_ID = ('" + Dhae_ID + "')", newCon.Con);
                 adp.ExecuteNonQuery();
                 result = 1;
+                newCon.CloseSQLConnecion();
                 return result;
             }
             catch (Exception)
             {
+                newCon.CloseSQLConnecion();
                 return result;
             }
         }
@@ -415,7 +467,7 @@ namespace JummahManagement.Data
         {
             try
             {
-                if (ConnectionState.Closed == newCon.Con.State)
+                if (newCon.Con.State == ConnectionState.Closed)
                 {
                     newCon.Con.Open();
                 }
@@ -423,10 +475,12 @@ namespace JummahManagement.Data
                 SqlDataAdapter sda = new SqlDataAdapter(query, newCon.Con);
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
+                newCon.CloseSQLConnecion();
                 return dt;
             }
             catch (Exception)
             {
+                newCon.CloseSQLConnecion();
                 throw;
             }
         }
@@ -436,7 +490,7 @@ namespace JummahManagement.Data
         {
             try
             {
-                if (ConnectionState.Closed == newCon.Con.State)
+                if (newCon.Con.State == ConnectionState.Closed)
                 {
                     newCon.Con.Open();
                 }
@@ -444,10 +498,12 @@ namespace JummahManagement.Data
                 SqlDataAdapter sda = new SqlDataAdapter(query, newCon.Con);
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
+                newCon.CloseSQLConnecion();
                 return dt;
             }
             catch (Exception)
             {
+                newCon.CloseSQLConnecion();
                 throw;
             }
         }
@@ -457,7 +513,7 @@ namespace JummahManagement.Data
         {
             try
             {
-                if (ConnectionState.Closed == newCon.Con.State)
+                if (newCon.Con.State == ConnectionState.Closed)
                 {
                     newCon.Con.Open();
                 }
@@ -465,10 +521,12 @@ namespace JummahManagement.Data
                 SqlDataAdapter sda = new SqlDataAdapter(query, newCon.Con);
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
+                newCon.CloseSQLConnecion();
                 return dt;
             }
             catch (Exception)
             {
+                newCon.CloseSQLConnecion();
                 throw;
             }
         }

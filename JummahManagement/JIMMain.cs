@@ -13,6 +13,7 @@ using System.Drawing;
 using Spire.Pdf;
 using Spire.Pdf.Graphics;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace JummahManagement
 {
@@ -34,25 +35,41 @@ namespace JummahManagement
 
         public main()
         {
+            Thread t = new Thread(new ThreadStart(SplashScreen));
+            t.Start();
+            Thread.Sleep(30000);
             InitializeComponent();
-            
+            t.Abort();
         }
 
         private void main_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'dbJummah_ManagementDataSet3.tbl_Jummah_Schedule_temp' table. You can move, or remove it, as needed.
-            DhaeData dd = new DhaeData();
             try
             {
-                tbl_Jummah_Schedule_tempTableAdapter.Fill(dbJummah_ManagementDataSet3.tbl_Jummah_Schedule_temp);
+                dtPickerScheduleReport.Focus();
+                LoadMainFormElements();
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+            }
+        }
+
+        public void SplashScreen()
+        {
+            Application.Run(new SplashScreen());
+        }
+
+        public void LoadMainFormElements()
+        {
+            try
+            {
                 dtCityNames.DataSource = rb.GetCity();
                 dtCityNames.Columns["City_ID"].Visible = false;
-                // TODO: This line of code loads data into the 'dbJummah_ManagementDataSet2.tbl_Branches' table. You can move, or remove it, as needed.
-                tbl_BranchesTableAdapter.Fill(this.dbJummah_ManagementDataSet2.tbl_Branches);
-                // TODO: This line of code loads data into the 'dbJummah_ManagementDataSet1.tbl_Dhae' table. You can move, or remove it, as needed.
-                tbl_DhaeTableAdapter.Fill(dbJummah_ManagementDataSet1.tbl_Dhae);
-                // TODO: This line of code loads data into the 'dbJummah_ManagementDataSet.tbl_City' table. You can move, or remove it, as needed.
-                tbl_CityTableAdapter.Fill(this.dbJummah_ManagementDataSet.tbl_City);
+                LblOverDTPicker.Visible = false;
+                LblSelectedJummahDate.Visible = false;
+                BlinkDatePicker();
+                LoanMainUIElements();
                 FormLoad();
                 LoadBranchNames();
                 LoadDhaeNames();
@@ -64,17 +81,68 @@ namespace JummahManagement
                 LoadFilterByBranchNameReport();
                 LoadFilterByDhaeContactNumber();
                 LoadFilterByJummahInchargePerson();
-                lblMessage.Text = "";
-                L1.Text = "";
-                L2.Text = "";
-                L3.Text = "";
-                L4.Text = "";
+                LoadDGVDtJummahSchedule();
+                LoadTextBoxes();
+                DGVDhaeDetails.DataSource = db.LoadDhaes();
+                DGVBranchDetails.DataSource = bb.LoadAllBraches();
             }
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message;
             }
+        }
 
+        public void LoanMainUIElements()
+        {
+            try
+            {
+                PanelBranchesLeft.Width = 0;
+                DhaeData dd = new DhaeData();
+                DataTable dtBranches = bb.LoadAllBraches();
+                if (dtBranches.Rows.Count > 0)
+                {
+                    LblTotalBraches.Text = dtBranches.Rows.Count.ToString();
+                }
+                DataTable dtDhaes = db.GetAllDhaeNames();
+                if (dtDhaes.Rows.Count > 0)
+                {
+                    LblTotalDhaeCount.Text = dtDhaes.Rows.Count.ToString();
+                }
+                if (dtJummaSchedule.Rows.Count > 1)
+                {
+                    BtnShowPendingBranches.Visible = true;
+                }
+                DataTable DhaeList = db.LoadDhaes();
+                DGVDhaeDetails.DataSource = DhaeList;
+                DataTable BranchList = bb.LoadBracheDetails();
+                DGVBranchDetails.DataSource = BranchList;
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+            }
+        }
+
+        private async void BlinkDatePicker()
+        {
+            while (true)
+            {
+                await Task.Delay(1000);
+                LblDTPicker.BackColor = LblDTPicker.BackColor == Color.White ? Color.Black : Color.White;            
+            }
+        }
+
+        public void LoadTextBoxes()
+        {
+            lblMessage.Text = "";
+            L1.Text = "";
+            L2.Text = "";
+            L3.Text = "";
+            L4.Text = "";
+        }
+        public void LoadDGVDtJummahSchedule()
+        {
+            dtJummaSchedule.DataSource = jr.LoadDGVdtJummaSchedule();
         }
 
         public void LoadFilterByDhaeNameReport()
@@ -219,22 +287,14 @@ namespace JummahManagement
             dtInchargeReport.Columns.Add("Incharge_Contact", "Incharge Contact");
             dtInchargeReport.Columns.Add("Date", "Jummah Date ,Dhae Details ");
         }
+        
         //Function to Relaod All DGV
         private void Reload()
         {
-            // TODO: This line of code loads data into the 'dbJummah_ManagementDataSet3.tbl_Jummah_Schedule_temp' table. You can move, or remove it, as needed.
-            tbl_Jummah_Schedule_tempTableAdapter.Fill(dbJummah_ManagementDataSet3.tbl_Jummah_Schedule_temp);
             try
             {
-                dtCityNames.DataSource = rb.GetCity();
+                //dtCityNames.DataSource = rb.GetCity();
                 dtCityNames.Columns["City_ID"].Visible = false;
-                // TODO: This line of code loads data into the 'dbJummah_ManagementDataSet2.tbl_Branches' table. You can move, or remove it, as needed.
-                tbl_BranchesTableAdapter.Fill(this.dbJummah_ManagementDataSet2.tbl_Branches);
-                // TODO: This line of code loads data into the 'dbJummah_ManagementDataSet1.tbl_Dhae' table. You can move, or remove it, as needed.
-                tbl_DhaeTableAdapter.Fill(dbJummah_ManagementDataSet1.tbl_Dhae);
-                // TODO: This line of code loads data into the 'dbJummah_ManagementDataSet.tbl_City' table. You can move, or remove it, as needed.
-                tbl_CityTableAdapter.Fill(this.dbJummah_ManagementDataSet.tbl_City);
-
                 AutoCompleteStringCollection DhaeNames = new AutoCompleteStringCollection();
                 DataTable dt = db.GetAllDhaeNames();
                 foreach (DataRow dr in dt.Rows)
@@ -259,18 +319,6 @@ namespace JummahManagement
 
         }
 
-        private void fillByToolStripButton_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                this.tbl_CityTableAdapter.FillBy(this.dbJummah_ManagementDataSet.tbl_City);
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = ex.Message;
-            }
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             if (txtAddNewCity.Visible == false && btnAddNewCity.Visible == false)
@@ -290,47 +338,112 @@ namespace JummahManagement
 
         private void btnAddDhae_Click(object sender, EventArgs e)
         {
-            int Dhae_ID = Convert.ToInt32(txtDhaeID.Text);
-            string Dhae_Name = txtDhaeName.Text.Trim();
-            string DhaeContactNo = txtDhaeContact.Text.Trim();
-            string HouseNo = txtHouseNo.Text.Trim();
-            string StreetName = txtStreetName.Text.Trim();
-            string City = TxtCityNames.Text.Trim();
-            string District = TxtDistrictNames1.Text.Trim();
-            int result = db.AddDhae(Dhae_ID,Dhae_Name,DhaeContactNo,HouseNo,StreetName,City,District);
+            if (txtDhaeID.Text.Trim() != "" && txtDhaeName.Text.Trim() != "" && txtDhaeContact.Text.Trim() != "")
+            {
+                try
+                {
+                    int Dhae_ID = Convert.ToInt32(txtDhaeID.Text);
+                    string Dhae_Name = txtDhaeName.Text.Trim();
+                    string DhaeContactNo = txtDhaeContact.Text.Trim();
+                    string HouseNo = txtHouseNo.Text.Trim();
+                    string StreetName = txtStreetName.Text.Trim();
+                    string City = TxtCityNames.Text.Trim();
+                    string District = TxtDistrictNames1.Text.Trim();
+                    int result = db.AddDhae(Dhae_ID, Dhae_Name, DhaeContactNo, HouseNo, StreetName, City, District);
+                    if (result == 1)
+                    {
+                        lblMessage.Text = "Successfully Added";
+                        DataTable dtDhaes = db.GetAllDhaeNames();
+                        if (dtDhaes.Rows.Count > 0)
+                        {
+                            LblTotalDhaeCount.Text = dtDhaes.Rows.Count.ToString();
+                            DGVDhaeDetails.DataSource = db.LoadDhaes();
+                        }
+                        LoadDhaeNames();
+                    }
+                    else
+                    {
+                        lblMessage.Text = "Something Went wrong";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+
+            }
+            else
+            {
+                if (txtDhaeID.Text.Trim() == "")
+                {
+                    lblMessage.Text = "Dhae ID Should not be blank";
+                    txtDhaeID.Focus();
+                }
+                else if (txtDhaeName.Text.Trim() == "")
+                {
+                    lblMessage.Text = "Dhae Name Should not be blank";
+                    txtDhaeName.Focus();
+                }
+                else if (txtDhaeContact.Text.Trim() == "")
+                {
+                    lblMessage.Text = "Dhae Contact Should not be blank";
+                    txtDhaeContact.Focus();
+                }
+            }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            if (txtBranchID.Text.Trim() != "" && txtBranchName.Text.Trim() != "" && txtJIT_Name.Text.Trim() != "" && txtJIT_Contact.Text.Trim() != "")
+            {
+                string Branch_ID = txtBranchID.Text.Trim();
+                string Branch_Name = txtBranchName.Text.Trim();
+                string JIT_Name = txtJIT_Name.Text.Trim();
+                string JIT_Contact = txtJIT_Contact.Text.Trim();
+                string BuildingNo = txtBuildingNo.Text.Trim();
+                string StreetName = txtStreet.Text.Trim();
+                string City = TxtCityNames1.Text.Trim();
+                string District = TxtDistrictNames.Text.Trim();
+
+                int result = bb.AddBranch(Branch_ID, Branch_Name, JIT_Name, JIT_Contact, BuildingNo, StreetName, City, District);
                 if (result == 1)
                 {
                     lblMessage.Text = "Successfully Added";
-                    LoadDhaeNames();
-                    tbl_DhaeTableAdapter.Fill(dbJummah_ManagementDataSet1.tbl_Dhae);
+                    DataTable dtBranches = bb.LoadAllBraches();
+                    DGVBranchDetails.DataSource = dtBranches;
+                    if (dtBranches.Rows.Count > 0)
+                    {
+                        LblTotalBraches.Text = dtBranches.Rows.Count.ToString();
+                    }
+                    LoadBranchNames();
                 }
                 else
                 {
                     lblMessage.Text = "Something Went wrong";
                 }
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            string Branch_ID = txtBranchID.Text.Trim();
-            string Branch_Name = txtBranchName.Text.Trim();
-            string JIT_Name = txtJIT_Name.Text.Trim();
-            string JIT_Contact = txtJIT_Contact.Text.Trim();
-            string BuildingNo = txtBuildingNo.Text.Trim();
-            string StreetName = txtStreet.Text.Trim();
-            string City = TxtCityNames1.Text.Trim();
-            string District = TxtDistrictNames.Text.Trim();
-
-            int result = bb.AddBranch(Branch_ID, Branch_Name, JIT_Name, JIT_Contact, BuildingNo, StreetName, City, District);
-            if (result == 1)
-            {
-                lblMessage.Text =  "Successfully Added";
-                LoadBranchNames();
-                tbl_BranchesTableAdapter.Fill(this.dbJummah_ManagementDataSet2.tbl_Branches);
             }
             else
             {
-                lblMessage.Text =  "Something Went wrong";
+                if (txtBranchID.Text.Trim() == "")
+                {
+                    lblMessage.Text = "Branch ID Should not be Blank";
+                    txtBranchID.Focus();
+                }
+                else if(txtBranchName.Text.Trim()=="")
+                {
+                    lblMessage.Text = "Branch Name Should not be Blank";
+                    txtBranchName.Focus();
+                }
+                else if (txtJIT_Name.Text.Trim() == "")
+                {
+                    lblMessage.Text = "Jummah Incharge Person Name Should not be Blank";
+                    txtJIT_Name.Focus();
+                }
+                else if (txtJIT_Contact.Text.Trim() == "")
+                {
+                    lblMessage.Text = "Jummah Incharge Person Contact Number should not be Blank";
+                    txtJIT_Contact.Focus();
+                }
             }
         }
 
@@ -340,7 +453,7 @@ namespace JummahManagement
             int result = db.AddCity(City);
             if (result == 1)
             {
-                lblMessage.Text =  "Added";
+                lblMessage.Text = "Added";
                 txtAddNewCity.Visible = false;
                 btnAddNewCity.Visible = false;
                 AutoCompleteStringCollection CityNames = new AutoCompleteStringCollection();
@@ -427,8 +540,8 @@ namespace JummahManagement
             }
             catch (Exception ex)
             {
-               lblMessage.Text= ex.Message;
-            } 
+                lblMessage.Text = ex.Message;
+            }
         }
 
         private void btnUpdateBranchdetails_Click(object sender, EventArgs e)
@@ -497,7 +610,7 @@ namespace JummahManagement
             {
                 lblMessage.Text = ex.Message;
             }
-            
+
         }
 
         private void btnDhaeDetailsReset_Click(object sender, EventArgs e)
@@ -534,63 +647,22 @@ namespace JummahManagement
                 string UpdateBranchBuildingNo = txtUpdateBuildingNo.Text.Trim();
                 string UpdateBranchStreetName = txtUpdateBranchStreetName.Text.Trim();
                 string UpdateBranchCity = txtUpdateBranchCity.Text.Trim();
-                string UpdateBranchDistrict = txtUpdateBranchDistrictName.Text.Trim();              
+                string UpdateBranchDistrict = txtUpdateBranchDistrictName.Text.Trim();
                 int result = bb.UpdateBranchDetails(UpdateBranchID, UpdateBranchName, UpdateBranchJIPName, UpdateBranchJIPContact, UpdateBranchBuildingNo, UpdateBranchStreetName, UpdateBranchCity, UpdateBranchDistrict);
                 if (result == 1)
-                  {
+                {
                     lblMessage.Text = "Branch Details Successfully Updated";
-                  }
-                  else
-                  {
-                        lblMessage.Text = "Some thing went wrong";
-                  }              
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = ex.Message; 
-            }
-            
-        }
-
-        //Function to Delete Dhae details
-        private void btnDeleteDhaeDetails_Click(object sender, EventArgs e)
-        {
-            int Dhae_ID = Convert.ToInt32(txtDeleteDhaeByID.Text);
-            int result = db.InsertDhaeDetailsToDeleted(Dhae_ID);
-            try
-            {
-                    if (result == 1)
-                    {
-                        int re = db.DeleteDhaeDetails(Dhae_ID);
-                        if (re == 1)
-                        {
-                            lblMessage.Text = "Dhae Details Deleted Successfully";
-                            tbl_DhaeTableAdapter.Fill(dbJummah_ManagementDataSet1.tbl_Dhae);
-                        }
-                        else
-                        {
-                            lblMessage.Text = "Something Went wrong";
-                        }
-                    }
-                    else
-                    {
-                        lblMessage.Text = "Oops! ... Something Went wrong";
-                    }
+                }
+                else
+                {
+                    lblMessage.Text = "Some thing went wrong";
+                }
             }
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message;
             }
-        }
 
-        private void txtDeleteDhaeByID_Click(object sender, EventArgs e)
-        {
-            txtDeleteDhaeByID.Text = "";
-        }
-
-        private void txtDeleteBranchByID_Click(object sender, EventArgs e)
-        {
-            txtDeleteBranchByID.Text = "";
         }
 
         private void txtJummaBranchName_TextChanged(object sender, EventArgs e)
@@ -614,12 +686,14 @@ namespace JummahManagement
         {
             try
             {
-                JummaDtPicker.CustomFormat = "dd/MM/yyyy";
+                LblOverDTPicker.Visible = true;
+                LblSelectedJummahDate.Visible = true;
+                JummaDtPicker.CustomFormat = "yyyy/MM/dd";
                 string SelectedDate = JummaDtPicker.Value.ToShortDateString();
                 lblSelectedDate.Text = SelectedDate;
 
                 DateTime lastFriday = JummaDtPicker.Value.AddDays(-1);
-                while(lastFriday.DayOfWeek != DayOfWeek.Friday)
+                while (lastFriday.DayOfWeek != DayOfWeek.Friday)
                     lastFriday = lastFriday.AddDays(-1);
                 string LFDay = lastFriday.Date.ToString("yyyy/MM/dd").Trim();
                 label45.Text = LFDay;
@@ -658,7 +732,19 @@ namespace JummahManagement
             {
                 lblMessage.Text = ex.Message;
             }
-            
+
+        }
+
+        //Function to load temporary branches left table
+        public void LoadTempBranchesLeft()
+        {
+            DataTable dtBranches = bb.GetRowCountForTempBranchTempTable();
+            DGVBranchesLeft.DataSource = dtBranches;
+            if (dtBranches.Rows.Count > 0)
+            {
+                LblBranchesLeft.Text = dtBranches.Rows.Count.ToString();
+                TimerBranchCount.Enabled = true;
+            }
         }
 
         //Function to Create Schedule List
@@ -674,6 +760,7 @@ namespace JummahManagement
                     lblDhaeContact.Text = dr[0].ToString();
                 }
                 string BranchName = txtJummaBranchName.Text.Trim();
+                bb.DeleteBranchFromTempTable(BranchName);
                 DataTable dt1 = bb.GetAllBranchIDByBranchName(BranchName);
 
                 foreach (DataRow dr1 in dt1.Rows)
@@ -686,25 +773,25 @@ namespace JummahManagement
                         lblJummaInchargeNumber.Text = dr2[3].ToString();
                     }
                 }
-                int RowCount = dtJummaSchedule.RowCount; 
-                //dtJummaSchedule.Rows.Add(dtJummaSchedule.RowCount, txtJummaDhaeName.Text, lblDhaeContact.Text, BranchName, lblJummaInchargeName.Text, lblJummaInchargeNumber.Text, lblSelectedDate.Text);
+                int RowCount = dtJummaSchedule.RowCount;
                 int result = rb.AddJummaSchedule(RowCount, txtJummaDhaeName.Text, lblDhaeContact.Text, BranchName, lblJummaInchargeName.Text, lblJummaInchargeNumber.Text, lblSelectedDate.Text);
                 if (result == 1)
                 {
                     btnAdd.Enabled = false;
                     txtJummaBranchName.Focus();
-                    tbl_Jummah_Schedule_tempTableAdapter.Fill(dbJummah_ManagementDataSet3.tbl_Jummah_Schedule_temp);
+                    LoadDGVDtJummahSchedule();
+                    LoadTempBranchesLeft();
                 }
                 else
                 {
                     lblMessage.Text = "Please Try Again";
                     txtJummaBranchName.Focus();
                 }
-               
+
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -721,7 +808,7 @@ namespace JummahManagement
                 DataCon newCon = new DataCon();
                 for (int i = 0; i < dtJummaSchedule.RowCount - 1; i++)
                 {
-                    SqlCommand cmd = new SqlCommand("INSERT into tbl_Jummah_Schedule (Row_Count,Dhae_Name,Dhae_Contact,Branch_Name,JIP_Name,JIP_Contact,Date) Values ('" + dtJummaSchedule.Rows[i].Cells[0].Value + "','" + dtJummaSchedule.Rows[i].Cells[1].Value + "','" + dtJummaSchedule.Rows[i].Cells[2].Value + "','" + dtJummaSchedule.Rows[i].Cells[3].Value + "','" + dtJummaSchedule.Rows[i].Cells[4].Value + "','" + dtJummaSchedule.Rows[i].Cells[5].Value + "','" + dtJummaSchedule.Rows[i].Cells[6].Value + "' )", newCon.Con);
+                    SqlCommand cmd = new SqlCommand("INSERT into tbl_Jummah_Schedule (Row_Count,Dhae_Name,Dhae_Contact,Branch_Name,JIP_Name,JIP_Contact,Date) Values ('" + dtJummaSchedule.Rows[i].Cells[1].Value + "','" + dtJummaSchedule.Rows[i].Cells[2].Value + "','" + dtJummaSchedule.Rows[i].Cells[3].Value + "','" + dtJummaSchedule.Rows[i].Cells[4].Value + "','" + dtJummaSchedule.Rows[i].Cells[5].Value + "','" + dtJummaSchedule.Rows[i].Cells[6].Value + "','" + dtJummaSchedule.Rows[i].Cells[7].Value + "' )", newCon.Con);
                     if (ConnectionState.Closed == newCon.Con.State)
                     {
                         newCon.Con.Open();
@@ -731,13 +818,18 @@ namespace JummahManagement
                 }
                 lblMessage.Text = "Successfully Jummah Schedule Added";
                 dd.CreateTempDhaeTable();
+                bb.CreateTempBranchTable();
                 jr.DropAndRecreate();
                 string SelectedDate = JummaDtPicker.Value.ToShortDateString();
                 dtJummaSchedule.DataSource = db.LoadDhaeReportByDate(SelectedDate);
+                main jm = new main();
+                jm.Show();
+                Hide();
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.Message;
+                // lblMessage.Text = ex.Message;
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -770,7 +862,7 @@ namespace JummahManagement
             DataTable dt1 = db.LoadDhaeReportByDate(SelectedDate);
 
             foreach (DataRow dr1 in dt1.Rows)
-            {               
+            {
                 try
                 {
                     string Contact = dr1[6].ToString().Trim();
@@ -830,7 +922,7 @@ namespace JummahManagement
             {
                 lblMessage.Text = ex.Message;
             }
-          
+
         }
 
         //This class will copy all Jumma Inchrage Person details data from datagridview to excell 
@@ -857,7 +949,7 @@ namespace JummahManagement
             {
                 lblMessage.Text = ex.Message;
             }
-            
+
         }
 
         //Function to load city names to text box
@@ -874,9 +966,9 @@ namespace JummahManagement
                     txtUpdateCity.Text = City;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -890,7 +982,7 @@ namespace JummahManagement
             catch (Exception ex)
             {
                 lblMessage.Text = ex.Message;
-            }          
+            }
         }
 
         //Function to load Schedule Report by Date
@@ -905,9 +997,7 @@ namespace JummahManagement
                 dtPickerScheduleReport.CustomFormat = "mm/DD/yyyy";
                 string SelectedDate = dtPickerScheduleReport.Value.ToShortDateString();
                 dtScheduleReport.DataSource = rb.JummaScheduleReportByDate(SelectedDate);
-               //dtScheduleReport.Columns["ID"].Visible = false;
                 dtScheduleReport.Columns["Row_count"].Visible = false;
-                //dtScheduleReport.RowHeadersVisible = false;
             }
             catch (Exception)
             {
@@ -951,7 +1041,7 @@ namespace JummahManagement
             {
                 lblMessage.Text = ex.Message;
             }
-           
+
         }
 
         //Function to filter Schedule by Dhae Name
@@ -965,8 +1055,8 @@ namespace JummahManagement
             }
             catch (Exception ex)
             {
-                lblMessage.Text = ex.Message; 
-            }          
+                lblMessage.Text = ex.Message;
+            }
         }
 
         //Function to filter Schedule by Branch Name
@@ -982,7 +1072,7 @@ namespace JummahManagement
             {
                 lblMessage.Text = ex.Message;
             }
-            
+
         }
 
         //Function to Clear all the Temporary Schedule From Data grid view and Temp Table
@@ -1000,7 +1090,9 @@ namespace JummahManagement
                         case DialogResult.Yes:
                             dd.CreateTempDhaeTable();
                             jr.DropAndRecreate();
-                            tbl_Jummah_Schedule_tempTableAdapter.Fill(dbJummah_ManagementDataSet3.tbl_Jummah_Schedule_temp);
+                            bb.CreateTempBranchTable();
+                            LoadDGVDtJummahSchedule();
+                            LoanMainUIElements();
                             break;
 
                         case DialogResult.No:
@@ -1018,7 +1110,7 @@ namespace JummahManagement
                 lblMessage.Text = "Schedule List is Already Empty";
             }
 
-            
+
         }
 
         //Function to Update City Names 
@@ -1030,12 +1122,14 @@ namespace JummahManagement
             if (result == 1)
             {
                 lblMessage.Text = "City Name Updated Succesfully";
+                dtCityNames.DataSource = rb.GetCity();
             }
             else
             {
                 lblMessage.Text = "Oops! Something went wrong";
             }
-            tbl_CityTableAdapter.Fill(this.dbJummah_ManagementDataSet.tbl_City);
+            LoadCityNames();
+            LoadCityNames1();
         }
 
         //Fucntion to Refersh all DGV
@@ -1046,27 +1140,44 @@ namespace JummahManagement
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            int ID = Convert.ToInt32(Temp_Schedule_ID);
-            int result = rb.DeleteTempRow(ID);
-            db.InsertDhaeDetailsToTempTable(Temp_Dhae_Name);
-
             try
             {
-                if (result == 1)
+                if (dtJummaSchedule.SelectedRows.Count > 0)
                 {
-                    lblMessage.Text = "Selected Row Deleted";
-                    tbl_Jummah_Schedule_tempTableAdapter.Fill(dbJummah_ManagementDataSet3.tbl_Jummah_Schedule_temp);
+                    int ID = Convert.ToInt32(Temp_Schedule_ID);
+                    int result = rb.DeleteTempRow(ID);
+                    db.InsertDhaeDetailsToTempTable(Temp_Dhae_Name);
+                    string DhaeName = dtJummaSchedule.SelectedRows[0].Cells[1].Value + string.Empty;
+                    string BranchName = dtJummaSchedule.SelectedRows[0].Cells[3].Value + string.Empty;
+
+                    try
+                    {
+                        if (result == 1)
+                        {
+                            lblMessage.Text = "Selected Row Deleted";
+                        }
+                        else
+                        {
+                            lblMessage.Text = "Oops; Some thing went wrong";
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        lblMessage.Text = ex.Message;
+                    }
                 }
                 else
                 {
-                    lblMessage.Text = "Oops; Some thing went wrong";
+                    lblMessage.Text = "Please Select a row to Delete";
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                lblMessage.Text = ex.Message; 
+
+                throw;
             }
-           
+
+
         }
 
         private void DateTimePDFReportGenerator_ValueChanged(object sender, EventArgs e)
@@ -1077,8 +1188,6 @@ namespace JummahManagement
                 string SelectedDate = DateTimePDFReportGenerator.Value.ToShortDateString();
                 DGVPDFReport.DataSource = rb.PDFJummaScheduleReportByDate(SelectedDate);
                 DGVPDFReport.RowHeadersVisible = false;
-                //dtScheduleReport.Columns["ID"].Visible = false;
-                //dtScheduleReport.Columns["Row_count"].Visible = false;
             }
             catch (Exception)
             {
@@ -1236,9 +1345,7 @@ namespace JummahManagement
                         dtPickerScheduleReport.CustomFormat = "mm/DD/yyyy";
                         string SelectedDate = dtPickerScheduleReport.Value.ToShortDateString();
                         dtScheduleReport.DataSource = rb.JummaScheduleReportByDate(SelectedDate);
-                        //dtScheduleReport.Columns["ID"].Visible = false;
                         dtScheduleReport.Columns["Row_count"].Visible = false;
-                        //dtScheduleReport.RowHeadersVisible = false;
                     }
                     catch (Exception)
                     {
@@ -1365,9 +1472,9 @@ namespace JummahManagement
         private void BtnCheckLastFourWeeks_Click(object sender, EventArgs e)
         {
             try
-            {              
+            {
                 if (txtJummaBranchName.Text != "")
-                {                    
+                {
                     LblReport.Text = "Last 4 Weeks Jummah Dhae details for selected branch";
                     panel6.Visible = true;
                     string Friday1 = label45.Text;
@@ -1402,12 +1509,12 @@ namespace JummahManagement
                     if (SuggestedDhae.Tables[0].Rows.Count > 0)
                     {
                         //Blink();
-                        L1.Text = Convert.ToString(SuggestedDhae.Tables[0].Rows[0].Field<string>(0));                     
-                        L2.Text = Convert.ToString(SuggestedDhae.Tables[0].Rows[1].Field<string>(0));                     
-                        L3.Text = Convert.ToString(SuggestedDhae.Tables[0].Rows[2].Field<string>(0));                     
-                        L4.Text = Convert.ToString(SuggestedDhae.Tables[0].Rows[3].Field<string>(0));                     
+                        L1.Text = Convert.ToString(SuggestedDhae.Tables[0].Rows[0].Field<string>(0));
+                        L2.Text = Convert.ToString(SuggestedDhae.Tables[0].Rows[1].Field<string>(0));
+                        L3.Text = Convert.ToString(SuggestedDhae.Tables[0].Rows[2].Field<string>(0));
+                        L4.Text = Convert.ToString(SuggestedDhae.Tables[0].Rows[3].Field<string>(0));
                     }
-                   // Slider();
+                    // Slider();
                 }
                 else
                 {
@@ -1425,10 +1532,10 @@ namespace JummahManagement
             while (true)
             {
                 await Task.Delay(500);
-                L1.BackColor =L1.BackColor == Color.White ? Color.Black : Color.White;
-                L2.BackColor =L2.BackColor == Color.White ? Color.Black : Color.White;
-                L3.BackColor =L3.BackColor == Color.White ? Color.Black : Color.White;
-                L4.BackColor =L4.BackColor == Color.White ? Color.Black : Color.White;
+                L1.BackColor = L1.BackColor == Color.White ? Color.Black : Color.White;
+                L2.BackColor = L2.BackColor == Color.White ? Color.Black : Color.White;
+                L3.BackColor = L3.BackColor == Color.White ? Color.Black : Color.White;
+                L4.BackColor = L4.BackColor == Color.White ? Color.Black : Color.White;
             }
         }
 
@@ -1440,14 +1547,14 @@ namespace JummahManagement
 
             mode = "Left-to-Right";
 
-           TimerSlider.Start();
+            TimerSlider.Start();
         }
 
 
 
         private void BtnViewAllReport_Click(object sender, EventArgs e)
         {
-            dtScheduleReport.DataSource = rb.GetAll(); 
+            dtScheduleReport.DataSource = rb.GetAll();
         }
 
         private void BtnGetBranchNames_Click(object sender, EventArgs e)
@@ -1506,46 +1613,15 @@ namespace JummahManagement
                     LabelSlider.Location = new Point(xpos, ypos);
                     xpos += 2;
                 }
-                      
-            }
-        }
 
-        private void BtnDeleteBranchDetails_Click(object sender, EventArgs e)
-        {
-            string Branch_ID = txtDeleteBranchByID.Text;
-            int result = bb.InsertBranchDetailsToDeleted(Branch_ID);
-            try
-            {
-                if (result == 1)
-                {
-                    int re = bb.DeleteBranchDetails(Branch_ID);
-                    if (re == 1)
-                    {
-                        lblMessage.Text = "Dhae Details Deleted Successfully";
-                        tbl_DhaeTableAdapter.Fill(dbJummah_ManagementDataSet1.tbl_Dhae);
-                    }
-                    else
-                    {
-                        lblMessage.Text = "Something Went wrong";
-                    }
-                }
-                else
-                {
-                    lblMessage.Text = "Oops! ... Something Went wrong";
-                }
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = ex.Message;
             }
         }
 
         private void FilterByDhaeNameReport_TextChanged(object sender, EventArgs e)
         {
-                FilterByBranchNameReport.Text = "Filter by Branch Name";
-                FilterByDhaeContactNumber.Text = "Filter by Dhae Contact Number";
-                FilterByInchargePersonReport.Text = "Filter By Incharge Person Name";
-                //FilterByDhaeNameReport.Text = "Filter By Dhae Name Report";           
+            FilterByBranchNameReport.Text = "Filter by Branch Name";
+            FilterByDhaeContactNumber.Text = "Filter by Dhae Contact Number";
+            FilterByInchargePersonReport.Text = "Filter By Incharge Person Name";        
         }
 
         private void SuggestedDhaeNames_Tick(object sender, EventArgs e)
@@ -1663,14 +1739,12 @@ namespace JummahManagement
         private void FilterByDhaeContactNumber_TextChanged(object sender, EventArgs e)
         {
             FilterByBranchNameReport.Text = "Filter by Branch Name";
-            //FilterByDhaeContactNumber.Text = "Filter by Dhae Contact Number";
             FilterByInchargePersonReport.Text = "Filter By Incharge Person Name";
             FilterByDhaeNameReport.Text = "Filter By Dhae Name Report";
         }
 
         private void FilterByBranchNameReport_TextChanged(object sender, EventArgs e)
         {
-            //FilterByBranchNameReport.Text = "Filter by Branch Name";
             FilterByDhaeContactNumber.Text = "Filter by Dhae Contact Number";
             FilterByInchargePersonReport.Text = "Filter By Incharge Person Name";
             FilterByDhaeNameReport.Text = "Filter By Dhae Name Report";
@@ -1680,7 +1754,6 @@ namespace JummahManagement
         {
             FilterByBranchNameReport.Text = "Filter by Branch Name";
             FilterByDhaeContactNumber.Text = "Filter by Dhae Contact Number";
-            //FilterByInchargePersonReport.Text = "Filter By Incharge Person Name";
             FilterByDhaeNameReport.Text = "Filter By Dhae Name Report";
         }
 
@@ -1692,7 +1765,9 @@ namespace JummahManagement
                 {
                     string Dhae_ID = DGVDhaeDetails.SelectedRows[0].Cells[0].Value + string.Empty;
                     txtDhaeIDforUpdate.Text = Dhae_ID;
-
+                    LblDeleteDhaeID.Visible = true;
+                    LblSelectedDhaeIDNumber.Visible = true;
+                    LblSelectedDhaeIDNumber.Text = Dhae_ID;
                     int DhaeID = Convert.ToInt32(Dhae_ID);
                     DataTable dt = db.LoadDhaeByDhaeID(DhaeID);
                     foreach (DataRow dr in dt.Rows)
@@ -1709,11 +1784,11 @@ namespace JummahManagement
                     {
                         txtDhaeIDforUpdate.Enabled = false;
                     }
-                } 
+                }
             }
             catch (Exception)
             {
-                throw;
+                lblMessage.Text = "Empty Value";
             }
         }
 
@@ -1750,12 +1825,118 @@ namespace JummahManagement
 
         private void BtnReload_Click(object sender, EventArgs e)
         {
-            main jm = new main();
-            jm.Show();
-            Hide();
+
+        }
+
+        private void TimerShowBranches_Tick(object sender, EventArgs e)
+        {
+            PanelBranchesLeft.Height += 15;
+            if (PanelBranchesLeft.Height >= 150)
+            {
+                BtnShowBranches.Text = "Hide";
+                TimerShowBranches.Enabled = false;
+            }
+        }
+
+        private void BtnShowBranches_Click(object sender, EventArgs e)
+        {
+            if (BtnShowBranches.Text == "Show")
+            {
+                TimerShowBranches.Enabled = true;
+                TimerShowBranches1.Enabled = false;
+            }
+            else if (BtnShowBranches.Text == "Hide")
+            {
+                TimerShowBranches1.Enabled = true;
+                TimerShowBranches.Enabled = false;
+            }
+        }
+
+        private void TimerShowBranches1_Tick(object sender, EventArgs e)
+        {
+            PanelBranchesLeft.Height -= 15;
+            if (PanelBranchesLeft.Height <= 50)
+            {
+                BtnShowBranches.Text = "Show";
+                TimerShowBranches1.Enabled = false;
+            }
+        }
+
+        private void DGVBranchesLeft_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (DGVBranchesLeft.SelectedRows.Count > 0)
+                {
+                    string SelectedBranch = DGVBranchesLeft.SelectedRows[0].Cells[0].Value + string.Empty;
+                    txtJummaBranchName.Text = SelectedBranch.Trim();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void BranchCount_Tick(object sender, EventArgs e)
+        {
+            if (PanelBranchesLeft.Width <= 140)
+            {
+                PanelBranchesLeft.Width += 10;
+            }
+        }
+
+        private void BtnShowPendingBranches_Click(object sender, EventArgs e)
+        {
+            TimerBranchCount.Enabled = true;
+            DataTable dtBranches = bb.GetRowCountForTempBranchTempTable();
+            if (dtBranches.Rows.Count > 0)
+            {
+                LblBranchesLeft.Text = dtBranches.Rows.Count.ToString();
+            }
+        }
+
+        private void BtnDeleteDhae_Click(object sender, EventArgs e)
+        {
+            int Dhae_ID = Convert.ToInt32(LblSelectedDhaeIDNumber.Text.Trim());
+            int result = db.InsertDhaeDetailsToDeleted(Dhae_ID);
+            try
+            {
+                if (result == 1)
+                {
+                    int re = db.DeleteDhaeDetails(Dhae_ID);
+                    if (re == 1)
+                    {
+                        lblMessage.Text = "Dhae Details Deleted Successfully";
+                        DGVDhaeDetails.DataSource = db.LoadDhaes();
+                    }
+                    else
+                    {
+                        lblMessage.Text = "Something Went wrong";
+                    }
+                }
+                else
+                {
+                    lblMessage.Text = "Oops! ... Something Went wrong";
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+            }
+        }
+
+        private void txtSearchCity_Click(object sender, EventArgs e)
+        {
+            txtSearchCity.Text = "";
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(Application.ExecutablePath); // to start new instance of application
+            Close(); //to turn off current app
         }
     }
-
     public static class MyExtensions
     {
         public static string AppendTimeStamp(this string fileName)

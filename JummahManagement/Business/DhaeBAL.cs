@@ -24,6 +24,21 @@ namespace JummahManagement.Business
             }
         }
 
+        //Function to Load All Dhae Details
+        public DataTable LoadDhaes()
+        {
+            try
+            {
+                DataTable dt = dd.LoadDhaes();
+                return dt;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
         //Function to Load All Jummah Dhae Report by date
         public DataTable LoadDhaeReportByDate(string Date)
         {
