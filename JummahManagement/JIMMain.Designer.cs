@@ -107,6 +107,9 @@
             this.txtDhaeID = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.AddBranch = new System.Windows.Forms.TabPage();
+            this.LblSelectedBranchIDToDelete = new System.Windows.Forms.Label();
+            this.BtnDeleteBranch = new System.Windows.Forms.Button();
+            this.LblSelectedBID = new System.Windows.Forms.Label();
             this.LblTotalBraches = new System.Windows.Forms.Label();
             this.label49 = new System.Windows.Forms.Label();
             this.label43 = new System.Windows.Forms.Label();
@@ -158,6 +161,7 @@
             this.dtScheduleReport = new System.Windows.Forms.DataGridView();
             this.dtPickerScheduleReport = new System.Windows.Forms.DateTimePicker();
             this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.ExportExcellReport = new System.Windows.Forms.PictureBox();
             this.PicBoxPDFExport = new System.Windows.Forms.PictureBox();
             this.DateTimePDFReportGenerator = new System.Windows.Forms.DateTimePicker();
             this.DGVPDFReport = new System.Windows.Forms.DataGridView();
@@ -174,7 +178,6 @@
             this.label29 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnResetBranchDetails = new System.Windows.Forms.Button();
-            this.label30 = new System.Windows.Forms.Label();
             this.btnUpdateBranchDetail = new System.Windows.Forms.Button();
             this.txtUpdateBranchDistrictName = new System.Windows.Forms.TextBox();
             this.txtUpdateBranchCity = new System.Windows.Forms.TextBox();
@@ -182,12 +185,6 @@
             this.txtUpdateBuildingNo = new System.Windows.Forms.TextBox();
             this.txtUpdateJIPContact = new System.Windows.Forms.TextBox();
             this.txtUpdateJIPName = new System.Windows.Forms.TextBox();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
             this.txtUpdateBranchName = new System.Windows.Forms.TextBox();
             this.btnUpdateBranchdetails = new System.Windows.Forms.Button();
             this.txtUpdateBranchID = new System.Windows.Forms.TextBox();
@@ -200,16 +197,9 @@
             this.txtUpdateDhaeStreetName = new System.Windows.Forms.TextBox();
             this.txtUpdateDhaeHouseNo = new System.Windows.Forms.TextBox();
             this.txtUpdateDhaeContactNo = new System.Windows.Forms.TextBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
             this.txtUpdateDhaeName = new System.Windows.Forms.TextBox();
             this.btnLoadDhae = new System.Windows.Forms.Button();
             this.txtDhaeIDforUpdate = new System.Windows.Forms.TextBox();
-            this.tblCityBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.lblMessage = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.TimerSlider = new System.Windows.Forms.Timer(this.components);
@@ -218,6 +208,7 @@
             this.TimerShowBranches1 = new System.Windows.Forms.Timer(this.components);
             this.TimerBranchCount = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.tblCityBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl1.SuspendLayout();
             this.JummaSchedule.SuspendLayout();
             this.PanelBranchesLeft.SuspendLayout();
@@ -240,6 +231,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.ExportExcelReport)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtScheduleReport)).BeginInit();
             this.tabPage8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ExportExcellReport)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxPDFExport)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGVPDFReport)).BeginInit();
             this.UpdateAndDelete.SuspendLayout();
@@ -247,8 +239,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtCityNames)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tblCityBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tblCityBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -582,7 +574,7 @@
             // btnDelete
             // 
             this.btnDelete.BackColor = System.Drawing.Color.White;
-            this.btnDelete.Location = new System.Drawing.Point(863, 537);
+            this.btnDelete.Location = new System.Drawing.Point(866, 414);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(158, 43);
             this.btnDelete.TabIndex = 17;
@@ -593,7 +585,7 @@
             // btnDeleteAll
             // 
             this.btnDeleteAll.BackColor = System.Drawing.Color.White;
-            this.btnDeleteAll.Location = new System.Drawing.Point(425, 537);
+            this.btnDeleteAll.Location = new System.Drawing.Point(428, 414);
             this.btnDeleteAll.Name = "btnDeleteAll";
             this.btnDeleteAll.Size = new System.Drawing.Size(158, 43);
             this.btnDeleteAll.TabIndex = 16;
@@ -665,7 +657,7 @@
             // btnSaveSchedule
             // 
             this.btnSaveSchedule.BackColor = System.Drawing.Color.White;
-            this.btnSaveSchedule.Location = new System.Drawing.Point(34, 537);
+            this.btnSaveSchedule.Location = new System.Drawing.Point(37, 414);
             this.btnSaveSchedule.Name = "btnSaveSchedule";
             this.btnSaveSchedule.Size = new System.Drawing.Size(158, 43);
             this.btnSaveSchedule.TabIndex = 13;
@@ -733,7 +725,7 @@
             this.dtJummaSchedule.Location = new System.Drawing.Point(20, 179);
             this.dtJummaSchedule.Name = "dtJummaSchedule";
             this.dtJummaSchedule.ReadOnly = true;
-            this.dtJummaSchedule.Size = new System.Drawing.Size(1029, 352);
+            this.dtJummaSchedule.Size = new System.Drawing.Size(1029, 234);
             this.dtJummaSchedule.TabIndex = 7;
             this.dtJummaSchedule.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtJummaSchedule_CellClick);
             // 
@@ -865,7 +857,7 @@
             // 
             this.LblDeleteDhaeID.AutoSize = true;
             this.LblDeleteDhaeID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblDeleteDhaeID.Location = new System.Drawing.Point(644, 563);
+            this.LblDeleteDhaeID.Location = new System.Drawing.Point(552, 429);
             this.LblDeleteDhaeID.Name = "LblDeleteDhaeID";
             this.LblDeleteDhaeID.Size = new System.Drawing.Size(219, 20);
             this.LblDeleteDhaeID.TabIndex = 49;
@@ -876,7 +868,7 @@
             // 
             this.LblSelectedDhaeIDNumber.AutoSize = true;
             this.LblSelectedDhaeIDNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblSelectedDhaeIDNumber.Location = new System.Drawing.Point(869, 563);
+            this.LblSelectedDhaeIDNumber.Location = new System.Drawing.Point(781, 429);
             this.LblSelectedDhaeIDNumber.Name = "LblSelectedDhaeIDNumber";
             this.LblSelectedDhaeIDNumber.Size = new System.Drawing.Size(23, 20);
             this.LblSelectedDhaeIDNumber.TabIndex = 48;
@@ -888,7 +880,7 @@
             this.BtnDeleteDhae.BackColor = System.Drawing.Color.White;
             this.BtnDeleteDhae.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDeleteDhae.ForeColor = System.Drawing.Color.Red;
-            this.BtnDeleteDhae.Location = new System.Drawing.Point(910, 559);
+            this.BtnDeleteDhae.Location = new System.Drawing.Point(917, 425);
             this.BtnDeleteDhae.Name = "BtnDeleteDhae";
             this.BtnDeleteDhae.Size = new System.Drawing.Size(153, 28);
             this.BtnDeleteDhae.TabIndex = 47;
@@ -1017,7 +1009,7 @@
             this.DGVDhaeDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVDhaeDetails.Location = new System.Drawing.Point(6, 234);
             this.DGVDhaeDetails.Name = "DGVDhaeDetails";
-            this.DGVDhaeDetails.Size = new System.Drawing.Size(1057, 319);
+            this.DGVDhaeDetails.Size = new System.Drawing.Size(1057, 189);
             this.DGVDhaeDetails.TabIndex = 18;
             this.DGVDhaeDetails.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVDhaeDetails_CellClick);
             // 
@@ -1157,6 +1149,9 @@
             // 
             // AddBranch
             // 
+            this.AddBranch.Controls.Add(this.LblSelectedBranchIDToDelete);
+            this.AddBranch.Controls.Add(this.BtnDeleteBranch);
+            this.AddBranch.Controls.Add(this.LblSelectedBID);
             this.AddBranch.Controls.Add(this.LblTotalBraches);
             this.AddBranch.Controls.Add(this.label49);
             this.AddBranch.Controls.Add(this.label43);
@@ -1189,6 +1184,42 @@
             this.AddBranch.TabIndex = 1;
             this.AddBranch.Text = "Add Branch";
             this.AddBranch.UseVisualStyleBackColor = true;
+            this.AddBranch.Click += new System.EventHandler(this.AddBranch_Click);
+            // 
+            // LblSelectedBranchIDToDelete
+            // 
+            this.LblSelectedBranchIDToDelete.AutoSize = true;
+            this.LblSelectedBranchIDToDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblSelectedBranchIDToDelete.Location = new System.Drawing.Point(813, 442);
+            this.LblSelectedBranchIDToDelete.Name = "LblSelectedBranchIDToDelete";
+            this.LblSelectedBranchIDToDelete.Size = new System.Drawing.Size(40, 20);
+            this.LblSelectedBranchIDToDelete.TabIndex = 52;
+            this.LblSelectedBranchIDToDelete.Text = "BID";
+            this.LblSelectedBranchIDToDelete.Visible = false;
+            // 
+            // BtnDeleteBranch
+            // 
+            this.BtnDeleteBranch.BackColor = System.Drawing.Color.White;
+            this.BtnDeleteBranch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnDeleteBranch.ForeColor = System.Drawing.Color.Red;
+            this.BtnDeleteBranch.Location = new System.Drawing.Point(911, 430);
+            this.BtnDeleteBranch.Name = "BtnDeleteBranch";
+            this.BtnDeleteBranch.Size = new System.Drawing.Size(152, 32);
+            this.BtnDeleteBranch.TabIndex = 51;
+            this.BtnDeleteBranch.Text = "Delete";
+            this.BtnDeleteBranch.UseVisualStyleBackColor = false;
+            this.BtnDeleteBranch.Click += new System.EventHandler(this.BtnDeleteBranch_Click);
+            // 
+            // LblSelectedBID
+            // 
+            this.LblSelectedBID.AutoSize = true;
+            this.LblSelectedBID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblSelectedBID.Location = new System.Drawing.Point(576, 442);
+            this.LblSelectedBID.Name = "LblSelectedBID";
+            this.LblSelectedBID.Size = new System.Drawing.Size(233, 20);
+            this.LblSelectedBID.TabIndex = 50;
+            this.LblSelectedBID.Text = "Selected Branch ID Number";
+            this.LblSelectedBID.Visible = false;
             // 
             // LblTotalBraches
             // 
@@ -1311,7 +1342,7 @@
             this.DGVBranchDetails.Location = new System.Drawing.Point(6, 261);
             this.DGVBranchDetails.Name = "DGVBranchDetails";
             this.DGVBranchDetails.ReadOnly = true;
-            this.DGVBranchDetails.Size = new System.Drawing.Size(1057, 326);
+            this.DGVBranchDetails.Size = new System.Drawing.Size(1057, 169);
             this.DGVBranchDetails.TabIndex = 1;
             this.DGVBranchDetails.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVBranchDetails_CellClick);
             // 
@@ -1514,7 +1545,7 @@
             // 
             this.label51.AutoSize = true;
             this.label51.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label51.Location = new System.Drawing.Point(22, 489);
+            this.label51.Location = new System.Drawing.Point(38, 328);
             this.label51.Name = "label51";
             this.label51.Size = new System.Drawing.Size(367, 24);
             this.label51.TabIndex = 11;
@@ -1529,7 +1560,7 @@
             this.dtDhaeReport.Location = new System.Drawing.Point(6, 79);
             this.dtDhaeReport.Name = "dtDhaeReport";
             this.dtDhaeReport.ReadOnly = true;
-            this.dtDhaeReport.Size = new System.Drawing.Size(496, 381);
+            this.dtDhaeReport.Size = new System.Drawing.Size(496, 231);
             this.dtDhaeReport.TabIndex = 4;
             // 
             // label39
@@ -1553,9 +1584,9 @@
             // pBoxJummahInchargeReport
             // 
             this.pBoxJummahInchargeReport.Image = global::JummahManagement.Properties.Resources._2000px_Microsoft_Excel_2013_logo_svg;
-            this.pBoxJummahInchargeReport.Location = new System.Drawing.Point(964, 466);
+            this.pBoxJummahInchargeReport.Location = new System.Drawing.Point(983, 316);
             this.pBoxJummahInchargeReport.Name = "pBoxJummahInchargeReport";
-            this.pBoxJummahInchargeReport.Size = new System.Drawing.Size(90, 71);
+            this.pBoxJummahInchargeReport.Size = new System.Drawing.Size(66, 47);
             this.pBoxJummahInchargeReport.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pBoxJummahInchargeReport.TabIndex = 9;
             this.pBoxJummahInchargeReport.TabStop = false;
@@ -1573,9 +1604,9 @@
             // pBoxDhaeReport
             // 
             this.pBoxDhaeReport.Image = global::JummahManagement.Properties.Resources._2000px_Microsoft_Excel_2013_logo_svg;
-            this.pBoxDhaeReport.Location = new System.Drawing.Point(401, 466);
+            this.pBoxDhaeReport.Location = new System.Drawing.Point(426, 316);
             this.pBoxDhaeReport.Name = "pBoxDhaeReport";
-            this.pBoxDhaeReport.Size = new System.Drawing.Size(90, 71);
+            this.pBoxDhaeReport.Size = new System.Drawing.Size(56, 47);
             this.pBoxDhaeReport.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pBoxDhaeReport.TabIndex = 8;
             this.pBoxDhaeReport.TabStop = false;
@@ -1591,7 +1622,7 @@
             this.dtInchargeReport.Location = new System.Drawing.Point(508, 79);
             this.dtInchargeReport.Name = "dtInchargeReport";
             this.dtInchargeReport.ReadOnly = true;
-            this.dtInchargeReport.Size = new System.Drawing.Size(543, 381);
+            this.dtInchargeReport.Size = new System.Drawing.Size(543, 231);
             this.dtInchargeReport.TabIndex = 5;
             // 
             // label38
@@ -1618,7 +1649,7 @@
             // 
             this.label52.AutoSize = true;
             this.label52.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label52.Location = new System.Drawing.Point(493, 489);
+            this.label52.Location = new System.Drawing.Point(505, 328);
             this.label52.Name = "label52";
             this.label52.Size = new System.Drawing.Size(472, 24);
             this.label52.TabIndex = 12;
@@ -1647,7 +1678,7 @@
             // ExportExcelReport
             // 
             this.ExportExcelReport.Image = global::JummahManagement.Properties.Resources._2000px_Microsoft_Excel_2013_logo_svg;
-            this.ExportExcelReport.Location = new System.Drawing.Point(17, 493);
+            this.ExportExcelReport.Location = new System.Drawing.Point(17, 339);
             this.ExportExcelReport.Name = "ExportExcelReport";
             this.ExportExcelReport.Size = new System.Drawing.Size(57, 50);
             this.ExportExcelReport.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1680,7 +1711,7 @@
             // 
             this.BtnDeleteFromCompletedSchedule.BackColor = System.Drawing.Color.White;
             this.BtnDeleteFromCompletedSchedule.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDeleteFromCompletedSchedule.Location = new System.Drawing.Point(853, 493);
+            this.BtnDeleteFromCompletedSchedule.Location = new System.Drawing.Point(853, 339);
             this.BtnDeleteFromCompletedSchedule.Name = "BtnDeleteFromCompletedSchedule";
             this.BtnDeleteFromCompletedSchedule.Size = new System.Drawing.Size(158, 50);
             this.BtnDeleteFromCompletedSchedule.TabIndex = 18;
@@ -1754,7 +1785,7 @@
             this.dtScheduleReport.Location = new System.Drawing.Point(17, 84);
             this.dtScheduleReport.Name = "dtScheduleReport";
             this.dtScheduleReport.ReadOnly = true;
-            this.dtScheduleReport.Size = new System.Drawing.Size(994, 403);
+            this.dtScheduleReport.Size = new System.Drawing.Size(994, 249);
             this.dtScheduleReport.TabIndex = 1;
             this.dtScheduleReport.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtScheduleReport_CellClick);
             // 
@@ -1768,6 +1799,7 @@
             // 
             // tabPage8
             // 
+            this.tabPage8.Controls.Add(this.ExportExcellReport);
             this.tabPage8.Controls.Add(this.PicBoxPDFExport);
             this.tabPage8.Controls.Add(this.DateTimePDFReportGenerator);
             this.tabPage8.Controls.Add(this.DGVPDFReport);
@@ -1777,13 +1809,25 @@
             this.tabPage8.TabIndex = 2;
             this.tabPage8.Text = "PDF Generator";
             this.tabPage8.UseVisualStyleBackColor = true;
+            this.tabPage8.Click += new System.EventHandler(this.tabPage8_Click);
+            // 
+            // ExportExcellReport
+            // 
+            this.ExportExcellReport.Image = global::JummahManagement.Properties.Resources._2000px_Microsoft_Excel_2013_logo_svg;
+            this.ExportExcellReport.Location = new System.Drawing.Point(771, 215);
+            this.ExportExcellReport.Name = "ExportExcellReport";
+            this.ExportExcellReport.Size = new System.Drawing.Size(135, 95);
+            this.ExportExcellReport.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ExportExcellReport.TabIndex = 3;
+            this.ExportExcellReport.TabStop = false;
+            this.ExportExcellReport.Click += new System.EventHandler(this.ExportExcellReport_Click);
             // 
             // PicBoxPDFExport
             // 
             this.PicBoxPDFExport.Image = global::JummahManagement.Properties.Resources.pdfs_512;
-            this.PicBoxPDFExport.Location = new System.Drawing.Point(626, 179);
+            this.PicBoxPDFExport.Location = new System.Drawing.Point(771, 80);
             this.PicBoxPDFExport.Name = "PicBoxPDFExport";
-            this.PicBoxPDFExport.Size = new System.Drawing.Size(242, 241);
+            this.PicBoxPDFExport.Size = new System.Drawing.Size(115, 110);
             this.PicBoxPDFExport.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.PicBoxPDFExport.TabIndex = 2;
             this.PicBoxPDFExport.TabStop = false;
@@ -1804,7 +1848,7 @@
             this.DGVPDFReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVPDFReport.Location = new System.Drawing.Point(37, 80);
             this.DGVPDFReport.Name = "DGVPDFReport";
-            this.DGVPDFReport.Size = new System.Drawing.Size(468, 464);
+            this.DGVPDFReport.Size = new System.Drawing.Size(468, 267);
             this.DGVPDFReport.TabIndex = 0;
             // 
             // UpdateAndDelete
@@ -1865,12 +1909,12 @@
             this.panel4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel4.Location = new System.Drawing.Point(739, 56);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(320, 499);
+            this.panel4.Size = new System.Drawing.Size(320, 392);
             this.panel4.TabIndex = 16;
             // 
             // txtUpdateCity
             // 
-            this.txtUpdateCity.Location = new System.Drawing.Point(24, 416);
+            this.txtUpdateCity.Location = new System.Drawing.Point(24, 315);
             this.txtUpdateCity.Name = "txtUpdateCity";
             this.txtUpdateCity.Size = new System.Drawing.Size(272, 26);
             this.txtUpdateCity.TabIndex = 18;
@@ -1885,14 +1929,14 @@
             this.dtCityNames.Location = new System.Drawing.Point(24, 59);
             this.dtCityNames.Name = "dtCityNames";
             this.dtCityNames.ReadOnly = true;
-            this.dtCityNames.Size = new System.Drawing.Size(272, 351);
+            this.dtCityNames.Size = new System.Drawing.Size(272, 250);
             this.dtCityNames.TabIndex = 16;
             this.dtCityNames.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtCityNames_CellClick);
             // 
             // btnRefresh
             // 
             this.btnRefresh.BackColor = System.Drawing.Color.White;
-            this.btnRefresh.Location = new System.Drawing.Point(24, 450);
+            this.btnRefresh.Location = new System.Drawing.Point(24, 347);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(114, 30);
             this.btnRefresh.TabIndex = 15;
@@ -1903,7 +1947,7 @@
             // btnUpdate
             // 
             this.btnUpdate.BackColor = System.Drawing.Color.White;
-            this.btnUpdate.Location = new System.Drawing.Point(182, 450);
+            this.btnUpdate.Location = new System.Drawing.Point(182, 347);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(114, 30);
             this.btnUpdate.TabIndex = 14;
@@ -1936,7 +1980,6 @@
             this.panel2.BackColor = System.Drawing.Color.White;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.btnResetBranchDetails);
-            this.panel2.Controls.Add(this.label30);
             this.panel2.Controls.Add(this.btnUpdateBranchDetail);
             this.panel2.Controls.Add(this.txtUpdateBranchDistrictName);
             this.panel2.Controls.Add(this.txtUpdateBranchCity);
@@ -1944,25 +1987,19 @@
             this.panel2.Controls.Add(this.txtUpdateBuildingNo);
             this.panel2.Controls.Add(this.txtUpdateJIPContact);
             this.panel2.Controls.Add(this.txtUpdateJIPName);
-            this.panel2.Controls.Add(this.label23);
-            this.panel2.Controls.Add(this.label24);
-            this.panel2.Controls.Add(this.label25);
-            this.panel2.Controls.Add(this.label26);
-            this.panel2.Controls.Add(this.label27);
-            this.panel2.Controls.Add(this.label28);
             this.panel2.Controls.Add(this.txtUpdateBranchName);
             this.panel2.Controls.Add(this.btnUpdateBranchdetails);
             this.panel2.Controls.Add(this.txtUpdateBranchID);
             this.panel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel2.Location = new System.Drawing.Point(389, 56);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(321, 499);
+            this.panel2.Size = new System.Drawing.Size(321, 392);
             this.panel2.TabIndex = 1;
             // 
             // btnResetBranchDetails
             // 
             this.btnResetBranchDetails.BackColor = System.Drawing.Color.White;
-            this.btnResetBranchDetails.Location = new System.Drawing.Point(23, 449);
+            this.btnResetBranchDetails.Location = new System.Drawing.Point(19, 347);
             this.btnResetBranchDetails.Name = "btnResetBranchDetails";
             this.btnResetBranchDetails.Size = new System.Drawing.Size(114, 30);
             this.btnResetBranchDetails.TabIndex = 16;
@@ -1970,19 +2007,10 @@
             this.btnResetBranchDetails.UseVisualStyleBackColor = false;
             this.btnResetBranchDetails.Click += new System.EventHandler(this.btnResetBranchDetails_Click);
             // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(19, 237);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(100, 20);
-            this.label30.TabIndex = 16;
-            this.label30.Text = "Building No";
-            // 
             // btnUpdateBranchDetail
             // 
             this.btnUpdateBranchDetail.BackColor = System.Drawing.Color.White;
-            this.btnUpdateBranchDetail.Location = new System.Drawing.Point(178, 449);
+            this.btnUpdateBranchDetail.Location = new System.Drawing.Point(168, 347);
             this.btnUpdateBranchDetail.Name = "btnUpdateBranchDetail";
             this.btnUpdateBranchDetail.Size = new System.Drawing.Size(114, 30);
             this.btnUpdateBranchDetail.TabIndex = 14;
@@ -1992,99 +2020,51 @@
             // 
             // txtUpdateBranchDistrictName
             // 
-            this.txtUpdateBranchDistrictName.Location = new System.Drawing.Point(20, 416);
+            this.txtUpdateBranchDistrictName.Location = new System.Drawing.Point(20, 290);
             this.txtUpdateBranchDistrictName.Name = "txtUpdateBranchDistrictName";
             this.txtUpdateBranchDistrictName.Size = new System.Drawing.Size(272, 26);
             this.txtUpdateBranchDistrictName.TabIndex = 15;
+            this.txtUpdateBranchDistrictName.Text = "District";
             // 
             // txtUpdateBranchCity
             // 
-            this.txtUpdateBranchCity.Location = new System.Drawing.Point(20, 364);
+            this.txtUpdateBranchCity.Location = new System.Drawing.Point(20, 258);
             this.txtUpdateBranchCity.Name = "txtUpdateBranchCity";
             this.txtUpdateBranchCity.Size = new System.Drawing.Size(272, 26);
             this.txtUpdateBranchCity.TabIndex = 13;
+            this.txtUpdateBranchCity.Text = "City";
             // 
             // txtUpdateBranchStreetName
             // 
-            this.txtUpdateBranchStreetName.Location = new System.Drawing.Point(20, 312);
+            this.txtUpdateBranchStreetName.Location = new System.Drawing.Point(20, 226);
             this.txtUpdateBranchStreetName.Name = "txtUpdateBranchStreetName";
             this.txtUpdateBranchStreetName.Size = new System.Drawing.Size(272, 26);
             this.txtUpdateBranchStreetName.TabIndex = 12;
+            this.txtUpdateBranchStreetName.Text = "Street Name";
             // 
             // txtUpdateBuildingNo
             // 
-            this.txtUpdateBuildingNo.Location = new System.Drawing.Point(20, 260);
+            this.txtUpdateBuildingNo.Location = new System.Drawing.Point(20, 194);
             this.txtUpdateBuildingNo.Name = "txtUpdateBuildingNo";
             this.txtUpdateBuildingNo.Size = new System.Drawing.Size(272, 26);
             this.txtUpdateBuildingNo.TabIndex = 11;
+            this.txtUpdateBuildingNo.Text = "Building No";
             // 
             // txtUpdateJIPContact
             // 
-            this.txtUpdateJIPContact.Location = new System.Drawing.Point(20, 208);
+            this.txtUpdateJIPContact.Location = new System.Drawing.Point(20, 162);
             this.txtUpdateJIPContact.Name = "txtUpdateJIPContact";
             this.txtUpdateJIPContact.Size = new System.Drawing.Size(272, 26);
             this.txtUpdateJIPContact.TabIndex = 10;
+            this.txtUpdateJIPContact.Text = "JIP Contact";
             // 
             // txtUpdateJIPName
             // 
-            this.txtUpdateJIPName.Location = new System.Drawing.Point(20, 152);
+            this.txtUpdateJIPName.Location = new System.Drawing.Point(20, 130);
             this.txtUpdateJIPName.Name = "txtUpdateJIPName";
             this.txtUpdateJIPName.Size = new System.Drawing.Size(272, 26);
             this.txtUpdateJIPName.TabIndex = 9;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(16, 393);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(66, 20);
-            this.label23.TabIndex = 8;
-            this.label23.Text = "District";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(19, 341);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(39, 20);
-            this.label24.TabIndex = 7;
-            this.label24.Text = "City";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(19, 289);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(110, 20);
-            this.label25.TabIndex = 6;
-            this.label25.Text = "Street Name";
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(16, 182);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(103, 20);
-            this.label26.TabIndex = 5;
-            this.label26.Text = "JIP Contact";
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(16, 127);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(86, 20);
-            this.label27.TabIndex = 4;
-            this.label27.Text = "JIP Name";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(16, 75);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(117, 20);
-            this.label28.TabIndex = 3;
-            this.label28.Text = "Branch Name";
+            this.txtUpdateJIPName.Text = "JIP Name";
             // 
             // txtUpdateBranchName
             // 
@@ -2092,6 +2072,7 @@
             this.txtUpdateBranchName.Name = "txtUpdateBranchName";
             this.txtUpdateBranchName.Size = new System.Drawing.Size(272, 26);
             this.txtUpdateBranchName.TabIndex = 2;
+            this.txtUpdateBranchName.Text = "Branch Name";
             // 
             // btnUpdateBranchdetails
             // 
@@ -2134,25 +2115,19 @@
             this.panel1.Controls.Add(this.txtUpdateDhaeStreetName);
             this.panel1.Controls.Add(this.txtUpdateDhaeHouseNo);
             this.panel1.Controls.Add(this.txtUpdateDhaeContactNo);
-            this.panel1.Controls.Add(this.label22);
-            this.panel1.Controls.Add(this.label21);
-            this.panel1.Controls.Add(this.label20);
-            this.panel1.Controls.Add(this.label19);
-            this.panel1.Controls.Add(this.label18);
-            this.panel1.Controls.Add(this.label17);
             this.panel1.Controls.Add(this.txtUpdateDhaeName);
             this.panel1.Controls.Add(this.btnLoadDhae);
             this.panel1.Controls.Add(this.txtDhaeIDforUpdate);
             this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(23, 56);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(321, 500);
+            this.panel1.Size = new System.Drawing.Size(321, 392);
             this.panel1.TabIndex = 0;
             // 
             // btnDhaeDetailsReset
             // 
             this.btnDhaeDetailsReset.BackColor = System.Drawing.Color.White;
-            this.btnDhaeDetailsReset.Location = new System.Drawing.Point(20, 450);
+            this.btnDhaeDetailsReset.Location = new System.Drawing.Point(20, 347);
             this.btnDhaeDetailsReset.Name = "btnDhaeDetailsReset";
             this.btnDhaeDetailsReset.Size = new System.Drawing.Size(114, 30);
             this.btnDhaeDetailsReset.TabIndex = 15;
@@ -2163,7 +2138,7 @@
             // btnUpdateDhae
             // 
             this.btnUpdateDhae.BackColor = System.Drawing.Color.White;
-            this.btnUpdateDhae.Location = new System.Drawing.Point(178, 450);
+            this.btnUpdateDhae.Location = new System.Drawing.Point(178, 347);
             this.btnUpdateDhae.Name = "btnUpdateDhae";
             this.btnUpdateDhae.Size = new System.Drawing.Size(114, 30);
             this.btnUpdateDhae.TabIndex = 14;
@@ -2173,92 +2148,43 @@
             // 
             // txtUpdateDhaeDistrict
             // 
-            this.txtUpdateDhaeDistrict.Location = new System.Drawing.Point(20, 365);
+            this.txtUpdateDhaeDistrict.Location = new System.Drawing.Point(20, 258);
             this.txtUpdateDhaeDistrict.Name = "txtUpdateDhaeDistrict";
             this.txtUpdateDhaeDistrict.Size = new System.Drawing.Size(272, 26);
             this.txtUpdateDhaeDistrict.TabIndex = 13;
+            this.txtUpdateDhaeDistrict.Text = "District";
             // 
             // txtUpdateDhaeCity
             // 
-            this.txtUpdateDhaeCity.Location = new System.Drawing.Point(20, 313);
+            this.txtUpdateDhaeCity.Location = new System.Drawing.Point(20, 226);
             this.txtUpdateDhaeCity.Name = "txtUpdateDhaeCity";
             this.txtUpdateDhaeCity.Size = new System.Drawing.Size(272, 26);
             this.txtUpdateDhaeCity.TabIndex = 12;
+            this.txtUpdateDhaeCity.Text = "City";
             // 
             // txtUpdateDhaeStreetName
             // 
-            this.txtUpdateDhaeStreetName.Location = new System.Drawing.Point(20, 261);
+            this.txtUpdateDhaeStreetName.Location = new System.Drawing.Point(20, 194);
             this.txtUpdateDhaeStreetName.Name = "txtUpdateDhaeStreetName";
             this.txtUpdateDhaeStreetName.Size = new System.Drawing.Size(272, 26);
             this.txtUpdateDhaeStreetName.TabIndex = 11;
+            this.txtUpdateDhaeStreetName.Text = "Street Name";
             // 
             // txtUpdateDhaeHouseNo
             // 
-            this.txtUpdateDhaeHouseNo.Location = new System.Drawing.Point(20, 209);
+            this.txtUpdateDhaeHouseNo.Location = new System.Drawing.Point(20, 162);
             this.txtUpdateDhaeHouseNo.Name = "txtUpdateDhaeHouseNo";
             this.txtUpdateDhaeHouseNo.Size = new System.Drawing.Size(272, 26);
             this.txtUpdateDhaeHouseNo.TabIndex = 10;
+            this.txtUpdateDhaeHouseNo.Text = "House No";
             // 
             // txtUpdateDhaeContactNo
             // 
-            this.txtUpdateDhaeContactNo.Location = new System.Drawing.Point(20, 153);
+            this.txtUpdateDhaeContactNo.Location = new System.Drawing.Point(20, 130);
             this.txtUpdateDhaeContactNo.Name = "txtUpdateDhaeContactNo";
             this.txtUpdateDhaeContactNo.Size = new System.Drawing.Size(272, 26);
             this.txtUpdateDhaeContactNo.TabIndex = 9;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(19, 342);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(66, 20);
-            this.label22.TabIndex = 8;
-            this.label22.Text = "District";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(19, 290);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(39, 20);
-            this.label21.TabIndex = 7;
-            this.label21.Text = "City";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(19, 238);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(110, 20);
-            this.label20.TabIndex = 6;
-            this.label20.Text = "Street Name";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(19, 183);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(88, 20);
-            this.label19.TabIndex = 5;
-            this.label19.Text = "House No";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(16, 128);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(120, 20);
-            this.label18.TabIndex = 4;
-            this.label18.Text = "Dhae Contact";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(19, 76);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(103, 20);
-            this.label17.TabIndex = 3;
-            this.label17.Text = "Dhae Name";
+            this.txtUpdateDhaeContactNo.Text = "Dhae Contact";
             // 
             // txtUpdateDhaeName
             // 
@@ -2266,6 +2192,7 @@
             this.txtUpdateDhaeName.Name = "txtUpdateDhaeName";
             this.txtUpdateDhaeName.Size = new System.Drawing.Size(272, 26);
             this.txtUpdateDhaeName.TabIndex = 2;
+            this.txtUpdateDhaeName.Text = "Dhae Name";
             // 
             // btnLoadDhae
             // 
@@ -2286,10 +2213,6 @@
             this.txtDhaeIDforUpdate.TabIndex = 0;
             this.txtDhaeIDforUpdate.Text = "Enter Dhae ID";
             this.txtDhaeIDforUpdate.Click += new System.EventHandler(this.txtDhaeIDforUpdate_Click);
-            // 
-            // tblCityBindingSource
-            // 
-            this.tblCityBindingSource.DataMember = "tbl_City";
             // 
             // lblMessage
             // 
@@ -2336,7 +2259,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::JummahManagement.Properties.Resources.download;
+            this.pictureBox1.Image = global::JummahManagement.Properties.Resources._refresh_55882;
             this.pictureBox1.Location = new System.Drawing.Point(1059, 4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(27, 25);
@@ -2345,12 +2268,16 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
+            // tblCityBindingSource
+            // 
+            this.tblCityBindingSource.DataMember = "tbl_City";
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1090, 637);
+            this.ClientSize = new System.Drawing.Size(1090, 490);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.tabControl1);
@@ -2390,6 +2317,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.ExportExcelReport)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtScheduleReport)).EndInit();
             this.tabPage8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ExportExcellReport)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PicBoxPDFExport)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGVPDFReport)).EndInit();
             this.UpdateAndDelete.ResumeLayout(false);
@@ -2401,8 +2329,8 @@
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.tblCityBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tblCityBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2463,12 +2391,6 @@
         private System.Windows.Forms.TextBox txtUpdateDhaeStreetName;
         private System.Windows.Forms.TextBox txtUpdateDhaeHouseNo;
         private System.Windows.Forms.TextBox txtUpdateDhaeContactNo;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox txtUpdateDhaeName;
         private System.Windows.Forms.Button btnUpdateDhae;
         private System.Windows.Forms.Label label29;
@@ -2479,15 +2401,8 @@
         private System.Windows.Forms.TextBox txtUpdateBuildingNo;
         private System.Windows.Forms.TextBox txtUpdateJIPContact;
         private System.Windows.Forms.TextBox txtUpdateJIPName;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.Label label28;
         private System.Windows.Forms.TextBox txtUpdateBranchName;
         private System.Windows.Forms.Button btnUpdateBranchdetails;
-        private System.Windows.Forms.Label label30;
         private System.Windows.Forms.TextBox txtUpdateBranchDistrictName;
         private System.Windows.Forms.TextBox txtUpdateBranchID;
         private System.Windows.Forms.Button btnDhaeDetailsReset;
@@ -2609,6 +2524,10 @@
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.BindingSource tblCityBindingSource;
+        private System.Windows.Forms.Label LblSelectedBranchIDToDelete;
+        private System.Windows.Forms.Button BtnDeleteBranch;
+        private System.Windows.Forms.Label LblSelectedBID;
+        private System.Windows.Forms.PictureBox ExportExcellReport;
     }
 }
 

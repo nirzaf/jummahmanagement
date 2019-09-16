@@ -37,7 +37,7 @@ namespace JummahManagement
         {
             Thread t = new Thread(new ThreadStart(SplashScreen));
             t.Start();
-            Thread.Sleep(30000);
+            Thread.Sleep(10000);
             InitializeComponent();
             t.Abort();
         }
@@ -68,7 +68,7 @@ namespace JummahManagement
                 dtCityNames.Columns["City_ID"].Visible = false;
                 LblOverDTPicker.Visible = false;
                 LblSelectedJummahDate.Visible = false;
-                BlinkDatePicker();
+                //BlinkDatePicker();
                 LoanMainUIElements();
                 FormLoad();
                 LoadBranchNames();
@@ -123,14 +123,14 @@ namespace JummahManagement
             }
         }
 
-        private async void BlinkDatePicker()
-        {
-            while (true)
-            {
-                await Task.Delay(1000);
-                LblDTPicker.BackColor = LblDTPicker.BackColor == Color.White ? Color.Black : Color.White;            
-            }
-        }
+        //private async void BlinkDatePicker()
+        //{
+        //    while (true)
+        //    {
+        //        await Task(1000);
+        //        LblDTPicker.BackColor = LblDTPicker.BackColor == Color.White ? Color.Black : Color.White;            
+        //    }
+        //}
 
         public void LoadTextBoxes()
         {
@@ -562,7 +562,7 @@ namespace JummahManagement
                 }
                 if (txtUpdateBranchName.Text != "")
                 {
-                    txtBranchName.Enabled = false;
+                    txtUpdateBranchID.Enabled = false;
                 }
             }
             catch (Exception ex)
@@ -1049,9 +1049,11 @@ namespace JummahManagement
         {
             try
             {
-                BindingSource bsDvd = new BindingSource();
-                bsDvd.DataSource = dtJummaSchedule.DataSource;
-                bsDvd.Filter = string.Format("Dhae_Name LIKE '{0}%' OR Dhae_Name LIKE '% {0}%'", txtFilterByDhaeName.Text);
+                BindingSource bsDvd = new BindingSource
+                {
+                    DataSource = dtJummaSchedule.DataSource,
+                    Filter = string.Format("Dhae_Name LIKE '{0}%' OR Dhae_Name LIKE '%{0}%'", txtFilterByDhaeName.Text)
+                };
             }
             catch (Exception ex)
             {
@@ -1527,17 +1529,17 @@ namespace JummahManagement
             }
         }
 
-        private async void Blink()
-        {
-            while (true)
-            {
-                await Task.Delay(500);
-                L1.BackColor = L1.BackColor == Color.White ? Color.Black : Color.White;
-                L2.BackColor = L2.BackColor == Color.White ? Color.Black : Color.White;
-                L3.BackColor = L3.BackColor == Color.White ? Color.Black : Color.White;
-                L4.BackColor = L4.BackColor == Color.White ? Color.Black : Color.White;
-            }
-        }
+        //private async void Blink()
+        //{
+        //    while (true)
+        //    {
+        //        await Task.Delay(500);
+        //        L1.BackColor = L1.BackColor == Color.White ? Color.Black : Color.White;
+        //        L2.BackColor = L2.BackColor == Color.White ? Color.Black : Color.White;
+        //        L3.BackColor = L3.BackColor == Color.White ? Color.Black : Color.White;
+        //        L4.BackColor = L4.BackColor == Color.White ? Color.Black : Color.White;
+        //    }
+        //}
 
         public void Slider()
         {
@@ -1799,6 +1801,9 @@ namespace JummahManagement
                 if (DGVBranchDetails.SelectedRows.Count > 0)
                 {
                     string Branch_ID = DGVBranchDetails.SelectedRows[0].Cells[0].Value + string.Empty;
+                    LblSelectedBranchIDToDelete.Text = Branch_ID;
+                    LblSelectedBranchIDToDelete.Visible = true;
+                    LblSelectedBID.Visible = true;
                     txtUpdateBranchID.Text = Branch_ID;
                     DataTable dt = bb.LoadBranchByBranchID(Branch_ID);
                     foreach (DataRow dr in dt.Rows)
@@ -1817,9 +1822,9 @@ namespace JummahManagement
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                lblMessage.Text = ex.Message;
             }
         }
 
@@ -1935,6 +1940,79 @@ namespace JummahManagement
         {
             System.Diagnostics.Process.Start(Application.ExecutablePath); // to start new instance of application
             Close(); //to turn off current app
+        }
+
+        private void tabPage8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CopyPDFReport()
+        {
+            DGVPDFReport.SelectAll();
+            DataObject dataObj = DGVPDFReport.GetClipboardContent();
+            if (dataObj != null)
+                Clipboard.SetDataObject(dataObj);
+        }
+
+        private void ExportExcellReport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CopyPDFReport();
+                Excell.Application xlexcel;
+                Excell.Workbook xlWorkBook;
+                Excell.Worksheet xlWorkSheet;
+                object misValue = System.Reflection.Missing.Value;
+                xlexcel = new Excell.Application
+                {
+                    Visible = true
+                };
+                xlWorkBook = xlexcel.Workbooks.Add(misValue);
+                xlWorkSheet = (Excell.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+                Excell.Range CR = (Excell.Range)xlWorkSheet.Cells[1, 1];
+                CR.Select();
+                xlWorkSheet.PasteSpecial(CR, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, true);
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+            }
+        }
+
+        private void BtnDeleteBranch_Click(object sender, EventArgs e)
+        {
+            string Branch_ID =  LblSelectedBranchIDToDelete.Text.Trim();
+            int result = bb.InsertBranchDetailsToDeleted(Branch_ID);
+            try
+            {
+                if (result == 1)
+                {
+                    int re = bb.DeleteBranchDetails(Branch_ID);
+                    if (re == 1)
+                    {
+                        lblMessage.Text = "Branch Details Deleted Successfully";
+                        DGVBranchDetails.DataSource = bb.LoadAllBraches();
+                    }
+                    else
+                    {
+                        lblMessage.Text = "Something Went wrong";
+                    }
+                }
+                else
+                {
+                    lblMessage.Text = "Oops! ... Something Went wrong";
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = ex.Message;
+            }
+        }
+
+        private void AddBranch_Click(object sender, EventArgs e)
+        {
+
         }
     }
     public static class MyExtensions
