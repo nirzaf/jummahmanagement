@@ -12,7 +12,6 @@ using Document = iTextSharp.text.Document;
 using System.Drawing;
 using Spire.Pdf;
 using Spire.Pdf.Graphics;
-using System.Threading.Tasks;
 using System.Threading;
 
 namespace JummahManagement
