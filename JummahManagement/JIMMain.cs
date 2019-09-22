@@ -13,6 +13,7 @@ using System.Drawing;
 using Spire.Pdf;
 using Spire.Pdf.Graphics;
 using System.Threading;
+using System.Data.SQLite;
 
 namespace JummahManagement
 {
@@ -34,11 +35,7 @@ namespace JummahManagement
 
         public main()
         {
-            Thread t = new Thread(new ThreadStart(SplashScreen));
-            t.Start();
-            Thread.Sleep(10000);
             InitializeComponent();
-            t.Abort();
         }
 
         private void main_Load(object sender, EventArgs e)
@@ -52,11 +49,6 @@ namespace JummahManagement
             {
                 lblMessage.Text = ex.Message;
             }
-        }
-
-        public void SplashScreen()
-        {
-            Application.Run(new SplashScreen());
         }
 
         public void LoadMainFormElements()
@@ -804,16 +796,24 @@ namespace JummahManagement
         {
             try
             {
-                DataCon newCon = new DataCon();
+                DataCon DataCon = new DataCon();
                 for (int i = 0; i < dtJummaSchedule.RowCount - 1; i++)
                 {
-                    SqlCommand cmd = new SqlCommand("INSERT into tbl_Jummah_Schedule (Row_Count,Dhae_Name,Dhae_Contact,Branch_Name,JIP_Name,JIP_Contact,Date) Values ('" + dtJummaSchedule.Rows[i].Cells[1].Value + "','" + dtJummaSchedule.Rows[i].Cells[2].Value + "','" + dtJummaSchedule.Rows[i].Cells[3].Value + "','" + dtJummaSchedule.Rows[i].Cells[4].Value + "','" + dtJummaSchedule.Rows[i].Cells[5].Value + "','" + dtJummaSchedule.Rows[i].Cells[6].Value + "','" + dtJummaSchedule.Rows[i].Cells[7].Value + "' )", newCon.Con);
-                    if (ConnectionState.Closed == newCon.Con.State)
+                    try
                     {
-                        newCon.Con.Open();
+                        SQLiteCommand cmd = new SQLiteCommand("INSERT into tbl_Jummah_Schedule (Row_Count,Dhae_Name,Dhae_Contact,Branch_Name,JIP_Name,JIP_Contact,Date) Values ('" + dtJummaSchedule.Rows[i].Cells[1].Value + "','" + dtJummaSchedule.Rows[i].Cells[2].Value + "','" + dtJummaSchedule.Rows[i].Cells[3].Value + "','" + dtJummaSchedule.Rows[i].Cells[4].Value + "','" + dtJummaSchedule.Rows[i].Cells[5].Value + "','" + dtJummaSchedule.Rows[i].Cells[6].Value + "','" + dtJummaSchedule.Rows[i].Cells[7].Value + "' )", DataCon.Con);
+                        DataCon.Con.Open();
+                        cmd.ExecuteNonQuery();
                     }
-                    cmd.ExecuteNonQuery();
-                    newCon.Con.Close();
+                    catch (SQLiteException ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        return;
+                    }
+                    finally
+                    {
+                        DataCon.Con.Close();
+                    }                    
                 }
                 lblMessage.Text = "Successfully Jummah Schedule Added";
                 dd.CreateTempDhaeTable();
@@ -1073,7 +1073,6 @@ namespace JummahManagement
             {
                 lblMessage.Text = ex.Message;
             }
-
         }
 
         //Function to Clear all the Temporary Schedule From Data grid view and Temp Table

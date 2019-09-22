@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SQLite;
 using System.Windows.Forms;
 
 namespace JummahManagement.Data
 {
 	class JummahReports
 	{
-		DataCon newCon = new DataCon();
+		DataCon DataCon = new DataCon();
 
 		//Function to Complete DGV Dt Jumma Schedule
 		public DataTable LoadDGVdtJummaSchedule()
@@ -15,129 +16,133 @@ namespace JummahManagement.Data
 			DataTable dt = new DataTable();
 			try
 			{
-				if (newCon.Con.State == ConnectionState.Closed)
-				{
-					newCon.Con.Open();
-				}
-				SqlDataAdapter cmdCat = new SqlDataAdapter("SELECT * FROM tbl_Jummah_Schedule_temp", newCon.Con);
+                DataCon.Con.Open();
+				SQLiteDataAdapter cmdCat = new SQLiteDataAdapter("SELECT * FROM tbl_Jummah_Schedule_temp", DataCon.Con);
 				cmdCat.Fill(dt);
-				newCon.CloseSQLConnecion();
+				
 				return dt;
 			}
-			catch (Exception)
-			{
-				newCon.CloseSQLConnecion();
-				dt = null;
-				return dt;
-			}
-		}
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+            finally
+            {
+                DataCon.Con.Close();
+            }
+        }
 
 		//Function to Complete Jumma Report
 		public DataTable GetAll()
 		{
 			try
 			{
-				if (newCon.Con.State == ConnectionState.Closed)
-				{
-					newCon.Con.Open();
-				}
-				SqlDataAdapter cmdCat = new SqlDataAdapter("SELECT * FROM tbl_Jummah_Schedule", newCon.Con);
+                DataCon.Con.Open();
+                SQLiteDataAdapter cmdCat = new SQLiteDataAdapter("SELECT * FROM tbl_Jummah_Schedule", DataCon.Con);
 				DataTable dt = new DataTable();
-				cmdCat.Fill(dt);
-				newCon.CloseSQLConnecion();
+				cmdCat.Fill(dt);			
 				return dt;
 			}
-			catch (Exception)
-			{
-				throw;
-			}
-		}
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+            finally
+            {
+                DataCon.Con.Close();
+            }
+        }
 
 		//Function to load Last four weeks jummah report for Dhae Name  
 		public DataTable LastMonthBranchReportByDate(string Date, string DhaeName)
 		{
 			try
 			{
-				if (newCon.Con.State == ConnectionState.Closed)
-				{
-					newCon.Con.Open();
-				}
-				SqlDataAdapter cmdCat = new SqlDataAdapter("SELECT Branch_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "' AND Dhae_Name ='" + DhaeName + "' ", newCon.Con);
+                DataCon.Con.Open();
+                SQLiteDataAdapter cmdCat = new SQLiteDataAdapter("SELECT Branch_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "' AND Dhae_Name ='" + DhaeName + "' ", DataCon.Con);
 				DataTable dt = new DataTable();
-				cmdCat.Fill(dt);
-				newCon.CloseSQLConnecion();
+				cmdCat.Fill(dt);				
 				return dt;
 			}
-			catch (Exception)
-			{
-				throw;
-			}
-		}
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+            finally
+            {
+                DataCon.Con.Close();
+            }
+        }
 
 		//Function to load Last four weeks jummah report for Branch Name  
 		public DataTable LastMonthDhaeReportByDate(string Date, string BranchName)
 		{
 			try
 			{
-				if (newCon.Con.State == ConnectionState.Closed)
-				{
-					newCon.Con.Open();
-				}
-				SqlDataAdapter cmdCat = new SqlDataAdapter("SELECT Dhae_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "' AND Branch_Name ='"+ BranchName +"' ", newCon.Con);
+                DataCon.Con.Open();
+                SQLiteDataAdapter cmdCat = new SQLiteDataAdapter("SELECT Dhae_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "' AND Branch_Name ='"+ BranchName +"' ", DataCon.Con);
 				DataTable dt = new DataTable();
-				cmdCat.Fill(dt);
-				newCon.CloseSQLConnecion();
+				cmdCat.Fill(dt);				
 				return dt;
 			}
-			catch (Exception)
-			{
-				throw;
-			}
-		}
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+            finally
+            {
+                DataCon.Con.Close();
+            }
+        }
 
 		//Function to Load All Jummah Dhae Report by date
 		public DataTable LoadDhaeReportByDate(string Date)
 		{
 			try
 			{
-				if (newCon.Con.State == ConnectionState.Closed)
-				{
-					newCon.Con.Open();
-				}
-				SqlDataAdapter cmdCat = new SqlDataAdapter("Select * From tbl_Jummah_Schedule Where Date = '" + Date + "'", newCon.Con);
+                DataCon.Con.Open();
+                SQLiteDataAdapter cmdCat = new SQLiteDataAdapter("Select * From tbl_Jummah_Schedule Where Date = '" + Date + "'", DataCon.Con);
 				DataTable dt = new DataTable();
-				cmdCat.Fill(dt);
-				newCon.CloseSQLConnecion();
+				cmdCat.Fill(dt);				
 				return dt;
-
 			}
-			catch (Exception)
-			{
-				throw;
-			}
-		}
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+            finally
+            {
+                DataCon.Con.Close();
+            }
+        }
 
 		//Function to load All city Names
 		public DataTable GetCity()
 		{
 			try
 			{
-				if (newCon.Con.State == ConnectionState.Closed)
-				{
-					newCon.Con.Open();
-				}
-				SqlDataAdapter cmdCat = new SqlDataAdapter("GetCities", newCon.Con);
+                DataCon.Con.Open();
+                SQLiteDataAdapter cmdCat = new SQLiteDataAdapter("GetCities", DataCon.Con);
 				cmdCat.SelectCommand.CommandType = CommandType.StoredProcedure;
 				DataTable dt = new DataTable();
-				cmdCat.Fill(dt);
-				newCon.CloseSQLConnecion();
+				cmdCat.Fill(dt);				
 				return dt;
 			}
-			catch (Exception)
-			{
-				throw;
-			}
-		}
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+            finally
+            {
+                DataCon.Con.Close();
+            }
+        }
 
 		//Function to update City names
 		public int UpdateCityName(int CityID, string CityName)
@@ -145,44 +150,43 @@ namespace JummahManagement.Data
 			int result = 0;
 			try
 			{
-				if (newCon.Con.State == ConnectionState.Closed)
-				{
-					newCon.Con.Open();
-				}
-				SqlCommand cmd = new SqlCommand("UPDATE tbl_City SET City = '"+ CityName +"' WHERE City_ID = '"+ CityID +"'", newCon.Con);
+                DataCon.Con.Open();
+                SQLiteCommand cmd = new SQLiteCommand("UPDATE tbl_City SET City = '"+ CityName +"' WHERE City_ID = '"+ CityID +"'", DataCon.Con);
 				cmd.ExecuteNonQuery();
-				result = 1;
-				newCon.CloseSQLConnecion();
-				return result;
+				result = 1;				
 			}
-			catch (Exception ex)
-			{
-				newCon.CloseSQLConnecion();
-				MessageBox.Show(ex.Message);
-				return result;
-			}
-		}
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                DataCon.Con.Close();
+            }
+            return result;
+        }
 
 		//Function to load jummah Schedule by date
 		public DataTable JummaScheduleReportByDate(string Date)
 		{
 			try
 			{
-				if (newCon.Con.State == ConnectionState.Closed)
-				{
-					newCon.Con.Open();
-				}
-				SqlDataAdapter cmdCat = new SqlDataAdapter("SELECT * FROM tbl_Jummah_Schedule Where Date = '"+ Date +"'", newCon.Con);
-				DataTable dt = new DataTable();
-				newCon.CloseSQLConnecion();
+                DataCon.Con.Open();
+                SQLiteDataAdapter cmdCat = new SQLiteDataAdapter("SELECT * FROM tbl_Jummah_Schedule Where Date = '"+ Date +"'", DataCon.Con);
+				DataTable dt = new DataTable();				
 				cmdCat.Fill(dt);
 				return dt;
 			}
-			catch (Exception)
-			{
-				throw;
-			}
-		}
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+            finally
+            {
+                DataCon.Con.Close();
+            }
+        }
 
 		//Function to Delete Selected Row from Temp Schedule List
 		public int DeleteTempRow(int RowID)
@@ -190,23 +194,22 @@ namespace JummahManagement.Data
 			int result = 0;
 			try
 			{
-				if (newCon.Con.State == ConnectionState.Closed)
-				{
-					newCon.Con.Open();
-				}
-				SqlCommand cmd = new SqlCommand("DELETE FROM tbl_Jummah_Schedule_temp Where ID = '" + RowID + "'", newCon.Con);
+                DataCon.Con.Open();
+                SQLiteCommand cmd = new SQLiteCommand("DELETE FROM tbl_Jummah_Schedule_temp Where ID = '" + RowID + "'", DataCon.Con);
 				cmd.ExecuteNonQuery();
-				result = 1;
-				newCon.CloseSQLConnecion();
+				result = 1;				
 				return result;
 			}
-			catch (Exception ex)
-			{
-				newCon.CloseSQLConnecion();
-				MessageBox.Show(ex.Message);
-				return result;
-			}
-		}
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return 0;
+            }
+            finally
+            {
+                DataCon.Con.Close();
+            }
+        }
 
 		//Function to Delete Selected Row from Completed Schedule
 		public int DeleteScheduleRow(int ID)
@@ -214,23 +217,22 @@ namespace JummahManagement.Data
 			int result = 0;
 			try
 			{
-				if (newCon.Con.State == ConnectionState.Closed)
-				{
-					newCon.Con.Open();
-				}
-				SqlCommand cmd = new SqlCommand("DELETE FROM tbl_Jummah_Schedule Where ID = '" + ID + "'", newCon.Con);
+                DataCon.Con.Open();
+                SQLiteCommand cmd = new SQLiteCommand("DELETE FROM tbl_Jummah_Schedule Where ID = '" + ID + "'", DataCon.Con);
 				cmd.ExecuteNonQuery();
-				result = 1;
-				newCon.CloseSQLConnecion();
+				result = 1;				
 				return result;
 			}
-			catch (Exception ex)
-			{
-				newCon.CloseSQLConnecion();
-				MessageBox.Show(ex.Message);
-				return result;
-			}
-		}
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return 0;
+            }
+            finally
+            {
+                DataCon.Con.Close();
+            }
+        }
 
 
 		//Function to Insert Jumma  Schedule into Temporary Table
@@ -241,12 +243,12 @@ namespace JummahManagement.Data
 				int result = 0;
 				try
 				{
-					if (newCon.Con.State == ConnectionState.Open)
+					if (DataCon.Con.State == ConnectionState.Open)
 					{
-						SqlCommand Check_Dhae = new SqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Dhae_Name = '" + DhaeName + "'", newCon.Con);
-						SqlCommand Check_Branch = new SqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Branch_Name = '" + BranchName + "'", newCon.Con);
-						SqlDataReader reader = Check_Dhae.ExecuteReader();
-						SqlDataReader reader1 = Check_Branch.ExecuteReader();
+						SQLiteCommand Check_Dhae = new SQLiteCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Dhae_Name = '" + DhaeName + "'", DataCon.Con);
+						SQLiteCommand Check_Branch = new SQLiteCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Branch_Name = '" + BranchName + "'", DataCon.Con);
+						SQLiteDataReader reader = Check_Dhae.ExecuteReader();
+						SQLiteDataReader reader1 = Check_Branch.ExecuteReader();
 
 						if (reader.HasRows)
 						{
@@ -254,14 +256,18 @@ namespace JummahManagement.Data
 							{
 								reader.Close();
 								MessageBox.Show("This Dhae Assigned Already");
-								return result;
-							}
-							catch (Exception)
+                                return result;
+                            }
+							catch (Exception ex)
 							{
-								newCon.CloseSQLConnecion();
-								throw;
-							}
-						}
+                                MessageBox.Show(ex.Message);
+                                return 0;
+                            }
+                            finally
+                            {
+                                DataCon.Con.Close();
+                            }                           
+                        }
 						else if (reader1.HasRows)
 						{
 							try
@@ -270,43 +276,49 @@ namespace JummahManagement.Data
 								MessageBox.Show("This Branch Assigned Already");
 								return result;
 							}
-							catch (Exception)
-							{
-								newCon.CloseSQLConnecion();
-								throw;
-							}
-						}
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                                return 0;
+                            }
+                            finally
+                            {
+                                DataCon.Con.Close();
+                            }
+                        }
 						else
 						{
 							try
 							{
-								SqlCommand cmd = new SqlCommand("INSERT INTO tbl_Jummah_Schedule_temp (Row_Count,Dhae_Name,Dhae_Contact,Branch_Name,JIP_Name,JIP_Contact,Date) VALUES ('" + RowCount + "','" + DhaeName + "','" + DhaeContact + "','" + BranchName + "','" + JIPName + "','" + JIPContact + "','" + Date + "')", newCon.Con);
+								SQLiteCommand cmd = new SQLiteCommand("INSERT INTO tbl_Jummah_Schedule_temp (Row_Count,Dhae_Name,Dhae_Contact,Branch_Name,JIP_Name,JIP_Contact,Date) VALUES ('" + RowCount + "','" + DhaeName + "','" + DhaeContact + "','" + BranchName + "','" + JIPName + "','" + JIPContact + "','" + Date + "')", DataCon.Con);
 								cmd.ExecuteNonQuery();
 								result = 1;
-								reader.Close();
-								newCon.CloseSQLConnecion();
+								reader.Close();								
 								return result;
 							}
-							catch (Exception)
-							{
-								reader.Close();
-								newCon.CloseSQLConnecion();
-								return result;
-							}
-						}
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                                return 0;
+                            }
+                            finally
+                            {
+                                DataCon.Con.Close();
+                            }
+                        }
 					}
 					else
 					{
 						try
 						{
-							if (newCon.Con.State == ConnectionState.Closed)
+							if (DataCon.Con.State == ConnectionState.Closed)
 							{
-								newCon.Con.Open();
+								DataCon.Con.Open();
 							}
-							SqlCommand Check_Dhae = new SqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Dhae_Name = '" + DhaeName + "'", newCon.Con);
-							SqlCommand Check_Branch = new SqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Branch_Name = '" + BranchName + "'", newCon.Con);
-							SqlDataReader reader = Check_Dhae.ExecuteReader();
-							SqlDataReader reader1 = Check_Branch.ExecuteReader();
+							SQLiteCommand Check_Dhae = new SQLiteCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Dhae_Name = '" + DhaeName + "'", DataCon.Con);
+							SQLiteCommand Check_Branch = new SQLiteCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Branch_Name = '" + BranchName + "'", DataCon.Con);
+							SQLiteDataReader reader = Check_Dhae.ExecuteReader();
+							SQLiteDataReader reader1 = Check_Branch.ExecuteReader();
 
 							if (reader.HasRows)
 							{
@@ -316,123 +328,149 @@ namespace JummahManagement.Data
 									MessageBox.Show("This Dhae Assigned Already");
 									return result;
 								}
-								catch (Exception)
-								{
-									newCon.CloseSQLConnecion();
-									throw;
-								}
-							}
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(ex.Message);
+                                    return 0;
+                                }
+                                finally
+                                {
+                                    DataCon.Con.Close();
+                                }
+                            }
 							else if (reader1.HasRows)
 							{
 								try
 								{
 									reader.Close();
-									MessageBox.Show("This Branch Assigned Already");
-									newCon.CloseSQLConnecion();
+									MessageBox.Show("This Branch Assigned Already");									
 									return result;
 								}
-								catch (Exception)
-								{
-									newCon.CloseSQLConnecion();
-									throw;
-								}
-							}
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(ex.Message);
+                                    return 0;
+                                }
+                                finally
+                                {
+                                    if (DataCon.Con != null)
+                                        DataCon.Con.Close();
+                                }
+                            }
 							else
 							{
 								try
 								{
-									if (newCon.Con.State == ConnectionState.Closed)
+									if (DataCon.Con.State == ConnectionState.Closed)
 									{
-										newCon.Con.Open();
+										DataCon.Con.Open();
 									}
-									SqlCommand cmd = new SqlCommand("INSERT INTO tbl_Jummah_Schedule_temp (Row_Count,Dhae_Name,Dhae_Contact,Branch_Name,JIP_Name,JIP_Contact,Date) VALUES ('" + RowCount + "','" + DhaeName + "','" + DhaeContact + "','" + BranchName + "','" + JIPName + "','" + JIPContact + "','" + Date + "')", newCon.Con);
+									SQLiteCommand cmd = new SQLiteCommand("INSERT INTO tbl_Jummah_Schedule_temp (Row_Count,Dhae_Name,Dhae_Contact,Branch_Name,JIP_Name,JIP_Contact,Date) VALUES ('" + RowCount + "','" + DhaeName + "','" + DhaeContact + "','" + BranchName + "','" + JIPName + "','" + JIPContact + "','" + Date + "')", DataCon.Con);
 									cmd.ExecuteNonQuery();
 									result = 1;
 									reader.Close();
-									newCon.CloseSQLConnecion();
+									
 									return result;
 								}
-								catch (Exception)
-								{
-									reader.Close();
-									newCon.CloseSQLConnecion();
-									return result;
-								}
-							}
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(ex.Message);
+                                    return 0;
+                                }
+                                finally
+                                {
+                                    if (DataCon.Con != null)
+                                        DataCon.Con.Close();
+                                }
+                            }
 						}
-						catch (Exception)
-						{
-							newCon.Con.Close();
-							throw;
-						}
-
-					}
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                            return 0;
+                        }
+                        finally
+                        {
+                            if (DataCon.Con != null)
+                                DataCon.Con.Close();
+                        }
+                    }
 				}
-				catch (Exception)
-				{
-					throw;
-				}
-			}
-			catch (Exception)
-			{
-				throw;
-			}
-		}
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return 0;
+                }
+                finally
+                {
+                    if (DataCon.Con != null)
+                        DataCon.Con.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return 0;
+            }
+            finally
+            {
+                if(DataCon.Con!=null)
+                DataCon.Con.Close();
+            }
+        }
 
 		//PDF Report by Date 
 		public DataTable PDFJummaScheduleReportByDate(string Date)
 		{
 			try
 			{
-				if (newCon.Con.State == ConnectionState.Closed)
-				{
-					newCon.Con.Open();
-				}
-				SqlDataAdapter cmdCat = new SqlDataAdapter("SELECT Branch_Name,Dhae_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "'", newCon.Con);
+                DataCon.Con.Open();
+                SQLiteDataAdapter cmdCat = new SQLiteDataAdapter("SELECT Branch_Name,Dhae_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "'", DataCon.Con);
 				DataTable dt = new DataTable();
 				cmdCat.Fill(dt);
-				newCon.CloseSQLConnecion();
+				
 				return dt;
 			}
-			catch (Exception)
-			{
-				throw;
-			}
-		}
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+            finally
+            {
+                if (DataCon.Con != null)
+                    DataCon.Con.Close();
+            }
+        }
 
 		//function to drop and recreate the temp table
 		public void DropAndRecreate()
 		{
 			try
 			{
-					SqlCommand command = new SqlCommand(@"USE [JummahManagement]
-							DROP TABLE [dbo].[tbl_Jummah_Schedule_temp]
-							CREATE TABLE [dbo].[tbl_Jummah_Schedule_temp](
-								[ID] [int] IDENTITY(1,1) NOT NULL,
-								[Row_Count] [int] NOT NULL,
-								[Dhae_Name] [nvarchar](50) NOT NULL,
-								[Dhae_Contact] [nvarchar](20) NOT NULL,
-								[Branch_Name] [nvarchar](50) NOT NULL,
-								[JIP_Name] [nvarchar](50) NOT NULL,
-								[JIP_Contact] [nvarchar](50) NOT NULL,
-								[Date] [nvarchar](20) NOT NULL,
-							 CONSTRAINT [PK_tbl_Jummah_Schedule_temp] PRIMARY KEY CLUSTERED 
-							(
-								[ID] ASC
-							)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-							) ON [PRIMARY]", newCon.Con);
-				if (newCon.Con.State == ConnectionState.Closed)
-				{
-					newCon.Con.Open();
-				}
-				command.ExecuteNonQuery();
-				newCon.CloseSQLConnecion();
+                SQLiteCommand command = new SQLiteCommand(@"DROP TABLE [tbl_Jummah_Schedule_temp];
+                    CREATE TABLE [tbl_Jummah_Schedule_temp] 
+                      ([ID] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL
+                    , [Row_Count] int NOT NULL
+                    , [Dhae_Name] nvarchar(50) NOT NULL COLLATE NOCASE
+                    , [Dhae_Contact] nvarchar(20) NOT NULL COLLATE NOCASE
+                    , [Branch_Name] nvarchar(50) NOT NULL COLLATE NOCASE
+                    , [JIP_Name] nvarchar(50) NOT NULL COLLATE NOCASE
+                    , [JIP_Contact] nvarchar(50) NOT NULL COLLATE NOCASE
+                    , [Date] nvarchar(20) NOT NULL COLLATE NOCASE
+                    );", DataCon.Con);
+                DataCon.Con.Open();
+				command.ExecuteNonQuery();			
 			}
-			catch (Exception ex)
-			{
-				newCon.CloseSQLConnecion();
-				MessageBox.Show(ex.Message);
-			}
-		}
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                if (DataCon.Con != null)
+                    DataCon.Con.Close();
+            }
+        }
 	}
 }

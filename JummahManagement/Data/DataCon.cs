@@ -1,27 +1,10 @@
-﻿using System;
-using System.Data;
-using System.Data.SqlClient;
+﻿using System.Data.SQLite;
 
 namespace JummahManagement.Data
 {
     public class DataCon
     {
-        public SqlConnection Con = new SqlConnection("Data Source= JummahManagement.mssql.somee.com; Initial Catalog=JummahManagement; user id=nirzaf_SQLLogin_1; password=ng1mkfixd4; MultipleActiveResultSets = True");
-
-        public bool CloseSQLConnecion()
-        {
-            try
-            {
-                if (ConnectionState.Open == Con.State)
-                {
-                    Con.Close();
-                }
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
+        //public SQLiteConnection Con = new SQLiteConnection("Data Source= JummahManagement.mssql.somee.com; Initial Catalog=JummahManagement; user id=nirzaf_SQLLogin_1; password=ng1mkfixd4; MultipleActiveResultSets = True");
+        public static SQLiteConnection Con = new SQLiteConnection(@"Data Source= jummahManagement.db; Version=3; FailIfMissing=True; Foreign Keys=True; Pooling=True; Max Pool Size=100;");
     }
 }
