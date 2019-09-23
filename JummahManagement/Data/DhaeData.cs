@@ -8,26 +8,29 @@ namespace JummahManagement.Data
 {
     class DhaeData
     {
-        DataCon newCon = new DataCon();
+        DataCon C = new DataCon();
 
         //function to load suggested Dhae for Jummah
         public DataSet SuggestedDhaeList(string Dhae1, string Dhae2, string Dhae3, string Dhae4)
         {
             try
             {
-                if (newCon.Con.State == ConnectionState.Closed)
+                if (C.Con.State == ConnectionState.Closed)
                 {
-                    newCon.Con.Open();
+                    C.Con.Open();
                 }
-                MySqlDataAdapter cmdCat = new MySqlDataAdapter("SELECT Dhae_Name FROM tbl_Dhae_temp Where Dhae_Name <> '" + Dhae1 + "' AND Dhae_Name <> '" + Dhae2 + "' AND Dhae_Name <> '" + Dhae3 + "' AND Dhae_Name <> '" + Dhae4 + "' ORDER BY NEWID()", newCon.Con);
+                MySqlDataAdapter cmdCat = new MySqlDataAdapter("SELECT Dhae_Name FROM tbl_Dhae_temp Where Dhae_Name <> '" + Dhae1 + "' AND Dhae_Name <> '" + Dhae2 + "' AND Dhae_Name <> '" + Dhae3 + "' AND Dhae_Name <> '" + Dhae4 + "' ORDER BY NEWID()", C.Con);
                 DataSet ds = new DataSet();
                 cmdCat.Fill(ds);
-                newCon.CloseSQLConnecion();
                 return ds;
             }
             catch (Exception)
             {
                 throw;
+            }
+            finally
+            {
+                if (C.Con != null) C.Con.Close();
             }
         }
 
@@ -36,17 +39,20 @@ namespace JummahManagement.Data
         {
             try
             {
-                if (newCon.Con.State == ConnectionState.Closed)
+                if (C.Con.State == ConnectionState.Closed)
                 {
-                    newCon.Con.Open();
+                    C.Con.Open();
                 }
-                MySqlCommand adp = new MySqlCommand("Delete From tbl_Dhae_temp Where Dhae_Name = ('" + DhaeName + "')", newCon.Con);
+                MySqlCommand adp = new MySqlCommand("Delete From tbl_Dhae_temp Where Dhae_Name = ('" + DhaeName + "')", C.Con);
                 adp.ExecuteNonQuery();
-                newCon.CloseSQLConnecion();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                if (C.Con != null) C.Con.Close();
             }
         }
 
@@ -71,24 +77,33 @@ namespace JummahManagement.Data
                         (
 	                        [Dhae_ID] ASC
                         )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-                        ) ON [PRIMARY]", newCon.Con);
-                MySqlCommand cmd = new MySqlCommand(@"INSERT INTO tbl_Dhae_temp SELECT * FROM tbl_Dhae", newCon.Con);
-                if (newCon.Con.State == ConnectionState.Closed)
+                        ) ON [PRIMARY]", C.Con);
+                MySqlCommand cmd = new MySqlCommand(@"INSERT INTO tbl_Dhae_temp SELECT * FROM tbl_Dhae", C.Con);
+                if (C.Con.State == ConnectionState.Closed)
                 {
-                    newCon.Con.Open();
+                    C.Con.Open();
                 }
-                command.ExecuteNonQuery();
-                newCon.CloseSQLConnecion();
-                if (newCon.Con.State == ConnectionState.Closed)
+                int result = command.ExecuteNonQuery();
+                if (result > 0)
                 {
-                    newCon.Con.Open();
+                    int res = cmd.ExecuteNonQuery();
+                    if (res == 0)
+                    {
+                        MessageBox.Show("Something went wrong");
+                    }
                 }
-                cmd.ExecuteNonQuery();
-                newCon.CloseSQLConnecion();
+                else
+                {
+                    MessageBox.Show("Something went wrong");
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                if (C.Con != null) C.Con.Close();
             }
         }
 
@@ -100,9 +115,9 @@ namespace JummahManagement.Data
                 int result = 0;
                 try
                 {
-                    if (newCon.Con.State == ConnectionState.Open)
+                    if (C.Con.State == ConnectionState.Open)
                     {
-                        MySqlCommand Check_City = new MySqlCommand("SELECT * FROM tbl_City WHERE City = '" + City + "'", newCon.Con);
+                        MySqlCommand Check_City = new MySqlCommand("SELECT * FROM tbl_City WHERE City = '" + City + "'", C.Con);
                         MySqlDataReader reader = Check_City.ExecuteReader();
 
                         if (reader.HasRows)
@@ -116,34 +131,38 @@ namespace JummahManagement.Data
                             {
                                 throw;
                             }
+                            finally
+                            {
+                                if (C.Con != null) C.Con.Close();
+                            }
                         }
                         else
                         {
                             try
                             {
-                                MySqlCommand cmd = new MySqlCommand("INSERT INTO tbl_City (City) VALUES ('" + City + "')", newCon.Con);
-                                cmd.ExecuteNonQuery();
-                                result = 1;
+                                MySqlCommand cmd = new MySqlCommand("INSERT INTO tbl_City (City) VALUES ('" + City + "')", C.Con);
+                                result = cmd.ExecuteNonQuery();
                                 reader.Close();
-                                newCon.CloseSQLConnecion();
                                 return result;
                             }
                             catch (Exception)
                             {
                                 reader.Close();
-                                newCon.CloseSQLConnecion();
                                 return result;
                             }
+                            finally
+                            {
+                                if (C.Con != null) C.Con.Close();
+                            }
                         }
-
                     }
                     else
                     {
-                        if (newCon.Con.State == ConnectionState.Closed)
+                        if (C.Con.State == ConnectionState.Closed)
                         {
-                            newCon.Con.Open();
+                            C.Con.Open();
                         }
-                        MySqlCommand Check_City = new MySqlCommand("SELECT * FROM tbl_City WHERE City = '" + City + "'", newCon.Con);
+                        MySqlCommand Check_City = new MySqlCommand("SELECT * FROM tbl_City WHERE City = '" + City + "'", C.Con);
                         MySqlDataReader reader = Check_City.ExecuteReader();
 
                         if (reader.HasRows)
@@ -162,18 +181,19 @@ namespace JummahManagement.Data
                         {
                             try
                             {
-                                MySqlCommand cmd = new MySqlCommand("INSERT INTO tbl_City (City) VALUES ('" + City + "')", newCon.Con);
-                                cmd.ExecuteNonQuery();
-                                result = 1;
+                                MySqlCommand cmd = new MySqlCommand("INSERT INTO tbl_City (City) VALUES ('" + City + "')", C.Con);
+                                result = cmd.ExecuteNonQuery();
                                 reader.Close();
-                                newCon.CloseSQLConnecion();
                                 return result;
                             }
                             catch (Exception)
                             {
                                 reader.Close();
-                                newCon.CloseSQLConnecion();
                                 return result;
+                            }
+                            finally
+                            {
+                               if(C.Con!=null) C.Con.Close();
                             }
                         }
                     }
@@ -182,10 +202,18 @@ namespace JummahManagement.Data
                 {
                     throw;
                 }
+                finally
+                {
+                    if (C.Con != null) C.Con.Close();
+                }
             }
             catch (Exception)
             {
                 throw;
+            }
+            finally
+            {
+                if (C.Con != null) C.Con.Close();
             }
         }
 
@@ -194,17 +222,20 @@ namespace JummahManagement.Data
         {
             try
             {
-                MySqlCommand cmd = new MySqlCommand(@"INSERT INTO tbl_Dhae_temp SELECT * FROM tbl_Dhae Where Dhae_Name = '"+ DhaeName +"'", newCon.Con);
-                if (newCon.Con.State == ConnectionState.Closed)
+                MySqlCommand cmd = new MySqlCommand(@"INSERT INTO tbl_Dhae_temp SELECT * FROM tbl_Dhae Where Dhae_Name = '"+ DhaeName +"'", C.Con);
+                if (C.Con.State == ConnectionState.Closed)
                 {
-                    newCon.Con.Open();
+                    C.Con.Open();
                 }
                 cmd.ExecuteNonQuery();
-                newCon.CloseSQLConnecion();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                if (C.Con != null) C.Con.Close();
             }
         }
 
@@ -216,9 +247,9 @@ namespace JummahManagement.Data
                 int result = 0;
                 try
                 {
-                    if (newCon.Con.State == ConnectionState.Open)
+                    if (C.Con.State == ConnectionState.Open)
                     {
-                        MySqlCommand Check_Dhae_ID = new MySqlCommand("SELECT * FROM tbl_Dhae WHERE Dhae_ID = '" + Dhae_ID + "'", newCon.Con);
+                        MySqlCommand Check_Dhae_ID = new MySqlCommand("SELECT * FROM tbl_Dhae WHERE Dhae_ID = '" + Dhae_ID + "'", C.Con);
                         MySqlDataReader reader = Check_Dhae_ID.ExecuteReader();
 
                         if (reader.HasRows)
@@ -226,31 +257,35 @@ namespace JummahManagement.Data
                             try
                             {
                                 reader.Close();
-                                newCon.CloseSQLConnecion();
                                 return result;
                             }
                             catch (Exception)
                             {
-                                newCon.CloseSQLConnecion();
                                 return result;
+                            }
+                            finally
+                            {
+                                if (C.Con != null) C.Con.Close();
                             }
                         }
                         else
                         {
                             try
                             {
-                                MySqlCommand cmd = new MySqlCommand("INSERT INTO tbl_Dhae (Dhae_ID,Dhae_Name,Dhae_Contact,House_No,Street_Name,City,District) VALUES ('" + Dhae_ID + "','" + Dhae_Name + "','" + Dhae_Contact + "','" + House_No + "','" + Street_Name + "','" + City + "','" + District + "')", newCon.Con);
+                                MySqlCommand cmd = new MySqlCommand("INSERT INTO tbl_Dhae (Dhae_ID,Dhae_Name,Dhae_Contact,House_No,Street_Name,City,District) VALUES ('" + Dhae_ID + "','" + Dhae_Name + "','" + Dhae_Contact + "','" + House_No + "','" + Street_Name + "','" + City + "','" + District + "')", C.Con);
                                 cmd.ExecuteNonQuery();
                                 result = 1;
                                 reader.Close();
-                                newCon.CloseSQLConnecion();
                                 return result;
                             }
                             catch (Exception)
                             {
                                 reader.Close();
-                                newCon.CloseSQLConnecion();
                                 return result;
+                            }
+                            finally
+                            {
+                                if (C.Con != null) C.Con.Close();
                             }
                         }
                     }
@@ -258,11 +293,11 @@ namespace JummahManagement.Data
                     {
                         try
                         {
-                            if (newCon.Con.State == ConnectionState.Closed)
+                            if (C.Con.State == ConnectionState.Closed)
                             {
-                                newCon.Con.Open();
+                                C.Con.Open();
                             }
-                            MySqlCommand Check_Dhae = new MySqlCommand("SELECT * FROM tbl_Dhae WHERE Dhae_ID = '" + Dhae_ID + "'", newCon.Con);
+                            MySqlCommand Check_Dhae = new MySqlCommand("SELECT * FROM tbl_Dhae WHERE Dhae_ID = '" + Dhae_ID + "'", C.Con);
                             MySqlDataReader reader = Check_Dhae.ExecuteReader();
 
                             if (reader.HasRows)
@@ -270,56 +305,67 @@ namespace JummahManagement.Data
                                 try
                                 {
                                     reader.Close();
-                                    newCon.CloseSQLConnecion();
                                     return result;
                                 }
                                 catch (Exception)
                                 {
-                                    newCon.CloseSQLConnecion();
                                     return result;
+                                }
+                                finally
+                                {
+                                    if (C.Con != null) C.Con.Close();
                                 }
                             }
                             else
                             {
                                 try
                                 {
-                                    if (newCon.Con.State == ConnectionState.Closed)
+                                    if (C.Con.State == ConnectionState.Closed)
                                     {
-                                        newCon.Con.Open();
+                                        C.Con.Open();
                                     }
-                                    MySqlCommand cmd = new MySqlCommand("INSERT INTO tbl_Dhae (Dhae_ID,Dhae_Name,Dhae_Contact,House_No,Street_Name,City,District) VALUES ('" + Dhae_ID + "','" + Dhae_Name + "','" + Dhae_Contact + "','" + House_No + "','" + Street_Name + "','" + City + "','" + District + "')", newCon.Con); 
-                                    cmd.ExecuteNonQuery();
-                                    result = 1;
+                                    MySqlCommand cmd = new MySqlCommand("INSERT INTO tbl_Dhae (Dhae_ID,Dhae_Name,Dhae_Contact,House_No,Street_Name,City,District) VALUES ('" + Dhae_ID + "','" + Dhae_Name + "','" + Dhae_Contact + "','" + House_No + "','" + Street_Name + "','" + City + "','" + District + "')", C.Con); 
+                                    result = cmd.ExecuteNonQuery();
                                     reader.Close();
-                                    newCon.CloseSQLConnecion();
                                     return result;
                                 }
                                 catch (Exception)
                                 {
                                     reader.Close();
-                                    newCon.CloseSQLConnecion();
                                     return result;
+                                }
+                                finally
+                                {
+                                    if (C.Con != null) C.Con.Close();
                                 }
                             }
                         }
                         catch (Exception)
                         {
-                            newCon.CloseSQLConnecion();
                             return result;
                         }
-
+                        finally
+                        {
+                            if (C.Con != null) C.Con.Close();
+                        }
                     }
                 }
                 catch (Exception)
                 {
-                    newCon.CloseSQLConnecion();
                     return result;
+                }
+                finally
+                {
+                    if (C.Con != null) C.Con.Close();
                 }
             }
             catch (Exception)
             {
-                newCon.CloseSQLConnecion();
                 throw;
+            }
+            finally
+            {
+                if (C.Con != null) C.Con.Close();
             }
         }
 
@@ -329,20 +375,22 @@ namespace JummahManagement.Data
             int result = 0; 
             try
             {
-                if (newCon.Con.State == ConnectionState.Closed)
+                if (C.Con.State == ConnectionState.Closed)
                 {
-                    newCon.Con.Open();
+                    C.Con.Open();
                 }
-                MySqlCommand cmd = new MySqlCommand(@"INSERT INTO tbl_Dhae_Deleted SELECT * FROM tbl_Dhae Where Dhae_ID = '" + Dhae_ID + "'", newCon.Con);                
-                cmd.ExecuteNonQuery();
-                result = 1;
-                newCon.CloseSQLConnecion();
+                MySqlCommand cmd = new MySqlCommand(@"INSERT INTO tbl_Dhae_Deleted SELECT * FROM tbl_Dhae Where Dhae_ID = '" + Dhae_ID + "'", C.Con);                
+                result =cmd.ExecuteNonQuery();
                 return result;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 return result;
+            }
+            finally
+            {
+                if (C.Con != null) C.Con.Close();
             }
         }
 
@@ -351,21 +399,23 @@ namespace JummahManagement.Data
         {
             try
             {
-                if (newCon.Con.State == ConnectionState.Closed)
+                if (C.Con.State == ConnectionState.Closed)
                 {
-                    newCon.Con.Open();
+                    C.Con.Open();
                 }
                 string query = "Select * From tbl_Dhae";
-                MySqlDataAdapter sda = new MySqlDataAdapter(query, newCon.Con);
+                MySqlDataAdapter sda = new MySqlDataAdapter(query, C.Con);
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
-                newCon.CloseSQLConnecion();
                 return dt;
             }
             catch (Exception)
             {
-                newCon.CloseSQLConnecion();
                 throw;
+            }
+            finally
+            {
+                if (C.Con != null) C.Con.Close();
             }
         }
 
@@ -374,21 +424,23 @@ namespace JummahManagement.Data
         {
             try
             {
-                if (newCon.Con.State == ConnectionState.Closed)
+                if (C.Con.State == ConnectionState.Closed)
                 {
-                    newCon.Con.Open();
+                    C.Con.Open();
                 }
                 string query = "Select Dhae_ID,Dhae_Name,Dhae_Contact,City,District From tbl_Dhae";
-                MySqlDataAdapter sda = new MySqlDataAdapter(query, newCon.Con);
+                MySqlDataAdapter sda = new MySqlDataAdapter(query, C.Con);
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
-                newCon.CloseSQLConnecion();
                 return dt;
             }
             catch (Exception)
             {
-                newCon.CloseSQLConnecion();
                 throw;
+            }
+            finally
+            {
+                if (C.Con != null) C.Con.Close();
             }
         }
 
@@ -397,21 +449,23 @@ namespace JummahManagement.Data
         {
             try
             {
-                if (newCon.Con.State == ConnectionState.Closed)
+                if (C.Con.State == ConnectionState.Closed)
                 {
-                    newCon.Con.Open();
+                    C.Con.Open();
                 }
                 string query = "Select * From tbl_Dhae Where Dhae_ID = '"+ DhaeID +"'";
-                MySqlDataAdapter sda = new MySqlDataAdapter(query, newCon.Con);
+                MySqlDataAdapter sda = new MySqlDataAdapter(query, C.Con);
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
-                newCon.CloseSQLConnecion();
                 return dt;
             }
             catch (Exception)
             {
-                newCon.CloseSQLConnecion();
                 throw;
+            }
+            finally
+            {
+                if (C.Con != null) C.Con.Close();
             }
         }
 
@@ -421,21 +475,23 @@ namespace JummahManagement.Data
             int result = 0;
             try
             {
-                if (newCon.Con.State == ConnectionState.Closed)
+                if (C.Con.State == ConnectionState.Closed)
                 {
-                    newCon.Con.Open();
+                    C.Con.Open();
                 }
-                MySqlDataAdapter adp = new MySqlDataAdapter("Update tbl_Dhae set Dhae_Name = ('" + Dhae_Name + "'), Dhae_Contact = ('" + Dhae_Contact + "'), House_No = ('" + Dhae_House_No + "'), Street_Name = ('" + Dhae_Street_Name + "'), City = ('" + Dhae_City + "'), District = ('" + Dhae_District + "') Where Dhae_ID = '" + Dhae_ID + "'", newCon.Con);
+                MySqlDataAdapter adp = new MySqlDataAdapter("Update tbl_Dhae set Dhae_Name = ('" + Dhae_Name + "'), Dhae_Contact = ('" + Dhae_Contact + "'), House_No = ('" + Dhae_House_No + "'), Street_Name = ('" + Dhae_Street_Name + "'), City = ('" + Dhae_City + "'), District = ('" + Dhae_District + "') Where Dhae_ID = '" + Dhae_ID + "'", C.Con);
                 DataTable dt = new DataTable();
                 adp.Fill(dt);
                 result = 1;
-                newCon.CloseSQLConnecion();
                 return result;
             }
             catch (Exception)
             {
-                newCon.CloseSQLConnecion();
                 return result;
+            }
+            finally
+            {
+                if (C.Con != null) C.Con.Close();
             }
         }
 
@@ -446,20 +502,21 @@ namespace JummahManagement.Data
             int result = 0;
             try
             {
-                if (newCon.Con.State == ConnectionState.Closed)
+                if (C.Con.State == ConnectionState.Closed)
                 {
-                    newCon.Con.Open();
+                    C.Con.Open();
                 }
-                MySqlCommand adp = new MySqlCommand("Delete From tbl_Dhae Where Dhae_ID = ('" + Dhae_ID + "')", newCon.Con);
-                adp.ExecuteNonQuery();
-                result = 1;
-                newCon.CloseSQLConnecion();
+                MySqlCommand adp = new MySqlCommand("Delete From tbl_Dhae Where Dhae_ID = ('" + Dhae_ID + "')", C.Con);
+                result = adp.ExecuteNonQuery();
                 return result;
             }
             catch (Exception)
             {
-                newCon.CloseSQLConnecion();
                 return result;
+            }
+            finally
+            {
+                if (C.Con != null) C.Con.Close();
             }
         }
 
@@ -468,21 +525,23 @@ namespace JummahManagement.Data
         {
             try
             {
-                if (newCon.Con.State == ConnectionState.Closed)
+                if (C.Con.State == ConnectionState.Closed)
                 {
-                    newCon.Con.Open();
+                    C.Con.Open();
                 }
                 string query = "Select Dhae_Name From tbl_Dhae";
-                MySqlDataAdapter sda = new MySqlDataAdapter(query, newCon.Con);
+                MySqlDataAdapter sda = new MySqlDataAdapter(query, C.Con);
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
-                newCon.CloseSQLConnecion();
                 return dt;
             }
             catch (Exception)
             {
-                newCon.CloseSQLConnecion();
                 throw;
+            }
+            finally
+            {
+                if (C.Con != null) C.Con.Close();
             }
         }
 
@@ -491,21 +550,23 @@ namespace JummahManagement.Data
         {
             try
             {
-                if (newCon.Con.State == ConnectionState.Closed)
+                if (C.Con.State == ConnectionState.Closed)
                 {
-                    newCon.Con.Open();
+                    C.Con.Open();
                 }
                 string query = "Select Dhae_Contact From tbl_Dhae Where Dhae_Name = '" + DhaeName + "'";
-                MySqlDataAdapter sda = new MySqlDataAdapter(query, newCon.Con);
+                MySqlDataAdapter sda = new MySqlDataAdapter(query, C.Con);
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
-                newCon.CloseSQLConnecion();
                 return dt;
             }
             catch (Exception)
             {
-                newCon.CloseSQLConnecion();
                 throw;
+            }
+            finally
+            {
+                if (C.Con != null) C.Con.Close();
             }
         }
 
@@ -514,21 +575,23 @@ namespace JummahManagement.Data
         {
             try
             {
-                if (newCon.Con.State == ConnectionState.Closed)
+                if (C.Con.State == ConnectionState.Closed)
                 {
-                    newCon.Con.Open();
+                    C.Con.Open();
                 }
                 string query = "Select * From tbl_Dhae Where Dhae_Name = '" + DhaeName + "'";
-                MySqlDataAdapter sda = new MySqlDataAdapter(query, newCon.Con);
+                MySqlDataAdapter sda = new MySqlDataAdapter(query, C.Con);
                 DataTable dt = new DataTable();
                 sda.Fill(dt);
-                newCon.CloseSQLConnecion();
                 return dt;
             }
             catch (Exception)
             {
-                newCon.CloseSQLConnecion();
                 throw;
+            }
+            finally
+            {
+                if (C.Con != null) C.Con.Close();
             }
         }
     }
