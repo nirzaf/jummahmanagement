@@ -19,7 +19,7 @@ namespace JummahManagement.Data
                     MySqlDataReader reader;
                     using (MySqlCommand Check_Branch = new MySqlCommand("SELECT * FROM tbl_Branches WHERE Branch_ID = '" + Branch_ID + "'", C.Con))
                     {
-                        C.Con.Open();
+                        if(C.Con == null)C.Con.Open();
                         reader = Check_Branch.ExecuteReader();
                     }
 
@@ -34,7 +34,7 @@ namespace JummahManagement.Data
                         {
                             using (MySqlCommand cmd = new MySqlCommand("INSERT INTO tbl_Branches (Branch_ID,Branch_Name,JIP_Name,JIP_Contact,No,Street_Name,City,District) VALUES ('" + Branch_ID + "','" + Branch_Name + "','" + JIP_Name + "','" + JIP_Contact + "','" + Building_No + "','" + Street_Name + "','" + City + "','" + District + "')", C.Con))
                             {
-                                C.Con.Open();
+                                if(C.Con == null)C.Con.Open();
                                 result = cmd.ExecuteNonQuery();
                             }
                             return result;
@@ -58,7 +58,7 @@ namespace JummahManagement.Data
             {
                 using (MySqlCommand cmd = new MySqlCommand(@"CreateTempBranchTable", C.Con){CommandType = CommandType.StoredProcedure})
                 {
-                    C.Con.Open();
+                    if(C.Con == null)C.Con.Open();
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -75,7 +75,7 @@ namespace JummahManagement.Data
             {
                 using (MySqlCommand adp = new MySqlCommand("Delete From tbl_Branches_temp Where Branch_Name = ('" + BranchName + "')", C.Con))
                 {
-                    C.Con.Open();
+                    if(C.Con == null)C.Con.Open();
                     adp.ExecuteNonQuery();
                 }
             }
@@ -94,7 +94,7 @@ namespace JummahManagement.Data
             {
                 using (MySqlCommand cmd = new MySqlCommand(@"INSERT INTO tbl_Branches_Deleted SELECT * FROM tbl_Branches Where Branch_ID = '" + Branch_ID + "'", C.Con))
                 {
-                    C.Con.Open();
+                    if(C.Con == null)C.Con.Open();
                     result = cmd.ExecuteNonQuery();
                 }
                 return result;
@@ -114,7 +114,7 @@ namespace JummahManagement.Data
                 DataTable dt = new DataTable();
                 using (MySqlDataAdapter sda = new MySqlDataAdapter(query, C.Con))
                 {
-                    C.Con.Open();
+                    if(C.Con == null)C.Con.Open();
                     sda.Fill(dt);
                 }
                 return dt;
@@ -135,7 +135,7 @@ namespace JummahManagement.Data
                 string query = "Select * From tbl_Branches Where Branch_ID = '" + Branch_ID + "'";
                 using (MySqlDataAdapter sda = new MySqlDataAdapter(query, C.Con))
                 {
-                    C.Con.Open();
+                    if (C.Con == null) if(C.Con == null)C.Con.Open();
                     sda.Fill(dt);
                 }
 				return dt;
@@ -155,7 +155,7 @@ namespace JummahManagement.Data
                 string query = "Select * From tbl_Branches";
                 using (MySqlDataAdapter sda = new MySqlDataAdapter(query, C.Con))
                 {
-                    C.Con.Open();
+                    if (C.Con == null) C.Con.Open();
                     sda.Fill(dt);
                 }
 				return dt;
@@ -175,7 +175,7 @@ namespace JummahManagement.Data
                 string query = "Select Branch_ID,Branch_Name,JIP_Name,JIP_Contact,District From tbl_Branches";
                 using (MySqlDataAdapter sda = new MySqlDataAdapter(query, C.Con))
                 {
-                    C.Con.Open();
+                    if(C.Con == null)C.Con.Open();
                     sda.Fill(dt);
                 }
                 return dt;
@@ -194,7 +194,7 @@ namespace JummahManagement.Data
             { 
                 using (MySqlCommand cmd = new MySqlCommand("Update tbl_Branches set Branch_Name = ('" + Branch_Name + "'), JIP_Name = ('" + JIP_Name + "'),JIP_Contact = ('" + JIP_Contact + "'), No = ('" + Branch_Building_No + "'), Street_Name = ('" + Branch_Street_Name + "'), City = ('" + Branch_City + "'), District = ('" + Branch_District + "') Where Branch_ID = '" + Branch_ID + "'", C.Con))
                 {
-                    C.Con.Open();
+                    if(C.Con == null)C.Con.Open();
                     result = cmd.ExecuteNonQuery();
                 }
 				return result;
@@ -214,7 +214,7 @@ namespace JummahManagement.Data
                 string query = "Select Branch_Name From tbl_Branches";
                 using (MySqlDataAdapter sda = new MySqlDataAdapter(query, C.Con))
                 {
-                    C.Con.Open();
+                    if(C.Con == null)C.Con.Open();
                     sda.Fill(dt);
                 }
                 return dt;
@@ -234,7 +234,7 @@ namespace JummahManagement.Data
                 DataTable dt = new DataTable();
                 using (MySqlDataAdapter sda = new MySqlDataAdapter(query, C.Con))
                 {
-                    C.Con.Open();
+                    if(C.Con == null)C.Con.Open();
                     sda.Fill(dt);
                 }
                 return dt;
@@ -253,7 +253,7 @@ namespace JummahManagement.Data
             {
                 using (MySqlCommand adp = new MySqlCommand("Delete From tbl_Branches Where Branch_ID = '" + Branch_ID + "'", C.Con))
                 {
-                    C.Con.Open();
+                    if(C.Con == null)C.Con.Open();
                     result = adp.ExecuteNonQuery();
                 }
                 return result;

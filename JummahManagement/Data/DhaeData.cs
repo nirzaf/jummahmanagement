@@ -18,7 +18,7 @@ namespace JummahManagement.Data
                 DataSet ds = new DataSet();
                 using (MySqlDataAdapter cmdCat = new MySqlDataAdapter("SELECT Dhae_Name FROM tbl_Dhae_temp Where Dhae_Name <> '" + Dhae1 + "' AND Dhae_Name <> '" + Dhae2 + "' AND Dhae_Name <> '" + Dhae3 + "' AND Dhae_Name <> '" + Dhae4 + "' ORDER BY NEWID()", C.Con))
                 {
-                    C.Con.Open();
+                    if(C.Con == null)C.Con.Open();
                     cmdCat.Fill(ds);
                 }
                 return ds;
@@ -69,7 +69,7 @@ namespace JummahManagement.Data
                         )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
                         ) ON [PRIMARY]", C.Con))
                 {
-                    C.Con.Open();
+                    if(C.Con == null)C.Con.Open();
                     MySqlCommand cmd = new MySqlCommand(@"INSERT INTO tbl_Dhae_temp SELECT * FROM tbl_Dhae", C.Con);
                     result = command.ExecuteNonQuery();
                     if (result > 0)
@@ -100,7 +100,7 @@ namespace JummahManagement.Data
                 {
                     using (MySqlCommand Check_City = new MySqlCommand("SELECT * FROM tbl_City WHERE City = '" + City + "'", C.Con))
                     {
-                    if (C.Con == null) C.Con.Open();
+                    if (C.Con == null)C.Con.Open();
                         using (MySqlDataReader reader = Check_City.ExecuteReader())
                         {
                             if (reader.HasRows)
@@ -138,7 +138,7 @@ namespace JummahManagement.Data
             {
                 using (MySqlCommand cmd = new MySqlCommand(@"INSERT INTO tbl_Dhae_temp SELECT * FROM tbl_Dhae Where Dhae_Name = '" + DhaeName + "'", C.Con))
                 {
-                    C.Con.Open();
+                    if(C.Con == null)C.Con.Open();
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -156,7 +156,7 @@ namespace JummahManagement.Data
                 {
                     using (MySqlCommand Check_Dhae_ID = new MySqlCommand("SELECT * FROM tbl_Dhae WHERE Dhae_ID = '" + Dhae_ID + "'", C.Con))
                     {
-                        C.Con.Open();
+                        if(C.Con == null)C.Con.Open();
                         using (MySqlDataReader reader = Check_Dhae_ID.ExecuteReader())
                         {
                             if (reader.HasRows)
@@ -169,7 +169,7 @@ namespace JummahManagement.Data
                                 {
                                     using (MySqlCommand cmd = new MySqlCommand("INSERT INTO tbl_Dhae (Dhae_ID,Dhae_Name,Dhae_Contact,House_No,Street_Name,City,District) VALUES ('" + Dhae_ID + "','" + Dhae_Name + "','" + Dhae_Contact + "','" + House_No + "','" + Street_Name + "','" + City + "','" + District + "')", C.Con))
                                     {
-                                        //C.Con.Open();
+                                        //if(C.Con == null)C.Con.Open();
                                         result = cmd.ExecuteNonQuery();                                    
                                     }
                                     return result;
@@ -196,7 +196,7 @@ namespace JummahManagement.Data
             {
                 using (MySqlCommand cmd = new MySqlCommand(@"INSERT INTO tbl_Dhae_Deleted SELECT * FROM tbl_Dhae Where Dhae_ID = '" + Dhae_ID + "'", C.Con))
                 {
-                    C.Con.Open();
+                    if(C.Con == null)C.Con.Open();
                     result = cmd.ExecuteNonQuery();
                 }
                 return result;
@@ -217,7 +217,7 @@ namespace JummahManagement.Data
                 string query = "Select * From tbl_Dhae";
                 using (MySqlDataAdapter sda = new MySqlDataAdapter(query, C.Con))
                 {
-                    C.Con.Open();                   
+                    if(C.Con == null)C.Con.Open();                   
                     sda.Fill(dt);
                 }
                 return dt;
@@ -240,7 +240,7 @@ namespace JummahManagement.Data
                         string query = "Select Dhae_ID AS `Dhae Id`, Dhae_Name AS `Dhae Name`, Dhae_Contact AS `Dhae Contact`, City, District From tbl_Dhae";
                         using (MySqlCommand cmd = new MySqlCommand(query, C.Con))
                         {
-                            C.Con.Open();
+                            if(C.Con == null)C.Con.Open();
                             using (MySqlDataReader msdr = cmd.ExecuteReader())
                             {
                                 ds.Tables.Add(dt);
@@ -271,7 +271,7 @@ namespace JummahManagement.Data
                         string query = "Select* From tbl_Dhae Where Dhae_ID = '"+ DhaeID +"'";
                         using (MySqlCommand cmd = new MySqlCommand(query, C.Con))
                         {
-                            C.Con.Open();
+                            if(C.Con == null)C.Con.Open();
                             using (MySqlDataReader msdr = cmd.ExecuteReader())
                             {
                                 ds.Tables.Add(dt);
@@ -297,7 +297,7 @@ namespace JummahManagement.Data
             {
                 using (MySqlCommand cmd = new MySqlCommand("Update tbl_Dhae set Dhae_Name = ('" + Dhae_Name + "'), Dhae_Contact = ('" + Dhae_Contact + "'), House_No = ('" + Dhae_House_No + "'), Street_Name = ('" + Dhae_Street_Name + "'), City = ('" + Dhae_City + "'), District = ('" + Dhae_District + "') Where Dhae_ID = '" + Dhae_ID + "'", C.Con))
                 {
-                    C.Con.Open();
+                    if(C.Con == null)C.Con.Open();
                     result = cmd.ExecuteNonQuery();
                 }
                 return result;
@@ -317,7 +317,7 @@ namespace JummahManagement.Data
             {
                 using (MySqlCommand adp = new MySqlCommand("Delete From tbl_Dhae Where Dhae_ID = ('" + Dhae_ID + "')", C.Con))
                 {
-                    C.Con.Open();
+                    if(C.Con == null)C.Con.Open();
                     result = adp.ExecuteNonQuery();
                 }
                 return result;
@@ -340,7 +340,7 @@ namespace JummahManagement.Data
                         string query = "Select Dhae_Name From tbl_Dhae";
                         using (MySqlCommand cmd = new MySqlCommand(query, C.Con))
                         {
-                            C.Con.Open();
+                            if(C.Con == null)C.Con.Open();
                             using (MySqlDataReader msdr = cmd.ExecuteReader())
                             {
                                 ds.Tables.Add(dt);
@@ -370,7 +370,7 @@ namespace JummahManagement.Data
                         string query = "Select Dhae_Contact From tbl_Dhae Where Dhae_Name = '" + DhaeName + "'";
                         using (MySqlCommand cmd = new MySqlCommand(query, C.Con))
                         {
-                            C.Con.Open();
+                            if(C.Con == null)C.Con.Open();
                             using (MySqlDataReader msdr = cmd.ExecuteReader())
                             {
                                 ds.Tables.Add(dt);
@@ -400,7 +400,7 @@ namespace JummahManagement.Data
                         string query = "Select * From tbl_Dhae Where Dhae_Name = '" + DhaeName + "'";
                         using (MySqlCommand cmd = new MySqlCommand(query, C.Con))
                         {
-                            C.Con.Open();
+                            if(C.Con == null)C.Con.Open();
                             using (MySqlDataReader msdr = cmd.ExecuteReader())
                             {
                                 ds.Tables.Add(dt);

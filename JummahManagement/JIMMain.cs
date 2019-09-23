@@ -57,7 +57,6 @@ namespace JummahManagement
                 dtCityNames.Columns["City_ID"].Visible = false;
                 LblOverDTPicker.Visible = false;
                 LblSelectedJummahDate.Visible = false;
-                //BlinkDatePicker();
                 LoanMainUIElements();
                 FormLoad();
                 LoadBranchNames();
@@ -111,15 +110,6 @@ namespace JummahManagement
                 lblMessage.Text = ex.Message;
             }
         }
-
-        //private async void BlinkDatePicker()
-        //{
-        //    while (true)
-        //    {
-        //        await Task(1000);
-        //        LblDTPicker.BackColor = LblDTPicker.BackColor == Color.White ? Color.Black : Color.White;            
-        //    }
-        //}
 
         public void LoadTextBoxes()
         {
@@ -272,7 +262,6 @@ namespace JummahManagement
         {
             dtDhaeReport.Columns.Add("Dhae_Contact", "Dhae Contact");
             dtDhaeReport.Columns.Add("Jummah_date", "Jummah Date, Branch ,JIP");
-
             dtInchargeReport.Columns.Add("Incharge_Contact", "Incharge Contact");
             dtInchargeReport.Columns.Add("Date", "Jummah Date ,Dhae Details ");
         }
