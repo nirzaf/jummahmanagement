@@ -18,7 +18,7 @@ namespace JummahManagement.Business
                 DataTable dt = bd.LoadAllBraches();
                 return dt;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -32,7 +32,7 @@ namespace JummahManagement.Business
                 DataTable dt = bd.LoadBracheDetails();
                 return dt;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -47,7 +47,7 @@ namespace JummahManagement.Business
                 DataTable dt = bd.GetRowCountForTempBranchTempTable();
                 return dt;
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 MessageBox.Show(ex.Message);
                 throw;
@@ -61,7 +61,7 @@ namespace JummahManagement.Business
             {
                 bd.DeleteBranchFromTempTable(BranchName);
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -75,7 +75,7 @@ namespace JummahManagement.Business
                 int result = bd.AddBranch(Branch_ID,Branch_Name,JIP_Name,JIP_Contact,Building_No,Street_Name, City, District);
                 return result;
             }        
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -88,7 +88,7 @@ namespace JummahManagement.Business
             {
                 bd.CreateTempBranchTable();
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -102,7 +102,7 @@ namespace JummahManagement.Business
                 DataTable dt = bd.LoadBranchByBranchID(Branch_ID);
                 return dt;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -117,7 +117,7 @@ namespace JummahManagement.Business
                 result = bd.InsertBranchDetailsToDeleted(Branch_ID);
                 return result;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 return result;
             }
@@ -132,7 +132,7 @@ namespace JummahManagement.Business
                 result = bd.UpdateBranchDetails(Branch_ID,Branch_Name,JIP_Name,JIP_Contact,Branch_Building_No,Branch_Street_Name,Branch_City, Branch_District);
                 return result;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 return result;
             }
@@ -146,7 +146,7 @@ namespace JummahManagement.Business
                 DataTable dt = bd.GetAllBranchNames();
                 return dt;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -160,7 +160,7 @@ namespace JummahManagement.Business
                 DataTable dt = bd.GetAllBranchIDByBranchName(BranchName);
                 return dt;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -175,7 +175,7 @@ namespace JummahManagement.Business
                 result = bd.DeleteBranchDetails(Branch_ID);
                 return result;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 return result;
             }

@@ -43,7 +43,7 @@ namespace JummahManagement
                 dtPickerScheduleReport.Focus();
                 LoadMainFormElements();
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -54,27 +54,27 @@ namespace JummahManagement
             try
             {
                 dtCityNames.DataSource = rb.GetCity();
-                dtCityNames.Columns["City_ID"].Visible = false;
-                LblOverDTPicker.Visible = false;
-                LblSelectedJummahDate.Visible = false;
-                LoanMainUIElements();
-                FormLoad();
-                LoadBranchNames();
-                LoadDhaeNames();
-                LoadCityNames();
-                LoadCityNames1();
-                LoadDhaeNames1();
-                LoadBranchNames1();
-                LoadFilterByDhaeNameReport();
-                LoadFilterByBranchNameReport();
-                LoadFilterByDhaeContactNumber();
-                LoadFilterByJummahInchargePerson();
-                LoadDGVDtJummahSchedule();
-                LoadTextBoxes();
-                DGVDhaeDetails.DataSource = db.LoadDhaes();
-                DGVBranchDetails.DataSource = bb.LoadAllBraches();
+                //dtCityNames.Columns["City_ID"].Visible = false;
+                //LblOverDTPicker.Visible = false;
+                //LblSelectedJummahDate.Visible = false;
+                //LoanMainUIElements();
+                //FormLoad();
+                //LoadBranchNames();
+                //LoadDhaeNames();
+                //LoadCityNames();
+                //LoadCityNames1();
+                //LoadDhaeNames1();
+                //LoadBranchNames1();
+                //LoadFilterByDhaeNameReport();
+                //LoadFilterByBranchNameReport();
+                //LoadFilterByDhaeContactNumber();
+                //LoadFilterByJummahInchargePerson();
+                //LoadDGVDtJummahSchedule();
+                //LoadTextBoxes();
+                //DGVDhaeDetails.DataSource = db.LoadDhaes();
+                //DGVBranchDetails.DataSource = bb.LoadAllBraches();
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -105,7 +105,7 @@ namespace JummahManagement
                 DataTable BranchList = bb.LoadBracheDetails();
                 DGVBranchDetails.DataSource = BranchList;
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -290,7 +290,7 @@ namespace JummahManagement
                 txtJummaBranchName.AutoCompleteCustomSource = BranchNames;
                 lblMessage.Text = "";
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -344,7 +344,7 @@ namespace JummahManagement
                         lblMessage.Text = "Something Went wrong";
                     }
                 }
-                catch (Exception ex)
+                catch (MySqlException ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
@@ -429,23 +429,30 @@ namespace JummahManagement
         {
             string City = txtAddNewCity.Text;
             int result = db.AddCity(City);
-            if (result == 1)
+            if (result > 0)
             {
-                lblMessage.Text = "Added";
-                txtAddNewCity.Visible = false;
-                btnAddNewCity.Visible = false;
-                AutoCompleteStringCollection CityNames = new AutoCompleteStringCollection();
-                DataTable ctn = jr.GetCity();
-                foreach (DataRow ct in ctn.Rows)
+                try
                 {
-                    CityNames.Add(ct[1].ToString());
+                    lblMessage.Text = "Added";
+                    txtAddNewCity.Visible = false;
+                    btnAddNewCity.Visible = false;
+                    AutoCompleteStringCollection CityNames = new AutoCompleteStringCollection();
+                    DataTable ctn = jr.GetCity();
+                    foreach (DataRow ct in ctn.Rows)
+                    {
+                        CityNames.Add(ct[1].ToString());
+                    }
+                    TxtCityNames.AutoCompleteCustomSource = CityNames;
+                    TxtCityNames.Text = txtAddNewCity.Text;
                 }
-                TxtCityNames.AutoCompleteCustomSource = CityNames;
-                TxtCityNames.Text = txtAddNewCity.Text;
+                catch(MySqlException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
             else
             {
-                lblMessage.Text = "Not Added";
+                lblMessage.Text = "City Name Already Exist";
             }
         }
 
@@ -516,7 +523,7 @@ namespace JummahManagement
                     txtDhaeIDforUpdate.Enabled = false;
                 }
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -543,7 +550,7 @@ namespace JummahManagement
                     txtUpdateBranchID.Enabled = false;
                 }
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -584,7 +591,7 @@ namespace JummahManagement
                     lblMessage.Text = "Please Enter Valid Dhae ID to Update";
                 }
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -636,7 +643,7 @@ namespace JummahManagement
                     lblMessage.Text = "Some thing went wrong";
                 }
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -706,7 +713,7 @@ namespace JummahManagement
                 txtJummaBranchName.Enabled = true;
                 txtJummaDhaeName.Enabled = true;
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -767,7 +774,7 @@ namespace JummahManagement
                 }
 
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -804,7 +811,7 @@ namespace JummahManagement
                 jm.Show();
                 Hide();
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 // lblMessage.Text = ex.Message;
                 MessageBox.Show(ex.Message);
@@ -831,7 +838,7 @@ namespace JummahManagement
                     dtDhaeReport.Rows.Add(DhaeNo, Date + BranchName + Contact + Incharge);
                     dtDhaeReport.RowHeadersVisible = false;
                 }
-                catch (Exception ex)
+                catch (MySqlException ex)
                 {
                     lblMessage.Text = ex.Message;
                 }
@@ -849,7 +856,7 @@ namespace JummahManagement
                     dtInchargeReport.Rows.Add(Contact, Date + DhaeData);
                     dtInchargeReport.RowHeadersVisible = false;
                 }
-                catch (Exception d)
+                catch (MySqlException d)
                 {
                     label39.Text = d.Message;
                 }
@@ -896,7 +903,7 @@ namespace JummahManagement
                 CR.Select();
                 xlWorkSheet.PasteSpecial(CR, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, true);
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -923,7 +930,7 @@ namespace JummahManagement
                 CR.Select();
                 xlWorkSheet.PasteSpecial(CR, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, true);
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -944,7 +951,7 @@ namespace JummahManagement
                     txtUpdateCity.Text = City;
                 }
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -957,7 +964,7 @@ namespace JummahManagement
             {
                 (dtCityNames.DataSource as DataTable).DefaultView.RowFilter = string.Format("City LIKE '{0}%' OR City LIKE '% {0}%'", txtSearchCity.Text);
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -977,7 +984,7 @@ namespace JummahManagement
                 dtScheduleReport.DataSource = rb.JummaScheduleReportByDate(SelectedDate);
                 dtScheduleReport.Columns["Row_count"].Visible = false;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 lblMessage.Text = "Loading Error";
             }
@@ -1015,7 +1022,7 @@ namespace JummahManagement
                 bsDvd.DataSource = dtJummaSchedule.DataSource;
                 bsDvd.Filter = string.Format("JIP_Name LIKE '{0}%' OR JIP_Name LIKE '% {0}%'", txtFilterByJIPName.Text);
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -1033,7 +1040,7 @@ namespace JummahManagement
                     Filter = string.Format("Dhae_Name LIKE '{0}%' OR Dhae_Name LIKE '%{0}%'", txtFilterByDhaeName.Text)
                 };
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -1048,7 +1055,7 @@ namespace JummahManagement
                 bsDvd.DataSource = dtJummaSchedule.DataSource;
                 bsDvd.Filter = string.Format("Branch_Name LIKE '{0}%' OR Branch_Name LIKE '% {0}%'", txtFilterByBranchName.Text);
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -1080,7 +1087,7 @@ namespace JummahManagement
                     }
 
                 }
-                catch (Exception ex)
+                catch (MySqlException ex)
                 {
                     lblMessage.Text = ex.Message;
                 }
@@ -1141,7 +1148,7 @@ namespace JummahManagement
                             lblMessage.Text = "Oops; Some thing went wrong";
                         }
                     }
-                    catch (Exception ex)
+                    catch (MySqlException ex)
                     {
                         lblMessage.Text = ex.Message;
                     }
@@ -1151,7 +1158,7 @@ namespace JummahManagement
                     lblMessage.Text = "Please Select a row to Delete";
                 }
             }
-            catch (Exception)
+            catch (MySqlException)
             {
 
                 throw;
@@ -1169,7 +1176,7 @@ namespace JummahManagement
                 DGVPDFReport.DataSource = rb.PDFJummaScheduleReportByDate(SelectedDate);
                 DGVPDFReport.RowHeadersVisible = false;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 lblMessage.Text = "Loading...";
             }
@@ -1256,7 +1263,7 @@ namespace JummahManagement
                     Filter = string.Format("Dhae_Name LIKE '{0}%' OR Dhae_Name LIKE '% {0}%'", FilterByDhaeName.Text)
                 };
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -1272,7 +1279,7 @@ namespace JummahManagement
                     Filter = string.Format("Branch_Name LIKE '{0}%' OR Branch_Name LIKE '% {0}%'", FilterByBranchName.Text)
                 };
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -1289,7 +1296,7 @@ namespace JummahManagement
                     label41.Text = Temp_Schedule_ID;
                 }
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -1305,7 +1312,7 @@ namespace JummahManagement
                     label44.Text = Temp_ID;
                 }
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -1327,7 +1334,7 @@ namespace JummahManagement
                         dtScheduleReport.DataSource = rb.JummaScheduleReportByDate(SelectedDate);
                         dtScheduleReport.Columns["Row_count"].Visible = false;
                     }
-                    catch (Exception)
+                    catch (MySqlException)
                     {
                         lblMessage.Text = "Loading...";
                     }
@@ -1337,7 +1344,7 @@ namespace JummahManagement
                     lblMessage.Text = "Oops; Some thing went wrong";
                 }
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -1395,7 +1402,7 @@ namespace JummahManagement
                     Filter = string.Format("Dhae_Name LIKE '{0}%' OR Dhae_Name LIKE '% {0}%'", FilterByDhaeNameReport.Text)
                 };
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -1411,7 +1418,7 @@ namespace JummahManagement
                     Filter = string.Format("Dhae_Contact LIKE '{0}%' OR Dhae_Contact LIKE '% {0}%'", FilterByDhaeContactNumber.Text)
                 };
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -1427,7 +1434,7 @@ namespace JummahManagement
                     Filter = string.Format("Branch_Name LIKE '{0}%' OR Branch_Name LIKE '% {0}%'", FilterByBranchNameReport.Text)
                 };
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -1443,7 +1450,7 @@ namespace JummahManagement
                     Filter = string.Format("JIP_Name LIKE '{0}%' OR JIP_Name LIKE '% {0}%'", FilterByInchargePersonReport.Text)
                 };
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -1501,7 +1508,7 @@ namespace JummahManagement
                     lblMessage.Text = "Please Enter the Branch Name";
                 }
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -1573,7 +1580,7 @@ namespace JummahManagement
                     LblBranch4.Text = dr4[0].ToString().Trim();
                 }
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -1656,7 +1663,7 @@ namespace JummahManagement
                     lblMessage.Text = "Please Enter the Branch Name";
                 }
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -1690,7 +1697,7 @@ namespace JummahManagement
                 CR.Select();
                 xlWorkSheet.PasteSpecial(CR, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, true);
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -1766,7 +1773,7 @@ namespace JummahManagement
                     }
                 }
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 lblMessage.Text = "Empty Value";
             }
@@ -1800,7 +1807,7 @@ namespace JummahManagement
                     }
                 }
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -1855,7 +1862,7 @@ namespace JummahManagement
                     txtJummaBranchName.Text = SelectedBranch.Trim();
                 }
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -1903,7 +1910,7 @@ namespace JummahManagement
                     lblMessage.Text = "Oops! ... Something Went wrong";
                 }
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -1952,7 +1959,7 @@ namespace JummahManagement
                 CR.Select();
                 xlWorkSheet.PasteSpecial(CR, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, true);
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }
@@ -1982,7 +1989,7 @@ namespace JummahManagement
                     lblMessage.Text = "Oops! ... Something Went wrong";
                 }
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 lblMessage.Text = ex.Message;
             }

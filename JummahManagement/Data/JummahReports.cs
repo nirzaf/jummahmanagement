@@ -30,7 +30,7 @@ namespace JummahManagement.Data
                 }
 				return dt;
 			}
-			catch (Exception)
+			catch (MySqlException)
 			{
                 throw;
 			}
@@ -50,7 +50,7 @@ namespace JummahManagement.Data
 				cmdCat.Fill(dt);
 				return dt;
 			}
-			catch (Exception)
+			catch (MySqlException)
 			{
 				throw;
 			}
@@ -70,7 +70,7 @@ namespace JummahManagement.Data
 				cmdCat.Fill(dt);				
 				return dt;
 			}
-			catch (Exception)
+			catch (MySqlException)
 			{
 				throw;
 			}
@@ -91,7 +91,7 @@ namespace JummahManagement.Data
 				
 				return dt;
 			}
-			catch (Exception)
+			catch (MySqlException)
 			{
 				throw;
 			}
@@ -113,7 +113,7 @@ namespace JummahManagement.Data
 				return dt;
 
 			}
-			catch (Exception)
+			catch (MySqlException)
 			{
 				throw;
 			}
@@ -135,7 +135,7 @@ namespace JummahManagement.Data
 				
 				return dt;
 			}
-			catch (Exception)
+			catch (MySqlException)
 			{
 				throw;
 			}
@@ -157,7 +157,7 @@ namespace JummahManagement.Data
 				
 				return result;
 			}
-			catch (Exception ex)
+			catch (MySqlException ex)
 			{
 				
 				MessageBox.Show(ex.Message);
@@ -180,7 +180,7 @@ namespace JummahManagement.Data
 				cmdCat.Fill(dt);
 				return dt;
 			}
-			catch (Exception)
+			catch (MySqlException)
 			{
 				throw;
 			}
@@ -202,7 +202,7 @@ namespace JummahManagement.Data
 				
 				return result;
 			}
-			catch (Exception ex)
+			catch (MySqlException ex)
 			{
 				
 				MessageBox.Show(ex.Message);
@@ -226,7 +226,7 @@ namespace JummahManagement.Data
 				
 				return result;
 			}
-			catch (Exception ex)
+			catch (MySqlException ex)
 			{
 				
 				MessageBox.Show(ex.Message);
@@ -258,7 +258,7 @@ namespace JummahManagement.Data
 								MessageBox.Show("This Dhae Assigned Already");
 								return result;
 							}
-							catch (Exception)
+							catch (MySqlException)
 							{
 								
 								throw;
@@ -272,7 +272,7 @@ namespace JummahManagement.Data
 								MessageBox.Show("This Branch Assigned Already");
 								return result;
 							}
-							catch (Exception)
+							catch (MySqlException)
 							{
 								
 								throw;
@@ -289,7 +289,7 @@ namespace JummahManagement.Data
 								
 								return result;
 							}
-							catch (Exception)
+							catch (MySqlException)
 							{
 								reader.Close();
 								
@@ -318,7 +318,7 @@ namespace JummahManagement.Data
 									MessageBox.Show("This Dhae Assigned Already");
 									return result;
 								}
-								catch (Exception)
+								catch (MySqlException)
 								{
 									
 									throw;
@@ -333,7 +333,7 @@ namespace JummahManagement.Data
 									
 									return result;
 								}
-								catch (Exception)
+								catch (MySqlException)
 								{
 									
 									throw;
@@ -354,7 +354,7 @@ namespace JummahManagement.Data
 									
 									return result;
 								}
-								catch (Exception)
+								catch (MySqlException)
 								{
 									reader.Close();
 									
@@ -362,7 +362,7 @@ namespace JummahManagement.Data
 								}
 							}
 						}
-						catch (Exception)
+						catch (MySqlException)
 						{
 							C.Con.Close();
 							throw;
@@ -370,12 +370,12 @@ namespace JummahManagement.Data
 
 					}
 				}
-				catch (Exception)
+				catch (MySqlException)
 				{
 					throw;
 				}
 			}
-			catch (Exception)
+			catch (MySqlException)
 			{
 				throw;
 			}
@@ -396,7 +396,7 @@ namespace JummahManagement.Data
 				
 				return dt;
 			}
-			catch (Exception)
+			catch (MySqlException)
 			{
 				throw;
 			}
@@ -430,7 +430,7 @@ namespace JummahManagement.Data
 				command.ExecuteNonQuery();
 				
 			}
-			catch (Exception ex)
+			catch (MySqlException ex)
 			{
 				
 				MessageBox.Show(ex.Message);

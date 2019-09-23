@@ -1,4 +1,5 @@
 ﻿using JummahManagement.Data;
+using MySql.Data.MySqlClient;
 using System;
 using System.Data;
 
@@ -17,7 +18,7 @@ namespace JummahManagement.Business
                 DataTable dt = jr.GetAll();
                 return dt;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -32,7 +33,7 @@ namespace JummahManagement.Business
                 dt = jr.GetCity();
                 return dt;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -47,7 +48,7 @@ namespace JummahManagement.Business
                 result = jr.DeleteTempRow(RowID);
                 return result;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 return result;
             }
@@ -62,7 +63,7 @@ namespace JummahManagement.Business
                 result = jr.DeleteScheduleRow(ID);
                 return result;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 return result;
             }
@@ -76,7 +77,7 @@ namespace JummahManagement.Business
                 int result = jr.AddJummaSchedule(RowCount, DhaeName, DhaeContact, BranchName, JIPName, JIPContact, Date);
                 return result;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -90,7 +91,7 @@ namespace JummahManagement.Business
                 DataTable dt = jr.JummaScheduleReportByDate(Date);
                 return dt;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -104,7 +105,7 @@ namespace JummahManagement.Business
                 DataTable dt = jr.PDFJummaScheduleReportByDate(Date);
                 return dt;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -119,7 +120,7 @@ namespace JummahManagement.Business
                 result = jr.UpdateCityName(CityID, CityName);
                 return result;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -133,7 +134,7 @@ namespace JummahManagement.Business
                 DataTable dt = jr.LastMonthDhaeReportByDate(Date, BranchName);
                 return dt;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -147,7 +148,7 @@ namespace JummahManagement.Business
                 DataTable dt = jr.LastMonthBranchReportByDate(Date, DhaeName);
                 return dt;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }

@@ -18,7 +18,7 @@ namespace JummahManagement.Business
                 DataSet dt = dd.SuggestedDhaeList(Dhae1,Dhae2,Dhae3,Dhae4);
                 return dt;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -32,7 +32,7 @@ namespace JummahManagement.Business
                 DataTable dt = dd.LoadDhaes();
                 return dt;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -47,7 +47,7 @@ namespace JummahManagement.Business
                 DataTable dt = jr.LoadDhaeReportByDate(Date);
                 return dt;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -60,7 +60,7 @@ namespace JummahManagement.Business
             {
                 dd.DeleteDhaeFromTempTable(DhaeName);
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -75,7 +75,7 @@ namespace JummahManagement.Business
                 int result = dd.AddDhae(Dhae_ID, Dhae_Name, Dhae_Contact, House_No, Street_Name, City, District);
                 return result;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -89,7 +89,7 @@ namespace JummahManagement.Business
                 int result = dd.AddDhae(Dhae_ID, Dhae_Name, Dhae_Contact, House_No, Street_Name, City, District);
                 return result;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -103,7 +103,7 @@ namespace JummahManagement.Business
                 int result = dd.AddCity(City);
                 return result;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -117,7 +117,7 @@ namespace JummahManagement.Business
                 DataTable dt = dd.ViewAllDhaes();
                 return dt;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -131,7 +131,7 @@ namespace JummahManagement.Business
                 DataTable dt = dd.LoadDhaeByDhaeID(DhaeID);
                 return dt;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -146,7 +146,7 @@ namespace JummahManagement.Business
                 result = dd.UpdateDhaeDetails(Dhae_ID, Dhae_Name, Dhae_Contact, Dhae_House_No, Dhae_Street_Name, Dhae_City, Dhae_District);
                 return result;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 return result;
             }
@@ -161,7 +161,7 @@ namespace JummahManagement.Business
                 result = dd.DeleteDhaeDetails(Dhae_ID);
                 return result;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 return result;
             }
@@ -175,7 +175,7 @@ namespace JummahManagement.Business
                 DataTable dt = dd.GetAllDhaeNames();
                 return dt;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -189,7 +189,7 @@ namespace JummahManagement.Business
                 DataTable dt = dd.LoadDhaeNoByDhaeName(DhaeName);
                 return dt;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -203,7 +203,7 @@ namespace JummahManagement.Business
                 DataTable dt = dd.LoadDhaeDetailsByDhaeName(DhaeName);
                 return dt;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -215,7 +215,7 @@ namespace JummahManagement.Business
             {
                 dd.InsertDhaeDetailsToTempTable(DhaeName);
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -230,7 +230,7 @@ namespace JummahManagement.Business
                 result = dd.InsertDhaeDetailsToDeleted(Dhae_ID);
                 return result;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 return result;
             }

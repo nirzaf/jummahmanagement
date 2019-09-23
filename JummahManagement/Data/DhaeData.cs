@@ -23,7 +23,7 @@ namespace JummahManagement.Data
                 }
                 return ds;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -39,7 +39,7 @@ namespace JummahManagement.Data
                     adp.ExecuteNonQuery();
                 }
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -86,7 +86,7 @@ namespace JummahManagement.Data
                     }
                 }              
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -100,7 +100,7 @@ namespace JummahManagement.Data
                 {
                     using (MySqlCommand Check_City = new MySqlCommand("SELECT * FROM tbl_City WHERE City = '" + City + "'", C.Con))
                     {
-                    if (C.Con == null)C.Con.Open();
+                        C.Con.Open();
                         using (MySqlDataReader reader = Check_City.ExecuteReader())
                         {
                             if (reader.HasRows)
@@ -117,7 +117,7 @@ namespace JummahManagement.Data
                                     }
                                     return result;
                                 }
-                                catch (Exception)
+                                catch (MySqlException)
                                 {
                                     return result;
                                 }
@@ -125,7 +125,7 @@ namespace JummahManagement.Data
                         }
                     }
                 }
-                catch (Exception)
+                catch (MySqlException)
                 {
                     throw;
                 }
@@ -142,7 +142,7 @@ namespace JummahManagement.Data
                     cmd.ExecuteNonQuery();
                 }
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -174,7 +174,7 @@ namespace JummahManagement.Data
                                     }
                                     return result;
                                 }
-                                catch (Exception)
+                                catch (MySqlException)
                                 {
                                     return result;
                                 }
@@ -182,7 +182,7 @@ namespace JummahManagement.Data
                         }
                     }
                 }
-                catch (Exception)
+                catch (MySqlException)
                 {
                     return result;
                 }
@@ -201,7 +201,7 @@ namespace JummahManagement.Data
                 }
                 return result;
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 MessageBox.Show(ex.Message);
                 return result;
@@ -222,7 +222,7 @@ namespace JummahManagement.Data
                 }
                 return dt;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -252,7 +252,7 @@ namespace JummahManagement.Data
                     }
                 }
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 MessageBox.Show(ex.Message);
                 throw;
@@ -283,7 +283,7 @@ namespace JummahManagement.Data
                     }
                 }
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -302,7 +302,7 @@ namespace JummahManagement.Data
                 }
                 return result;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 return result;
             }
@@ -322,7 +322,7 @@ namespace JummahManagement.Data
                 }
                 return result;
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 return result;
             }
@@ -352,7 +352,7 @@ namespace JummahManagement.Data
                     }
                 }
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -382,7 +382,7 @@ namespace JummahManagement.Data
                     }
                 }
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }
@@ -412,7 +412,7 @@ namespace JummahManagement.Data
                     }
                 }
             }
-            catch (Exception)
+            catch (MySqlException)
             {
                 throw;
             }

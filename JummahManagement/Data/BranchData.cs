@@ -39,13 +39,13 @@ namespace JummahManagement.Data
                             }
                             return result;
                         }
-                        catch (Exception)
+                        catch (MySqlException)
                         {
                             return result;
                         }
                     }
                 }
-                catch (Exception)
+                catch (MySqlException)
 				{
 					throw;
 				}
@@ -62,7 +62,7 @@ namespace JummahManagement.Data
                     cmd.ExecuteNonQuery();
                 }
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -79,7 +79,7 @@ namespace JummahManagement.Data
                     adp.ExecuteNonQuery();
                 }
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
 			{
 				MessageBox.Show(ex.Message);
 			}
@@ -99,7 +99,7 @@ namespace JummahManagement.Data
                 }
                 return result;
             }
-            catch (Exception)
+            catch (MySqlException)
 			{
 				return result;
             }
@@ -119,7 +119,7 @@ namespace JummahManagement.Data
                 }
                 return dt;
             }
-            catch (Exception ex)
+            catch (MySqlException ex)
 			{
 				MessageBox.Show(ex.Message);
 				throw;
@@ -140,7 +140,7 @@ namespace JummahManagement.Data
                 }
 				return dt;
 			}
-			catch (Exception)
+			catch (MySqlException)
 			{
 				throw;
 			}
@@ -160,7 +160,7 @@ namespace JummahManagement.Data
                 }
 				return dt;
 			}
-			catch (Exception)
+			catch (MySqlException)
 			{
 				throw;
 			}
@@ -180,7 +180,7 @@ namespace JummahManagement.Data
                 }
                 return dt;
             }
-            catch (Exception)
+            catch (MySqlException)
 			{
 				throw;
 			}
@@ -199,7 +199,7 @@ namespace JummahManagement.Data
                 }
 				return result;
 			}
-			catch (Exception)
+			catch (MySqlException)
 			{
 				return result;
 			}
@@ -219,7 +219,7 @@ namespace JummahManagement.Data
                 }
                 return dt;
             }
-            catch (Exception)
+            catch (MySqlException)
 			{
 				throw;
 			}
@@ -239,7 +239,7 @@ namespace JummahManagement.Data
                 }
                 return dt;
             }
-            catch (Exception)
+            catch (MySqlException)
 			{
 				throw;
 			}
@@ -258,7 +258,7 @@ namespace JummahManagement.Data
                 }
                 return result;
             }
-            catch (Exception)
+            catch (MySqlException)
 			{
 				return result;
 			}
