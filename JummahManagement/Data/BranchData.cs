@@ -55,8 +55,6 @@ namespace JummahManagement.Data
 							return result;
 						}
 					}
-
-
 				}
 				catch (Exception)
 				{
@@ -72,20 +70,26 @@ namespace JummahManagement.Data
 		//Function to create temp branch Table
 		public void CreateTempBranchTable()
 		{
-			try
-			{
-				SqlCommand cmd = new SqlCommand(@"CreateTempBranchTable", newCon.Con);
-				cmd.CommandType = CommandType.StoredProcedure;
-				if (newCon.Con.State == ConnectionState.Closed)
-				{
-					newCon.Con.Open();
-				}
-				cmd.ExecuteNonQuery();
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show(ex.Message);
-			}
+            try
+            {
+                SqlCommand cmd = new SqlCommand(@"CreateTempBranchTable", newCon.Con)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                if (newCon.Con.State == ConnectionState.Closed)
+                {
+                    newCon.Con.Open();
+                }
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                newCon.Con.Close();
+            }
 		}
 
 		//Function to Delete Branch data  From TempDhae table
