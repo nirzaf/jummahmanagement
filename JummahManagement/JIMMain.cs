@@ -1999,6 +1999,21 @@ namespace JummahManagement
         {
 
         }
+
+        private void TxtCityNames1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TxtAddNewCity1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label9_Click(object sender, EventArgs e)
+        {
+
+        }
     }
     public static class MyExtensions
     {
