@@ -73,7 +73,7 @@ namespace JummahManagement.Business
         {
             try
             {
-                int result = bd.AddBranch(Branch_ID,Branch_Name,JIP_Name,JIP_Contact,Building_No,Street_Name, City, District);
+                int result = bd.AddBranch(Branch_ID,Branch_Name,JIP_Name,JIP_Contact, City, District);
                 return result;
             }        
             catch (MySqlException)

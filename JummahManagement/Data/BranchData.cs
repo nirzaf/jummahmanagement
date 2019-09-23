@@ -11,7 +11,7 @@ namespace JummahManagement.Data
 		DataCon C = new DataCon();
 
 		//Function to Add Branch
-		public int AddBranch(string Branch_ID, string Branch_Name, string JIP_Name, string JIP_Contact, string Building_No, string Street_Name, string City, string District)
+		public int AddBranch(string Branch_ID, string Branch_Name, string JIP_Name, string JIP_Contact, string City, string District)
 		{
 				int result = 0;
 				try
@@ -32,7 +32,7 @@ namespace JummahManagement.Data
                     {
                         try
                         {
-                            using (MySqlCommand cmd = new MySqlCommand("INSERT INTO tbl_Branches (Branch_ID,Branch_Name,JIP_Name,JIP_Contact,No,Street_Name,City,District) VALUES ('" + Branch_ID + "','" + Branch_Name + "','" + JIP_Name + "','" + JIP_Contact + "','" + Building_No + "','" + Street_Name + "','" + City + "','" + District + "')", C.Con))
+                            using (MySqlCommand cmd = new MySqlCommand("INSERT INTO tbl_Branches (Branch_ID,Branch_Name,JIP_Name,JIP_Contact,No,Street_Name,City,District) VALUES ('" + Branch_ID + "','" + Branch_Name + "','" + JIP_Name + "','" + JIP_Contact + "','" + "','" + City + "','" + District + "')", C.Con))
                             {
                                 if(C.Con == null)C.Con.Open();
                                 result = cmd.ExecuteNonQuery();

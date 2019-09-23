@@ -323,11 +323,9 @@ namespace JummahManagement
                     int Dhae_ID = Convert.ToInt32(txtDhaeID.Text);
                     string Dhae_Name = txtDhaeName.Text.Trim();
                     string DhaeContactNo = txtDhaeContact.Text.Trim();
-                    string HouseNo = txtHouseNo.Text.Trim();
-                    string StreetName = txtStreetName.Text.Trim();
                     string City = TxtCityNames.Text.Trim();
                     string District = TxtDistrictNames1.Text.Trim();
-                    int result = db.AddDhae(Dhae_ID, Dhae_Name, DhaeContactNo, HouseNo, StreetName, City, District);
+                    int result = db.AddDhae(Dhae_ID, Dhae_Name, DhaeContactNo, City, District);
                     if (result == 1)
                     {
                         lblMessage.Text = "Successfully Added";
@@ -378,12 +376,10 @@ namespace JummahManagement
                 string Branch_Name = txtBranchName.Text.Trim();
                 string JIT_Name = txtJIT_Name.Text.Trim();
                 string JIT_Contact = txtJIT_Contact.Text.Trim();
-                string BuildingNo = txtBuildingNo.Text.Trim();
-                string StreetName = txtStreet.Text.Trim();
                 string City = TxtCityNames1.Text.Trim();
                 string District = TxtDistrictNames.Text.Trim();
 
-                int result = bb.AddBranch(Branch_ID, Branch_Name, JIT_Name, JIT_Contact, BuildingNo, StreetName, City, District);
+                int result = bb.AddBranch(Branch_ID, Branch_Name, JIT_Name, JIT_Contact, City, District);
                 if (result == 1)
                 {
                     lblMessage.Text = "Successfully Added";
