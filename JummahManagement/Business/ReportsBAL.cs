@@ -7,7 +7,6 @@ namespace JummahManagement.Business
 { 
     class ReportsBAL
     {
-        DataCon newCon = new DataCon();
         JummahReports jr = new JummahReports();
 
         //Function to Complete Jumma Report

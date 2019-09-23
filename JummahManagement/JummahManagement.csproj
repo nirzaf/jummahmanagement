@@ -215,7 +215,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\download.png" />
-    <None Include="Resources\Splash Screen Image.jpg" />
     <None Include="Resources\pdfs-512.png" />
   </ItemGroup>
   <ItemGroup>
