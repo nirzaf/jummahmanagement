@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
@@ -22,8 +23,8 @@ namespace JummahManagement.Data
 						newCon.Con.Open();
 					}
 
-					SqlCommand Check_Branch = new SqlCommand("SELECT * FROM tbl_Branches WHERE Branch_ID = '" + Branch_ID + "'", newCon.Con);
-					SqlDataReader reader = Check_Branch.ExecuteReader();
+					MySqlCommand Check_Branch = new MySqlCommand("SELECT * FROM tbl_Branches WHERE Branch_ID = '" + Branch_ID + "'", newCon.Con);
+					MySqlDataReader reader = Check_Branch.ExecuteReader();
 
 					if (reader.HasRows)
 					{
@@ -45,7 +46,7 @@ namespace JummahManagement.Data
 							{
 								newCon.Con.Open();
 							}
-							SqlCommand cmd = new SqlCommand("INSERT INTO tbl_Branches (Branch_ID,Branch_Name,JIP_Name,JIP_Contact,No,Street_Name,City,District) VALUES ('" + Branch_ID + "','" + Branch_Name + "','" + JIP_Name + "','" + JIP_Contact + "','" + Building_No + "','" + Street_Name + "','" + City + "','" + District + "')", newCon.Con);
+							MySqlCommand cmd = new MySqlCommand("INSERT INTO tbl_Branches (Branch_ID,Branch_Name,JIP_Name,JIP_Contact,No,Street_Name,City,District) VALUES ('" + Branch_ID + "','" + Branch_Name + "','" + JIP_Name + "','" + JIP_Contact + "','" + Building_No + "','" + Street_Name + "','" + City + "','" + District + "')", newCon.Con);
 							cmd.ExecuteNonQuery();
 							result = 1;
 							return result;
@@ -72,7 +73,7 @@ namespace JummahManagement.Data
 		{
             try
             {
-                SqlCommand cmd = new SqlCommand(@"CreateTempBranchTable", newCon.Con)
+                MySqlCommand cmd = new MySqlCommand(@"CreateTempBranchTable", newCon.Con)
                 {
                     CommandType = CommandType.StoredProcedure
                 };
@@ -101,7 +102,7 @@ namespace JummahManagement.Data
 				{
 					newCon.Con.Open();
 				}
-				SqlCommand adp = new SqlCommand("Delete From tbl_Branches_temp Where Branch_Name = ('" + BranchName + "')", newCon.Con);
+				MySqlCommand adp = new MySqlCommand("Delete From tbl_Branches_temp Where Branch_Name = ('" + BranchName + "')", newCon.Con);
 				adp.ExecuteNonQuery();
 				newCon.CloseSQLConnecion();
 			}
@@ -118,7 +119,7 @@ namespace JummahManagement.Data
 			int result = 0;
 			try
 			{
-				SqlCommand cmd = new SqlCommand(@"INSERT INTO tbl_Branches_Deleted SELECT * FROM tbl_Branches Where Branch_ID = '" + Branch_ID + "'", newCon.Con);
+				MySqlCommand cmd = new MySqlCommand(@"INSERT INTO tbl_Branches_Deleted SELECT * FROM tbl_Branches Where Branch_ID = '" + Branch_ID + "'", newCon.Con);
 				if (newCon.Con.State == ConnectionState.Closed)
 				{
 					newCon.Con.Open();
@@ -143,7 +144,7 @@ namespace JummahManagement.Data
 				{
 					newCon.Con.Open();
 				}
-				SqlDataAdapter sda = new SqlDataAdapter(query, newCon.Con);
+				MySqlDataAdapter sda = new MySqlDataAdapter(query, newCon.Con);
 				DataTable dt = new DataTable();
 				sda.Fill(dt);
 				newCon.CloseSQLConnecion();
@@ -166,7 +167,7 @@ namespace JummahManagement.Data
 					newCon.Con.Open();
 				}
 				string query = "Select * From tbl_Branches Where Branch_ID = '" + Branch_ID + "'";
-				SqlDataAdapter sda = new SqlDataAdapter(query, newCon.Con);
+				MySqlDataAdapter sda = new MySqlDataAdapter(query, newCon.Con);
 				DataTable dt = new DataTable();
 				sda.Fill(dt);
 				newCon.CloseSQLConnecion();
@@ -188,7 +189,7 @@ namespace JummahManagement.Data
 					newCon.Con.Open();
 				}
 				string query = "Select * From tbl_Branches";
-				SqlDataAdapter sda = new SqlDataAdapter(query, newCon.Con);
+				MySqlDataAdapter sda = new MySqlDataAdapter(query, newCon.Con);
 				DataTable dt = new DataTable();
 				sda.Fill(dt);
 				newCon.CloseSQLConnecion();
@@ -210,7 +211,7 @@ namespace JummahManagement.Data
 					newCon.Con.Open();
 				}
 				string query = "Select Branch_ID,Branch_Name,JIP_Name,JIP_Contact,District From tbl_Branches";
-				SqlDataAdapter sda = new SqlDataAdapter(query, newCon.Con);
+				MySqlDataAdapter sda = new MySqlDataAdapter(query, newCon.Con);
 				DataTable dt = new DataTable();
 				sda.Fill(dt);
 				newCon.CloseSQLConnecion();
@@ -232,7 +233,7 @@ namespace JummahManagement.Data
 				{
 					newCon.Con.Open();
 				}
-				SqlDataAdapter adp = new SqlDataAdapter("Update tbl_Branches set Branch_Name = ('" + Branch_Name + "'), JIP_Name = ('" + JIP_Name + "'),JIP_Contact = ('" + JIP_Contact + "'), No = ('" + Branch_Building_No + "'), Street_Name = ('" + Branch_Street_Name + "'), City = ('" + Branch_City + "'), District = ('" + Branch_District + "') Where Branch_ID = '" + Branch_ID + "'", newCon.Con);
+				MySqlDataAdapter adp = new MySqlDataAdapter("Update tbl_Branches set Branch_Name = ('" + Branch_Name + "'), JIP_Name = ('" + JIP_Name + "'),JIP_Contact = ('" + JIP_Contact + "'), No = ('" + Branch_Building_No + "'), Street_Name = ('" + Branch_Street_Name + "'), City = ('" + Branch_City + "'), District = ('" + Branch_District + "') Where Branch_ID = '" + Branch_ID + "'", newCon.Con);
 				DataTable dt = new DataTable();
 				adp.Fill(dt);
 				newCon.CloseSQLConnecion();
@@ -255,7 +256,7 @@ namespace JummahManagement.Data
 					newCon.Con.Open();
 				}
 				string query = "Select Branch_Name From tbl_Branches";
-				SqlDataAdapter sda = new SqlDataAdapter(query, newCon.Con);
+				MySqlDataAdapter sda = new MySqlDataAdapter(query, newCon.Con);
 				DataTable dt = new DataTable();
 				sda.Fill(dt);
 				newCon.CloseSQLConnecion();
@@ -277,7 +278,7 @@ namespace JummahManagement.Data
 					newCon.Con.Open();
 				}
 				string query = "Select Branch_ID From tbl_Branches Where Branch_Name = '" + BranchName + "'";
-				SqlDataAdapter sda = new SqlDataAdapter(query, newCon.Con);
+				MySqlDataAdapter sda = new MySqlDataAdapter(query, newCon.Con);
 				DataTable dt = new DataTable();
 				sda.Fill(dt);
 				newCon.CloseSQLConnecion();
@@ -299,7 +300,7 @@ namespace JummahManagement.Data
 				{
 					newCon.Con.Open();
 				}
-				SqlCommand adp = new SqlCommand("Delete From tbl_Branches Where Branch_ID = '" + Branch_ID + "'", newCon.Con);
+				MySqlCommand adp = new MySqlCommand("Delete From tbl_Branches Where Branch_ID = '" + Branch_ID + "'", newCon.Con);
 				adp.ExecuteNonQuery();
 				result = 1;
 				newCon.CloseSQLConnecion();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
@@ -19,7 +20,7 @@ namespace JummahManagement.Data
 				{
 					newCon.Con.Open();
 				}
-				SqlDataAdapter cmdCat = new SqlDataAdapter("SELECT * FROM tbl_Jummah_Schedule_temp", newCon.Con);
+				MySqlDataAdapter cmdCat = new MySqlDataAdapter("SELECT * FROM tbl_Jummah_Schedule_temp", newCon.Con);
 				cmdCat.Fill(dt);
 				newCon.CloseSQLConnecion();
 				return dt;
@@ -41,7 +42,7 @@ namespace JummahManagement.Data
 				{
 					newCon.Con.Open();
 				}
-				SqlDataAdapter cmdCat = new SqlDataAdapter("SELECT * FROM tbl_Jummah_Schedule", newCon.Con);
+				MySqlDataAdapter cmdCat = new MySqlDataAdapter("SELECT * FROM tbl_Jummah_Schedule", newCon.Con);
 				DataTable dt = new DataTable();
 				cmdCat.Fill(dt);
 				newCon.CloseSQLConnecion();
@@ -62,7 +63,7 @@ namespace JummahManagement.Data
 				{
 					newCon.Con.Open();
 				}
-				SqlDataAdapter cmdCat = new SqlDataAdapter("SELECT Branch_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "' AND Dhae_Name ='" + DhaeName + "' ", newCon.Con);
+				MySqlDataAdapter cmdCat = new MySqlDataAdapter("SELECT Branch_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "' AND Dhae_Name ='" + DhaeName + "' ", newCon.Con);
 				DataTable dt = new DataTable();
 				cmdCat.Fill(dt);
 				newCon.CloseSQLConnecion();
@@ -83,7 +84,7 @@ namespace JummahManagement.Data
 				{
 					newCon.Con.Open();
 				}
-				SqlDataAdapter cmdCat = new SqlDataAdapter("SELECT Dhae_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "' AND Branch_Name ='"+ BranchName +"' ", newCon.Con);
+				MySqlDataAdapter cmdCat = new MySqlDataAdapter("SELECT Dhae_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "' AND Branch_Name ='"+ BranchName +"' ", newCon.Con);
 				DataTable dt = new DataTable();
 				cmdCat.Fill(dt);
 				newCon.CloseSQLConnecion();
@@ -104,7 +105,7 @@ namespace JummahManagement.Data
 				{
 					newCon.Con.Open();
 				}
-				SqlDataAdapter cmdCat = new SqlDataAdapter("Select * From tbl_Jummah_Schedule Where Date = '" + Date + "'", newCon.Con);
+				MySqlDataAdapter cmdCat = new MySqlDataAdapter("Select * From tbl_Jummah_Schedule Where Date = '" + Date + "'", newCon.Con);
 				DataTable dt = new DataTable();
 				cmdCat.Fill(dt);
 				newCon.CloseSQLConnecion();
@@ -126,7 +127,7 @@ namespace JummahManagement.Data
 				{
 					newCon.Con.Open();
 				}
-				SqlDataAdapter cmdCat = new SqlDataAdapter("GetCities", newCon.Con);
+				MySqlDataAdapter cmdCat = new MySqlDataAdapter("GetCities", newCon.Con);
 				cmdCat.SelectCommand.CommandType = CommandType.StoredProcedure;
 				DataTable dt = new DataTable();
 				cmdCat.Fill(dt);
@@ -149,7 +150,7 @@ namespace JummahManagement.Data
 				{
 					newCon.Con.Open();
 				}
-				SqlCommand cmd = new SqlCommand("UPDATE tbl_City SET City = '"+ CityName +"' WHERE City_ID = '"+ CityID +"'", newCon.Con);
+				MySqlCommand cmd = new MySqlCommand("UPDATE tbl_City SET City = '"+ CityName +"' WHERE City_ID = '"+ CityID +"'", newCon.Con);
 				cmd.ExecuteNonQuery();
 				result = 1;
 				newCon.CloseSQLConnecion();
@@ -172,7 +173,7 @@ namespace JummahManagement.Data
 				{
 					newCon.Con.Open();
 				}
-				SqlDataAdapter cmdCat = new SqlDataAdapter("SELECT * FROM tbl_Jummah_Schedule Where Date = '"+ Date +"'", newCon.Con);
+				MySqlDataAdapter cmdCat = new MySqlDataAdapter("SELECT * FROM tbl_Jummah_Schedule Where Date = '"+ Date +"'", newCon.Con);
 				DataTable dt = new DataTable();
 				newCon.CloseSQLConnecion();
 				cmdCat.Fill(dt);
@@ -194,7 +195,7 @@ namespace JummahManagement.Data
 				{
 					newCon.Con.Open();
 				}
-				SqlCommand cmd = new SqlCommand("DELETE FROM tbl_Jummah_Schedule_temp Where ID = '" + RowID + "'", newCon.Con);
+				MySqlCommand cmd = new MySqlCommand("DELETE FROM tbl_Jummah_Schedule_temp Where ID = '" + RowID + "'", newCon.Con);
 				cmd.ExecuteNonQuery();
 				result = 1;
 				newCon.CloseSQLConnecion();
@@ -218,7 +219,7 @@ namespace JummahManagement.Data
 				{
 					newCon.Con.Open();
 				}
-				SqlCommand cmd = new SqlCommand("DELETE FROM tbl_Jummah_Schedule Where ID = '" + ID + "'", newCon.Con);
+				MySqlCommand cmd = new MySqlCommand("DELETE FROM tbl_Jummah_Schedule Where ID = '" + ID + "'", newCon.Con);
 				cmd.ExecuteNonQuery();
 				result = 1;
 				newCon.CloseSQLConnecion();
@@ -243,10 +244,10 @@ namespace JummahManagement.Data
 				{
 					if (newCon.Con.State == ConnectionState.Open)
 					{
-						SqlCommand Check_Dhae = new SqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Dhae_Name = '" + DhaeName + "'", newCon.Con);
-						SqlCommand Check_Branch = new SqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Branch_Name = '" + BranchName + "'", newCon.Con);
-						SqlDataReader reader = Check_Dhae.ExecuteReader();
-						SqlDataReader reader1 = Check_Branch.ExecuteReader();
+						MySqlCommand Check_Dhae = new MySqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Dhae_Name = '" + DhaeName + "'", newCon.Con);
+						MySqlCommand Check_Branch = new MySqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Branch_Name = '" + BranchName + "'", newCon.Con);
+						MySqlDataReader reader = Check_Dhae.ExecuteReader();
+						MySqlDataReader reader1 = Check_Branch.ExecuteReader();
 
 						if (reader.HasRows)
 						{
@@ -280,7 +281,7 @@ namespace JummahManagement.Data
 						{
 							try
 							{
-								SqlCommand cmd = new SqlCommand("INSERT INTO tbl_Jummah_Schedule_temp (Row_Count,Dhae_Name,Dhae_Contact,Branch_Name,JIP_Name,JIP_Contact,Date) VALUES ('" + RowCount + "','" + DhaeName + "','" + DhaeContact + "','" + BranchName + "','" + JIPName + "','" + JIPContact + "','" + Date + "')", newCon.Con);
+								MySqlCommand cmd = new MySqlCommand("INSERT INTO tbl_Jummah_Schedule_temp (Row_Count,Dhae_Name,Dhae_Contact,Branch_Name,JIP_Name,JIP_Contact,Date) VALUES ('" + RowCount + "','" + DhaeName + "','" + DhaeContact + "','" + BranchName + "','" + JIPName + "','" + JIPContact + "','" + Date + "')", newCon.Con);
 								cmd.ExecuteNonQuery();
 								result = 1;
 								reader.Close();
@@ -303,10 +304,10 @@ namespace JummahManagement.Data
 							{
 								newCon.Con.Open();
 							}
-							SqlCommand Check_Dhae = new SqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Dhae_Name = '" + DhaeName + "'", newCon.Con);
-							SqlCommand Check_Branch = new SqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Branch_Name = '" + BranchName + "'", newCon.Con);
-							SqlDataReader reader = Check_Dhae.ExecuteReader();
-							SqlDataReader reader1 = Check_Branch.ExecuteReader();
+							MySqlCommand Check_Dhae = new MySqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Dhae_Name = '" + DhaeName + "'", newCon.Con);
+							MySqlCommand Check_Branch = new MySqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Branch_Name = '" + BranchName + "'", newCon.Con);
+							MySqlDataReader reader = Check_Dhae.ExecuteReader();
+							MySqlDataReader reader1 = Check_Branch.ExecuteReader();
 
 							if (reader.HasRows)
 							{
@@ -345,7 +346,7 @@ namespace JummahManagement.Data
 									{
 										newCon.Con.Open();
 									}
-									SqlCommand cmd = new SqlCommand("INSERT INTO tbl_Jummah_Schedule_temp (Row_Count,Dhae_Name,Dhae_Contact,Branch_Name,JIP_Name,JIP_Contact,Date) VALUES ('" + RowCount + "','" + DhaeName + "','" + DhaeContact + "','" + BranchName + "','" + JIPName + "','" + JIPContact + "','" + Date + "')", newCon.Con);
+									MySqlCommand cmd = new MySqlCommand("INSERT INTO tbl_Jummah_Schedule_temp (Row_Count,Dhae_Name,Dhae_Contact,Branch_Name,JIP_Name,JIP_Contact,Date) VALUES ('" + RowCount + "','" + DhaeName + "','" + DhaeContact + "','" + BranchName + "','" + JIPName + "','" + JIPContact + "','" + Date + "')", newCon.Con);
 									cmd.ExecuteNonQuery();
 									result = 1;
 									reader.Close();
@@ -388,7 +389,7 @@ namespace JummahManagement.Data
 				{
 					newCon.Con.Open();
 				}
-				SqlDataAdapter cmdCat = new SqlDataAdapter("SELECT Branch_Name,Dhae_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "'", newCon.Con);
+				MySqlDataAdapter cmdCat = new MySqlDataAdapter("SELECT Branch_Name,Dhae_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "'", newCon.Con);
 				DataTable dt = new DataTable();
 				cmdCat.Fill(dt);
 				newCon.CloseSQLConnecion();
@@ -405,7 +406,7 @@ namespace JummahManagement.Data
 		{
 			try
 			{
-					SqlCommand command = new SqlCommand(@"USE [JummahManagement]
+					MySqlCommand command = new MySqlCommand(@"USE [JummahManagement]
 							DROP TABLE [dbo].[tbl_Jummah_Schedule_temp]
 							CREATE TABLE [dbo].[tbl_Jummah_Schedule_temp](
 								[ID] [int] IDENTITY(1,1) NOT NULL,

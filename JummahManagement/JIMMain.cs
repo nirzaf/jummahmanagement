@@ -13,6 +13,7 @@ using System.Drawing;
 using Spire.Pdf;
 using Spire.Pdf.Graphics;
 using System.Threading;
+using MySql.Data.MySqlClient;
 
 namespace JummahManagement
 {
@@ -807,7 +808,7 @@ namespace JummahManagement
                 DataCon newCon = new DataCon();
                 for (int i = 0; i < dtJummaSchedule.RowCount - 1; i++)
                 {
-                    SqlCommand cmd = new SqlCommand("INSERT into tbl_Jummah_Schedule (Row_Count,Dhae_Name,Dhae_Contact,Branch_Name,JIP_Name,JIP_Contact,Date) Values ('" + dtJummaSchedule.Rows[i].Cells[1].Value + "','" + dtJummaSchedule.Rows[i].Cells[2].Value + "','" + dtJummaSchedule.Rows[i].Cells[3].Value + "','" + dtJummaSchedule.Rows[i].Cells[4].Value + "','" + dtJummaSchedule.Rows[i].Cells[5].Value + "','" + dtJummaSchedule.Rows[i].Cells[6].Value + "','" + dtJummaSchedule.Rows[i].Cells[7].Value + "' )", newCon.Con);
+                    MySqlCommand cmd = new MySqlCommand("INSERT into tbl_Jummah_Schedule (Row_Count,Dhae_Name,Dhae_Contact,Branch_Name,JIP_Name,JIP_Contact,Date) Values ('" + dtJummaSchedule.Rows[i].Cells[1].Value + "','" + dtJummaSchedule.Rows[i].Cells[2].Value + "','" + dtJummaSchedule.Rows[i].Cells[3].Value + "','" + dtJummaSchedule.Rows[i].Cells[4].Value + "','" + dtJummaSchedule.Rows[i].Cells[5].Value + "','" + dtJummaSchedule.Rows[i].Cells[6].Value + "','" + dtJummaSchedule.Rows[i].Cells[7].Value + "' )", newCon.Con);
                     if (ConnectionState.Closed == newCon.Con.State)
                     {
                         newCon.Con.Open();
