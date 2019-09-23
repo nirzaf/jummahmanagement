@@ -1,230 +1,301 @@
-CREATE TABLE tbl_Branches (
-    `Branch_ID`   VARCHAR (20) NOT NULL,
-    `Branch_Name` VARCHAR (50) NOT NULL,
-    `JIP_Name`    VARCHAR (40) NOT NULL,
-    `JIP_Contact` CHAR (15)    NOT NULL,
-    `No`          INT           NULL,
-    `Street_Name` VARCHAR (50) NULL,
-    `City`        VARCHAR (50) NULL,
-    `District`    VARCHAR (50) NULL
-);
+-- phpMyAdmin SQL Dump
+-- version 4.8.4
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Sep 23, 2019 at 09:21 AM
+-- Server version: 10.1.37-MariaDB
+-- PHP Version: 7.3.0
 
-CREATE TABLE tbl_Branches_Deleted (
-    `Branch_ID`   VARCHAR (20) NOT NULL,
-    `Branch_Name` VARCHAR (50) NOT NULL,
-    `JIP_Name`    VARCHAR (40) NOT NULL,
-    `JIP_Contact` CHAR (15)    NOT NULL,
-    `No`          INT           NULL,
-    `Street_Name` VARCHAR (50) NULL,
-    `City`        VARCHAR (50) NULL,
-    `District`    VARCHAR (50) NULL
-);
-
-CREATE TABLE tbl_Branches_temp (
-    `Branch_ID`   VARCHAR (20) NOT NULL,
-    `Branch_Name` VARCHAR (50) NOT NULL,
-    `JIP_Name`    VARCHAR (40) NOT NULL,
-    `JIP_Contact` CHAR (15)    NOT NULL,
-    `No`          INT           NULL,
-    `Street_Name` VARCHAR (50) NULL,
-    `City`        VARCHAR (50) NULL,
-    `District`    VARCHAR (50) NULL
-);
-
-CREATE TABLE tbl_City (
-    `City_ID` INT           AUTO_INCREMENT NOT NULL,
-    `City`    VARCHAR (50) NOT NULL
-);
-
-CREATE TABLE tbl_Dhae (
-    `Dhae_ID`      INT            NOT NULL,
-    `Dhae_Name`    VARCHAR (100) NOT NULL,
-    `Dhae_Contact` VARCHAR (15)  NOT NULL,
-    `House_No`     CHAR (10)     NULL,
-    `Street_Name`  VARCHAR (50)  NULL,
-    `City`         VARCHAR (50)  NULL,
-    `District`     VARCHAR (20)  NULL
-);
-
-CREATE TABLE tbl_Dhae_Deleted (
-    `Dhae_ID`      INT            NOT NULL,
-    `Dhae_Name`    VARCHAR (100) NOT NULL,
-    `Dhae_Contact` VARCHAR (15)  NOT NULL,
-    `House_No`     CHAR (10)     NULL,
-    `Street_Name`  VARCHAR (50)  NULL,
-    `City`         VARCHAR (50)  NULL,
-    `District`     VARCHAR (20)  NULL
-);
-
-CREATE TABLE tbl_Dhae_temp (
-    `Dhae_ID`      INT            NOT NULL,
-    `Dhae_Name`    VARCHAR (100) NOT NULL,
-    `Dhae_Contact` VARCHAR (15)  NOT NULL,
-    `House_No`     CHAR (10)     NULL,
-    `Street_Name`  VARCHAR (50)  NULL,
-    `City`         VARCHAR (50)  NULL,
-    `District`     VARCHAR (20)  NULL
-);
-
-CREATE TABLE tbl_Jummah_Schedule (
-    `ID`           INT           AUTO_INCREMENT NOT NULL,
-    `Row_Count`    INT           NOT NULL,
-    `Dhae_Name`    VARCHAR (50) NOT NULL,
-    `Dhae_Contact` VARCHAR (20) NOT NULL,
-    `Branch_Name`  VARCHAR (50) NOT NULL,
-    `JIP_Name`     VARCHAR (50) NOT NULL,
-    `JIP_Contact`  VARCHAR (50) NOT NULL,
-    `Date`         VARCHAR (20) NOT NULL
-);
-
-CREATE TABLE tbl_Jummah_Schedule_temp (
-    `ID`           INT           AUTO_INCREMENT NOT NULL,
-    `Row_Count`    INT           NOT NULL,
-    `Dhae_Name`    VARCHAR (50) NOT NULL,
-    `Dhae_Contact` VARCHAR (20) NOT NULL,
-    `Branch_Name`  VARCHAR (50) NOT NULL,
-    `JIP_Name`     VARCHAR (50) NOT NULL,
-    `JIP_Contact`  VARCHAR (50) NOT NULL,
-    `Date`         VARCHAR (20) NOT NULL
-);
-
-ALTER TABLE `dbo`.`tbl_Branches`
-    ADD CONSTRAINT `PK_tbl_Branches` PRIMARY KEY (`Branch_ID` ASC);
-
- 
-ALTER TABLE `dbo`.`tbl_Branches_Deleted`
-    ADD CONSTRAINT `PK_tbl_Branches_Deleted` PRIMARY KEY (`Branch_ID` ASC);
-
- 
-ALTER TABLE `dbo`.`tbl_Branches_temp`
-    ADD CONSTRAINT `PK_tbl_Branches_temp` PRIMARY KEY (`Branch_ID` ASC);
-
- 
-ALTER TABLE `dbo`.`tbl_City`
-    ADD CONSTRAINT `PK_tbl_City` PRIMARY KEY (`City_ID` ASC);
-
- 
-ALTER TABLE `dbo`.`tbl_Dhae`
-    ADD CONSTRAINT `PK_tbl_Dhae` PRIMARY KEY (`Dhae_ID` ASC);
-
- 
-ALTER TABLE `dbo`.`tbl_Dhae_Deleted`
-    ADD CONSTRAINT `PK_tbl_Dhae_Deleted` PRIMARY KEY (`Dhae_ID` ASC);
-
- 
-ALTER TABLE `dbo`.`tbl_Dhae_temp`
-    ADD CONSTRAINT `PK_tbl_Dhae_temp` PRIMARY KEY (`Dhae_ID` ASC);
-
- 
-ALTER TABLE `dbo`.`tbl_Jummah_Schedule`
-    ADD CONSTRAINT `PK_tbl_Jummah_Schedule` PRIMARY KEY (`ID` ASC);
-
- 
-ALTER TABLE `dbo`.`tbl_Jummah_Schedule_temp`
-    ADD CONSTRAINT `PK_tbl_Jummah_Schedule_temp` PRIMARY KEY (`ID` ASC);
-
- 
-CREATE LOGIN `nirzaf_SQLLogin_1`
-    WITH PASSWORD = N'|o~ot^|rh&|;vjwtXajbwm,omsFT7_&#$!~<bu~zXEzdob<k';
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
 
 
-CREATE PROCEDURE `CreateTempBranchTable`() 
-NOT DETERMINISTIC NO SQL SQL SECURITY DEFINER 
-BEGIN DROP TABLE `tbl_branches_temp`; 
-    CREATE TABLE `tbl_branches_temp` ( 
-    `Branch_ID` varchar(20) CHARACTER SET utf8 NOT NULL, 
-    `Branch_Name` varchar(50) CHARACTER SET utf8 NOT NULL, 
-    `JIP_Name` varchar(40) CHARACTER SET utf8 NOT NULL, 
-    `JIP_Contact` char(15) CHARACTER SET utf8 NOT NULL, 
-    `No` int(11) DEFAULT NULL, 
-    `Street_Name` varchar(50) CHARACTER SET utf8 DEFAULT NULL, 
-    `City` varchar(50) CHARACTER SET utf8 DEFAULT NULL, 
-    `District` varchar(50) CHARACTER SET utf8 DEFAULT NULL ) 
-    ENGINE=InnoDB DEFAULT CHARSET=latin1; 
-      
-      INSERT INTO tbl_branches_temp (SELECT * FROM tbl_branches); 
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `jummahmanagement`
+--
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE PROCEDURE `CreateTempBranchTable` ()  NO SQL
+BEGIN
+DROP TABLE `tbl_branches_temp`;
+
+CREATE TABLE `tbl_branches_temp` (
+  `Branch_ID` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `Branch_Name` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `JIP_Name` varchar(40) CHARACTER SET utf8 NOT NULL,
+  `JIP_Contact` char(15) CHARACTER SET utf8 NOT NULL,
+  `No` int(11) DEFAULT NULL,
+  `Street_Name` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `City` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `District` varchar(50) CHARACTER SET utf8 DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO tbl_branches_temp (SELECT * FROM tbl_branches);
+END$$
+DELIMITER
+
+DELIMITER $$
+CREATE PROCEDURE `GetBranches` ()  NO SQL
+BEGIN
+SELECT * FROM tbl_Branches;
 END
+$$ DELIMITER
 
+CREATE PROCEDURE `GetCities` ()  NO SQL
+SELECT * FROM  tbl_City$$
 
-DELIMITER ;
+CREATE PROCEDURE `GetDhaes` ()  NO SQL
+SELECT * FROM tbl_Dhae$$
 
+CREATE PROCEDURE `GetJummahSchedule` ()  NO SQL
+SELECT * FROM tbl_Jummah_Schedule$$
 
-DELIMITER //
-
-CREATE PROCEDURE Get_Last_Visited_Date (
-p_BranchName NVARCHAR (50)) NULL, @DhaeName NVARCHAR (50) NULL
-AS
+CREATE PROCEDURE `Get_Last_Visited_Date` (IN `p_BranchName` VARCHAR(50), IN `DhaeName` VARCHAR(50))  NO SQL
 BEGIN
     SELECT Max(Date)
     FROM   tbl_Jummah_Schedule
     WHERE  Dhae_Name = @DhaeName
-           AND Branch_Name = p_BranchName;
-END;
-
-
-END;
-//
+           AND Branch_Name = @p_BranchName;
+END$$
 
 DELIMITER ;
 
+-- --------------------------------------------------------
 
-DELIMITER //
+--
+-- Table structure for table `tbl_branches`
+--
 
-CREATE PROCEDURE GetBranches
-BEGIN
-SELECT *
-FROM   tbl_Branches;
+CREATE TABLE `tbl_branches` (
+  `Branch_ID` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `Branch_Name` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `JIP_Name` varchar(40) CHARACTER SET utf8 NOT NULL,
+  `JIP_Contact` char(15) CHARACTER SET utf8 NOT NULL,
+  `No` int(11) DEFAULT NULL,
+  `Street_Name` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `City` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `District` varchar(50) CHARACTER SET utf8 DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
 
-END;
-//
+--
+-- Table structure for table `tbl_branches_deleted`
+--
 
-DELIMITER ;
+CREATE TABLE `tbl_branches_deleted` (
+  `Branch_ID` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `Branch_Name` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `JIP_Name` varchar(40) CHARACTER SET utf8 NOT NULL,
+  `JIP_Contact` char(15) CHARACTER SET utf8 NOT NULL,
+  `No` int(11) DEFAULT NULL,
+  `Street_Name` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `City` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `District` varchar(50) CHARACTER SET utf8 DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
 
-DELIMITER //
+--
+-- Table structure for table `tbl_branches_temp`
+--
 
-CREATE PROCEDURE GetCities
-BEGIN
-SELECT *
-FROM   tbl_City;
+CREATE TABLE `tbl_branches_temp` (
+  `Branch_ID` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `Branch_Name` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `JIP_Name` varchar(40) CHARACTER SET utf8 NOT NULL,
+  `JIP_Contact` char(15) CHARACTER SET utf8 NOT NULL,
+  `No` int(11) DEFAULT NULL,
+  `Street_Name` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `City` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `District` varchar(50) CHARACTER SET utf8 DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
 
-END;
-//
+--
+-- Table structure for table `tbl_city`
+--
 
-DELIMITER ;
+CREATE TABLE `tbl_city` (
+  `City_ID` int(11) NOT NULL,
+  `City` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
 
-DELIMITER //
+--
+-- Table structure for table `tbl_dhae`
+--
 
-CREATE PROCEDURE GetDhaes
-BEGIN
-SELECT *
-FROM   tbl_Dhae;
+CREATE TABLE `tbl_dhae` (
+  `Dhae_ID` int(11) NOT NULL,
+  `Dhae_Name` varchar(100) NOT NULL,
+  `Dhae_Contact` varchar(15) NOT NULL,
+  `House_No` char(10) DEFAULT NULL,
+  `Street_Name` varchar(50) DEFAULT NULL,
+  `City` varchar(50) DEFAULT NULL,
+  `District` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
 
-END;
-//
+--
+-- Table structure for table `tbl_dhae_deleted`
+--
 
-DELIMITER ;
+CREATE TABLE `tbl_dhae_deleted` (
+  `Dhae_ID` int(11) NOT NULL,
+  `Dhae_Name` varchar(100) NOT NULL,
+  `Dhae_Contact` varchar(15) NOT NULL,
+  `House_No` char(10) DEFAULT NULL,
+  `Street_Name` varchar(50) DEFAULT NULL,
+  `City` varchar(50) DEFAULT NULL,
+  `District` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
 
-DELIMITER //
+--
+-- Table structure for table `tbl_dhae_temp`
+--
 
-CREATE PROCEDURE GetJummahSchedule
-BEGIN
-SELECT *
-FROM   tbl_Jummah_Schedule;
+CREATE TABLE `tbl_dhae_temp` (
+  `Dhae_ID` int(11) NOT NULL,
+  `Dhae_Name` varchar(100) NOT NULL,
+  `Dhae_Contact` varchar(15) NOT NULL,
+  `House_No` char(10) DEFAULT NULL,
+  `Street_Name` varchar(50) DEFAULT NULL,
+  `City` varchar(50) DEFAULT NULL,
+  `District` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
 
-END;
-//
+--
+-- Table structure for table `tbl_jummah_schedule`
+--
 
-DELIMITER ;
+CREATE TABLE `tbl_jummah_schedule` (
+  `ID` int(11) NOT NULL,
+  `Row_Count` int(11) NOT NULL,
+  `Dhae_Name` varchar(50) NOT NULL,
+  `Dhae_Contact` varchar(20) NOT NULL,
+  `Branch_Name` varchar(50) NOT NULL,
+  `JIP_Name` varchar(50) NOT NULL,
+  `JIP_Contact` varchar(50) NOT NULL,
+  `Date` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
 
-CREATE SCHEMA nirzaf_SQLLogin_1;
-    AUTHORIZATION `nirzaf_SQLLogin_1`;
+--
+-- Table structure for table `tbl_jummah_schedule_temp`
+--
 
-GO
+CREATE TABLE `tbl_jummah_schedule_temp` (
+  `ID` int(11) NOT NULL,
+  `Row_Count` int(11) NOT NULL,
+  `Dhae_Name` varchar(50) NOT NULL,
+  `Dhae_Contact` varchar(20) NOT NULL,
+  `Branch_Name` varchar(50) NOT NULL,
+  `JIP_Name` varchar(50) NOT NULL,
+  `JIP_Contact` varchar(50) NOT NULL,
+  `Date` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `tbl_branches`
+--
+ALTER TABLE `tbl_branches`
+  ADD PRIMARY KEY (`Branch_ID`);
+
+--
+-- Indexes for table `tbl_branches_deleted`
+--
+ALTER TABLE `tbl_branches_deleted`
+  ADD PRIMARY KEY (`Branch_ID`);
+
+--
+-- Indexes for table `tbl_branches_temp`
+--
+ALTER TABLE `tbl_branches_temp`
+  ADD PRIMARY KEY (`Branch_ID`);
+
+--
+-- Indexes for table `tbl_city`
+--
+ALTER TABLE `tbl_city`
+  ADD PRIMARY KEY (`City_ID`);
+
+--
+-- Indexes for table `tbl_dhae`
+--
+ALTER TABLE `tbl_dhae`
+  ADD PRIMARY KEY (`Dhae_ID`);
+
+--
+-- Indexes for table `tbl_dhae_deleted`
+--
+ALTER TABLE `tbl_dhae_deleted`
+  ADD PRIMARY KEY (`Dhae_ID`);
+
+--
+-- Indexes for table `tbl_dhae_temp`
+--
+ALTER TABLE `tbl_dhae_temp`
+  ADD PRIMARY KEY (`Dhae_ID`);
+
+--
+-- Indexes for table `tbl_jummah_schedule`
+--
+ALTER TABLE `tbl_jummah_schedule`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Indexes for table `tbl_jummah_schedule_temp`
+--
+ALTER TABLE `tbl_jummah_schedule_temp`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tbl_city`
+--
+ALTER TABLE `tbl_city`
+  MODIFY `City_ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_jummah_schedule`
+--
+ALTER TABLE `tbl_jummah_schedule`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_jummah_schedule_temp`
+--
+ALTER TABLE `tbl_jummah_schedule_temp`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
