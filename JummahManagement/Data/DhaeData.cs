@@ -387,10 +387,6 @@ namespace JummahManagement.Data
             {
                 throw;
             }
-            finally
-            {
-                if (C.Con != null) C.Con.Close();
-            }
         }
 
         //Function to Load Dhae Details by Dhae Name

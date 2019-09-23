@@ -48,7 +48,6 @@ namespace JummahManagement.Data
 				MySqlDataAdapter cmdCat = new MySqlDataAdapter("SELECT * FROM tbl_Jummah_Schedule", C.Con);
 				DataTable dt = new DataTable();
 				cmdCat.Fill(dt);
-				C.CloseSQLConnecion();
 				return dt;
 			}
 			catch (Exception)
@@ -68,8 +67,7 @@ namespace JummahManagement.Data
 				}
 				MySqlDataAdapter cmdCat = new MySqlDataAdapter("SELECT Branch_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "' AND Dhae_Name ='" + DhaeName + "' ", C.Con);
 				DataTable dt = new DataTable();
-				cmdCat.Fill(dt);
-				C.CloseSQLConnecion();
+				cmdCat.Fill(dt);				
 				return dt;
 			}
 			catch (Exception)
@@ -90,7 +88,7 @@ namespace JummahManagement.Data
 				MySqlDataAdapter cmdCat = new MySqlDataAdapter("SELECT Dhae_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "' AND Branch_Name ='"+ BranchName +"' ", C.Con);
 				DataTable dt = new DataTable();
 				cmdCat.Fill(dt);
-				C.CloseSQLConnecion();
+				
 				return dt;
 			}
 			catch (Exception)
@@ -111,7 +109,7 @@ namespace JummahManagement.Data
 				MySqlDataAdapter cmdCat = new MySqlDataAdapter("Select * From tbl_Jummah_Schedule Where Date = '" + Date + "'", C.Con);
 				DataTable dt = new DataTable();
 				cmdCat.Fill(dt);
-				C.CloseSQLConnecion();
+				
 				return dt;
 
 			}
@@ -134,7 +132,7 @@ namespace JummahManagement.Data
 				cmdCat.SelectCommand.CommandType = CommandType.StoredProcedure;
 				DataTable dt = new DataTable();
 				cmdCat.Fill(dt);
-				C.CloseSQLConnecion();
+				
 				return dt;
 			}
 			catch (Exception)
@@ -156,12 +154,12 @@ namespace JummahManagement.Data
 				MySqlCommand cmd = new MySqlCommand("UPDATE tbl_City SET City = '"+ CityName +"' WHERE City_ID = '"+ CityID +"'", C.Con);
 				cmd.ExecuteNonQuery();
 				result = 1;
-				C.CloseSQLConnecion();
+				
 				return result;
 			}
 			catch (Exception ex)
 			{
-				C.CloseSQLConnecion();
+				
 				MessageBox.Show(ex.Message);
 				return result;
 			}
@@ -178,7 +176,7 @@ namespace JummahManagement.Data
 				}
 				MySqlDataAdapter cmdCat = new MySqlDataAdapter("SELECT * FROM tbl_Jummah_Schedule Where Date = '"+ Date +"'", C.Con);
 				DataTable dt = new DataTable();
-				C.CloseSQLConnecion();
+				
 				cmdCat.Fill(dt);
 				return dt;
 			}
@@ -201,12 +199,12 @@ namespace JummahManagement.Data
 				MySqlCommand cmd = new MySqlCommand("DELETE FROM tbl_Jummah_Schedule_temp Where ID = '" + RowID + "'", C.Con);
 				cmd.ExecuteNonQuery();
 				result = 1;
-				C.CloseSQLConnecion();
+				
 				return result;
 			}
 			catch (Exception ex)
 			{
-				C.CloseSQLConnecion();
+				
 				MessageBox.Show(ex.Message);
 				return result;
 			}
@@ -225,12 +223,12 @@ namespace JummahManagement.Data
 				MySqlCommand cmd = new MySqlCommand("DELETE FROM tbl_Jummah_Schedule Where ID = '" + ID + "'", C.Con);
 				cmd.ExecuteNonQuery();
 				result = 1;
-				C.CloseSQLConnecion();
+				
 				return result;
 			}
 			catch (Exception ex)
 			{
-				C.CloseSQLConnecion();
+				
 				MessageBox.Show(ex.Message);
 				return result;
 			}
@@ -262,7 +260,7 @@ namespace JummahManagement.Data
 							}
 							catch (Exception)
 							{
-								C.CloseSQLConnecion();
+								
 								throw;
 							}
 						}
@@ -276,7 +274,7 @@ namespace JummahManagement.Data
 							}
 							catch (Exception)
 							{
-								C.CloseSQLConnecion();
+								
 								throw;
 							}
 						}
@@ -288,13 +286,13 @@ namespace JummahManagement.Data
 								cmd.ExecuteNonQuery();
 								result = 1;
 								reader.Close();
-								C.CloseSQLConnecion();
+								
 								return result;
 							}
 							catch (Exception)
 							{
 								reader.Close();
-								C.CloseSQLConnecion();
+								
 								return result;
 							}
 						}
@@ -322,7 +320,7 @@ namespace JummahManagement.Data
 								}
 								catch (Exception)
 								{
-									C.CloseSQLConnecion();
+									
 									throw;
 								}
 							}
@@ -332,12 +330,12 @@ namespace JummahManagement.Data
 								{
 									reader.Close();
 									MessageBox.Show("This Branch Assigned Already");
-									C.CloseSQLConnecion();
+									
 									return result;
 								}
 								catch (Exception)
 								{
-									C.CloseSQLConnecion();
+									
 									throw;
 								}
 							}
@@ -353,13 +351,13 @@ namespace JummahManagement.Data
 									cmd.ExecuteNonQuery();
 									result = 1;
 									reader.Close();
-									C.CloseSQLConnecion();
+									
 									return result;
 								}
 								catch (Exception)
 								{
 									reader.Close();
-									C.CloseSQLConnecion();
+									
 									return result;
 								}
 							}
@@ -395,7 +393,7 @@ namespace JummahManagement.Data
 				MySqlDataAdapter cmdCat = new MySqlDataAdapter("SELECT Branch_Name,Dhae_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "'", C.Con);
 				DataTable dt = new DataTable();
 				cmdCat.Fill(dt);
-				C.CloseSQLConnecion();
+				
 				return dt;
 			}
 			catch (Exception)
@@ -430,11 +428,11 @@ namespace JummahManagement.Data
 					C.Con.Open();
 				}
 				command.ExecuteNonQuery();
-				C.CloseSQLConnecion();
+				
 			}
 			catch (Exception ex)
 			{
-				C.CloseSQLConnecion();
+				
 				MessageBox.Show(ex.Message);
 			}
 		}
