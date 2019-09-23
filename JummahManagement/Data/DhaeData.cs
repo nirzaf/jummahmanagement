@@ -100,7 +100,7 @@ namespace JummahManagement.Data
                 {
                     using (MySqlCommand Check_City = new MySqlCommand("SELECT * FROM tbl_City WHERE City = '" + City + "'", C.Con))
                     {
-                        C.Con.Open();
+                    if (C.Con == null) C.Con.Open();
                         using (MySqlDataReader reader = Check_City.ExecuteReader())
                         {
                             if (reader.HasRows)
@@ -113,7 +113,6 @@ namespace JummahManagement.Data
                                 {
                                     using (MySqlCommand cmd = new MySqlCommand("INSERT INTO tbl_City (City) VALUES ('" + City + "')", C.Con))
                                     {
-                                        C.Con.Open();
                                         result = cmd.ExecuteNonQuery();
                                     }
                                     return result;

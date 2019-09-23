@@ -2,7 +2,6 @@
 using JummahManagement.Data;
 using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.Windows.Forms;
 using Excell = Microsoft.Office.Interop.Excel;
 using iTextSharp.text.pdf;
@@ -12,7 +11,6 @@ using Document = iTextSharp.text.Document;
 using System.Drawing;
 using Spire.Pdf;
 using Spire.Pdf.Graphics;
-using System.Threading;
 using MySql.Data.MySqlClient;
 
 namespace JummahManagement
@@ -35,11 +33,7 @@ namespace JummahManagement
 
         public main()
         {
-            Thread t = new Thread(new ThreadStart(SplashScreen));
-            t.Start();
-            Thread.Sleep(10000);
             InitializeComponent();
-            t.Abort();
         }
 
         private void main_Load(object sender, EventArgs e)
@@ -53,11 +47,6 @@ namespace JummahManagement
             {
                 lblMessage.Text = ex.Message;
             }
-        }
-
-        public void SplashScreen()
-        {
-            Application.Run(new SplashScreen());
         }
 
         public void LoadMainFormElements()
