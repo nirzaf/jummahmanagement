@@ -8,28 +8,31 @@ namespace JummahManagement.Data
 {
 	class JummahReports
 	{
-		DataCon newCon = new DataCon();
+		DataCon C = new DataCon();
 
 		//Function to Complete DGV Dt Jumma Schedule
 		public DataTable LoadDGVdtJummaSchedule()
 		{
-			DataTable dt = new DataTable();
-			try
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+
+            try
 			{
-				if (newCon.Con.State == ConnectionState.Closed)
-				{
-					newCon.Con.Open();
-				}
-				MySqlDataAdapter cmdCat = new MySqlDataAdapter("SELECT * FROM tbl_Jummah_Schedule_temp", newCon.Con);
-				cmdCat.Fill(dt);
-				newCon.CloseSQLConnecion();
+                using (MySqlCommand cmd = new MySqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp", C.Con))
+                {
+                    C.Con.Open();
+                    using (MySqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        ds.Tables.Add(dt);
+                        ds.EnforceConstraints = false;
+                        dt.Load(dr);
+                    }
+                }
 				return dt;
 			}
 			catch (Exception)
 			{
-				newCon.CloseSQLConnecion();
-				dt = null;
-				return dt;
+                throw;
 			}
 		}
 
@@ -38,14 +41,14 @@ namespace JummahManagement.Data
 		{
 			try
 			{
-				if (newCon.Con.State == ConnectionState.Closed)
+				if (C.Con.State == ConnectionState.Closed)
 				{
-					newCon.Con.Open();
+					C.Con.Open();
 				}
-				MySqlDataAdapter cmdCat = new MySqlDataAdapter("SELECT * FROM tbl_Jummah_Schedule", newCon.Con);
+				MySqlDataAdapter cmdCat = new MySqlDataAdapter("SELECT * FROM tbl_Jummah_Schedule", C.Con);
 				DataTable dt = new DataTable();
 				cmdCat.Fill(dt);
-				newCon.CloseSQLConnecion();
+				C.CloseSQLConnecion();
 				return dt;
 			}
 			catch (Exception)
@@ -59,14 +62,14 @@ namespace JummahManagement.Data
 		{
 			try
 			{
-				if (newCon.Con.State == ConnectionState.Closed)
+				if (C.Con.State == ConnectionState.Closed)
 				{
-					newCon.Con.Open();
+					C.Con.Open();
 				}
-				MySqlDataAdapter cmdCat = new MySqlDataAdapter("SELECT Branch_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "' AND Dhae_Name ='" + DhaeName + "' ", newCon.Con);
+				MySqlDataAdapter cmdCat = new MySqlDataAdapter("SELECT Branch_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "' AND Dhae_Name ='" + DhaeName + "' ", C.Con);
 				DataTable dt = new DataTable();
 				cmdCat.Fill(dt);
-				newCon.CloseSQLConnecion();
+				C.CloseSQLConnecion();
 				return dt;
 			}
 			catch (Exception)
@@ -80,14 +83,14 @@ namespace JummahManagement.Data
 		{
 			try
 			{
-				if (newCon.Con.State == ConnectionState.Closed)
+				if (C.Con.State == ConnectionState.Closed)
 				{
-					newCon.Con.Open();
+					C.Con.Open();
 				}
-				MySqlDataAdapter cmdCat = new MySqlDataAdapter("SELECT Dhae_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "' AND Branch_Name ='"+ BranchName +"' ", newCon.Con);
+				MySqlDataAdapter cmdCat = new MySqlDataAdapter("SELECT Dhae_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "' AND Branch_Name ='"+ BranchName +"' ", C.Con);
 				DataTable dt = new DataTable();
 				cmdCat.Fill(dt);
-				newCon.CloseSQLConnecion();
+				C.CloseSQLConnecion();
 				return dt;
 			}
 			catch (Exception)
@@ -101,14 +104,14 @@ namespace JummahManagement.Data
 		{
 			try
 			{
-				if (newCon.Con.State == ConnectionState.Closed)
+				if (C.Con.State == ConnectionState.Closed)
 				{
-					newCon.Con.Open();
+					C.Con.Open();
 				}
-				MySqlDataAdapter cmdCat = new MySqlDataAdapter("Select * From tbl_Jummah_Schedule Where Date = '" + Date + "'", newCon.Con);
+				MySqlDataAdapter cmdCat = new MySqlDataAdapter("Select * From tbl_Jummah_Schedule Where Date = '" + Date + "'", C.Con);
 				DataTable dt = new DataTable();
 				cmdCat.Fill(dt);
-				newCon.CloseSQLConnecion();
+				C.CloseSQLConnecion();
 				return dt;
 
 			}
@@ -123,15 +126,15 @@ namespace JummahManagement.Data
 		{
 			try
 			{
-				if (newCon.Con.State == ConnectionState.Closed)
+				if (C.Con.State == ConnectionState.Closed)
 				{
-					newCon.Con.Open();
+					C.Con.Open();
 				}
-				MySqlDataAdapter cmdCat = new MySqlDataAdapter("GetCities", newCon.Con);
+				MySqlDataAdapter cmdCat = new MySqlDataAdapter("GetCities", C.Con);
 				cmdCat.SelectCommand.CommandType = CommandType.StoredProcedure;
 				DataTable dt = new DataTable();
 				cmdCat.Fill(dt);
-				newCon.CloseSQLConnecion();
+				C.CloseSQLConnecion();
 				return dt;
 			}
 			catch (Exception)
@@ -146,19 +149,19 @@ namespace JummahManagement.Data
 			int result = 0;
 			try
 			{
-				if (newCon.Con.State == ConnectionState.Closed)
+				if (C.Con.State == ConnectionState.Closed)
 				{
-					newCon.Con.Open();
+					C.Con.Open();
 				}
-				MySqlCommand cmd = new MySqlCommand("UPDATE tbl_City SET City = '"+ CityName +"' WHERE City_ID = '"+ CityID +"'", newCon.Con);
+				MySqlCommand cmd = new MySqlCommand("UPDATE tbl_City SET City = '"+ CityName +"' WHERE City_ID = '"+ CityID +"'", C.Con);
 				cmd.ExecuteNonQuery();
 				result = 1;
-				newCon.CloseSQLConnecion();
+				C.CloseSQLConnecion();
 				return result;
 			}
 			catch (Exception ex)
 			{
-				newCon.CloseSQLConnecion();
+				C.CloseSQLConnecion();
 				MessageBox.Show(ex.Message);
 				return result;
 			}
@@ -169,13 +172,13 @@ namespace JummahManagement.Data
 		{
 			try
 			{
-				if (newCon.Con.State == ConnectionState.Closed)
+				if (C.Con.State == ConnectionState.Closed)
 				{
-					newCon.Con.Open();
+					C.Con.Open();
 				}
-				MySqlDataAdapter cmdCat = new MySqlDataAdapter("SELECT * FROM tbl_Jummah_Schedule Where Date = '"+ Date +"'", newCon.Con);
+				MySqlDataAdapter cmdCat = new MySqlDataAdapter("SELECT * FROM tbl_Jummah_Schedule Where Date = '"+ Date +"'", C.Con);
 				DataTable dt = new DataTable();
-				newCon.CloseSQLConnecion();
+				C.CloseSQLConnecion();
 				cmdCat.Fill(dt);
 				return dt;
 			}
@@ -191,19 +194,19 @@ namespace JummahManagement.Data
 			int result = 0;
 			try
 			{
-				if (newCon.Con.State == ConnectionState.Closed)
+				if (C.Con.State == ConnectionState.Closed)
 				{
-					newCon.Con.Open();
+					C.Con.Open();
 				}
-				MySqlCommand cmd = new MySqlCommand("DELETE FROM tbl_Jummah_Schedule_temp Where ID = '" + RowID + "'", newCon.Con);
+				MySqlCommand cmd = new MySqlCommand("DELETE FROM tbl_Jummah_Schedule_temp Where ID = '" + RowID + "'", C.Con);
 				cmd.ExecuteNonQuery();
 				result = 1;
-				newCon.CloseSQLConnecion();
+				C.CloseSQLConnecion();
 				return result;
 			}
 			catch (Exception ex)
 			{
-				newCon.CloseSQLConnecion();
+				C.CloseSQLConnecion();
 				MessageBox.Show(ex.Message);
 				return result;
 			}
@@ -215,19 +218,19 @@ namespace JummahManagement.Data
 			int result = 0;
 			try
 			{
-				if (newCon.Con.State == ConnectionState.Closed)
+				if (C.Con.State == ConnectionState.Closed)
 				{
-					newCon.Con.Open();
+					C.Con.Open();
 				}
-				MySqlCommand cmd = new MySqlCommand("DELETE FROM tbl_Jummah_Schedule Where ID = '" + ID + "'", newCon.Con);
+				MySqlCommand cmd = new MySqlCommand("DELETE FROM tbl_Jummah_Schedule Where ID = '" + ID + "'", C.Con);
 				cmd.ExecuteNonQuery();
 				result = 1;
-				newCon.CloseSQLConnecion();
+				C.CloseSQLConnecion();
 				return result;
 			}
 			catch (Exception ex)
 			{
-				newCon.CloseSQLConnecion();
+				C.CloseSQLConnecion();
 				MessageBox.Show(ex.Message);
 				return result;
 			}
@@ -242,10 +245,10 @@ namespace JummahManagement.Data
 				int result = 0;
 				try
 				{
-					if (newCon.Con.State == ConnectionState.Open)
+					if (C.Con.State == ConnectionState.Open)
 					{
-						MySqlCommand Check_Dhae = new MySqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Dhae_Name = '" + DhaeName + "'", newCon.Con);
-						MySqlCommand Check_Branch = new MySqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Branch_Name = '" + BranchName + "'", newCon.Con);
+						MySqlCommand Check_Dhae = new MySqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Dhae_Name = '" + DhaeName + "'", C.Con);
+						MySqlCommand Check_Branch = new MySqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Branch_Name = '" + BranchName + "'", C.Con);
 						MySqlDataReader reader = Check_Dhae.ExecuteReader();
 						MySqlDataReader reader1 = Check_Branch.ExecuteReader();
 
@@ -259,7 +262,7 @@ namespace JummahManagement.Data
 							}
 							catch (Exception)
 							{
-								newCon.CloseSQLConnecion();
+								C.CloseSQLConnecion();
 								throw;
 							}
 						}
@@ -273,7 +276,7 @@ namespace JummahManagement.Data
 							}
 							catch (Exception)
 							{
-								newCon.CloseSQLConnecion();
+								C.CloseSQLConnecion();
 								throw;
 							}
 						}
@@ -281,17 +284,17 @@ namespace JummahManagement.Data
 						{
 							try
 							{
-								MySqlCommand cmd = new MySqlCommand("INSERT INTO tbl_Jummah_Schedule_temp (Row_Count,Dhae_Name,Dhae_Contact,Branch_Name,JIP_Name,JIP_Contact,Date) VALUES ('" + RowCount + "','" + DhaeName + "','" + DhaeContact + "','" + BranchName + "','" + JIPName + "','" + JIPContact + "','" + Date + "')", newCon.Con);
+								MySqlCommand cmd = new MySqlCommand("INSERT INTO tbl_Jummah_Schedule_temp (Row_Count,Dhae_Name,Dhae_Contact,Branch_Name,JIP_Name,JIP_Contact,Date) VALUES ('" + RowCount + "','" + DhaeName + "','" + DhaeContact + "','" + BranchName + "','" + JIPName + "','" + JIPContact + "','" + Date + "')", C.Con);
 								cmd.ExecuteNonQuery();
 								result = 1;
 								reader.Close();
-								newCon.CloseSQLConnecion();
+								C.CloseSQLConnecion();
 								return result;
 							}
 							catch (Exception)
 							{
 								reader.Close();
-								newCon.CloseSQLConnecion();
+								C.CloseSQLConnecion();
 								return result;
 							}
 						}
@@ -300,12 +303,12 @@ namespace JummahManagement.Data
 					{
 						try
 						{
-							if (newCon.Con.State == ConnectionState.Closed)
+							if (C.Con.State == ConnectionState.Closed)
 							{
-								newCon.Con.Open();
+								C.Con.Open();
 							}
-							MySqlCommand Check_Dhae = new MySqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Dhae_Name = '" + DhaeName + "'", newCon.Con);
-							MySqlCommand Check_Branch = new MySqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Branch_Name = '" + BranchName + "'", newCon.Con);
+							MySqlCommand Check_Dhae = new MySqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Dhae_Name = '" + DhaeName + "'", C.Con);
+							MySqlCommand Check_Branch = new MySqlCommand("SELECT * FROM tbl_Jummah_Schedule_temp WHERE Branch_Name = '" + BranchName + "'", C.Con);
 							MySqlDataReader reader = Check_Dhae.ExecuteReader();
 							MySqlDataReader reader1 = Check_Branch.ExecuteReader();
 
@@ -319,7 +322,7 @@ namespace JummahManagement.Data
 								}
 								catch (Exception)
 								{
-									newCon.CloseSQLConnecion();
+									C.CloseSQLConnecion();
 									throw;
 								}
 							}
@@ -329,12 +332,12 @@ namespace JummahManagement.Data
 								{
 									reader.Close();
 									MessageBox.Show("This Branch Assigned Already");
-									newCon.CloseSQLConnecion();
+									C.CloseSQLConnecion();
 									return result;
 								}
 								catch (Exception)
 								{
-									newCon.CloseSQLConnecion();
+									C.CloseSQLConnecion();
 									throw;
 								}
 							}
@@ -342,28 +345,28 @@ namespace JummahManagement.Data
 							{
 								try
 								{
-									if (newCon.Con.State == ConnectionState.Closed)
+									if (C.Con.State == ConnectionState.Closed)
 									{
-										newCon.Con.Open();
+										C.Con.Open();
 									}
-									MySqlCommand cmd = new MySqlCommand("INSERT INTO tbl_Jummah_Schedule_temp (Row_Count,Dhae_Name,Dhae_Contact,Branch_Name,JIP_Name,JIP_Contact,Date) VALUES ('" + RowCount + "','" + DhaeName + "','" + DhaeContact + "','" + BranchName + "','" + JIPName + "','" + JIPContact + "','" + Date + "')", newCon.Con);
+									MySqlCommand cmd = new MySqlCommand("INSERT INTO tbl_Jummah_Schedule_temp (Row_Count,Dhae_Name,Dhae_Contact,Branch_Name,JIP_Name,JIP_Contact,Date) VALUES ('" + RowCount + "','" + DhaeName + "','" + DhaeContact + "','" + BranchName + "','" + JIPName + "','" + JIPContact + "','" + Date + "')", C.Con);
 									cmd.ExecuteNonQuery();
 									result = 1;
 									reader.Close();
-									newCon.CloseSQLConnecion();
+									C.CloseSQLConnecion();
 									return result;
 								}
 								catch (Exception)
 								{
 									reader.Close();
-									newCon.CloseSQLConnecion();
+									C.CloseSQLConnecion();
 									return result;
 								}
 							}
 						}
 						catch (Exception)
 						{
-							newCon.Con.Close();
+							C.Con.Close();
 							throw;
 						}
 
@@ -385,14 +388,14 @@ namespace JummahManagement.Data
 		{
 			try
 			{
-				if (newCon.Con.State == ConnectionState.Closed)
+				if (C.Con.State == ConnectionState.Closed)
 				{
-					newCon.Con.Open();
+					C.Con.Open();
 				}
-				MySqlDataAdapter cmdCat = new MySqlDataAdapter("SELECT Branch_Name,Dhae_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "'", newCon.Con);
+				MySqlDataAdapter cmdCat = new MySqlDataAdapter("SELECT Branch_Name,Dhae_Name FROM tbl_Jummah_Schedule Where Date = '" + Date + "'", C.Con);
 				DataTable dt = new DataTable();
 				cmdCat.Fill(dt);
-				newCon.CloseSQLConnecion();
+				C.CloseSQLConnecion();
 				return dt;
 			}
 			catch (Exception)
@@ -421,17 +424,17 @@ namespace JummahManagement.Data
 							(
 								[ID] ASC
 							)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-							) ON [PRIMARY]", newCon.Con);
-				if (newCon.Con.State == ConnectionState.Closed)
+							) ON [PRIMARY]", C.Con);
+				if (C.Con.State == ConnectionState.Closed)
 				{
-					newCon.Con.Open();
+					C.Con.Open();
 				}
 				command.ExecuteNonQuery();
-				newCon.CloseSQLConnecion();
+				C.CloseSQLConnecion();
 			}
 			catch (Exception ex)
 			{
-				newCon.CloseSQLConnecion();
+				C.CloseSQLConnecion();
 				MessageBox.Show(ex.Message);
 			}
 		}
