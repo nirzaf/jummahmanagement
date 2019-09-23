@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.JummaSchedule = new System.Windows.Forms.TabPage();
             this.LblOverDTPicker = new System.Windows.Forms.Label();
@@ -96,12 +96,8 @@
             this.btnAddCity = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtStreetName = new System.Windows.Forms.TextBox();
-            this.txtHouseNo = new System.Windows.Forms.TextBox();
             this.txtDhaeContact = new System.Windows.Forms.TextBox();
             this.txtDhaeName = new System.Windows.Forms.TextBox();
             this.txtDhaeID = new System.Windows.Forms.TextBox();
@@ -331,34 +327,34 @@
             // 
             this.DGVBranchesLeft.AllowUserToAddRows = false;
             this.DGVBranchesLeft.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DGVBranchesLeft.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVBranchesLeft.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.DGVBranchesLeft.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DGVBranchesLeft.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DGVBranchesLeft.DefaultCellStyle = dataGridViewCellStyle5;
             this.DGVBranchesLeft.Location = new System.Drawing.Point(3, 43);
             this.DGVBranchesLeft.Name = "DGVBranchesLeft";
             this.DGVBranchesLeft.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DGVBranchesLeft.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVBranchesLeft.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.DGVBranchesLeft.Size = new System.Drawing.Size(136, 160);
             this.DGVBranchesLeft.TabIndex = 1;
             this.DGVBranchesLeft.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVBranchesLeft_CellClick);
@@ -835,12 +831,8 @@
             this.AddDhae.Controls.Add(this.btnAddCity);
             this.AddDhae.Controls.Add(this.label6);
             this.AddDhae.Controls.Add(this.label7);
-            this.AddDhae.Controls.Add(this.label8);
-            this.AddDhae.Controls.Add(this.label4);
             this.AddDhae.Controls.Add(this.label3);
             this.AddDhae.Controls.Add(this.label2);
-            this.AddDhae.Controls.Add(this.txtStreetName);
-            this.AddDhae.Controls.Add(this.txtHouseNo);
             this.AddDhae.Controls.Add(this.txtDhaeContact);
             this.AddDhae.Controls.Add(this.txtDhaeName);
             this.AddDhae.Controls.Add(this.txtDhaeID);
@@ -856,10 +848,10 @@
             // LblDeleteDhaeID
             // 
             this.LblDeleteDhaeID.AutoSize = true;
-            this.LblDeleteDhaeID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblDeleteDhaeID.Location = new System.Drawing.Point(552, 429);
+            this.LblDeleteDhaeID.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblDeleteDhaeID.Location = new System.Drawing.Point(578, 429);
             this.LblDeleteDhaeID.Name = "LblDeleteDhaeID";
-            this.LblDeleteDhaeID.Size = new System.Drawing.Size(219, 20);
+            this.LblDeleteDhaeID.Size = new System.Drawing.Size(186, 19);
             this.LblDeleteDhaeID.TabIndex = 49;
             this.LblDeleteDhaeID.Text = "Selected Dhae ID Number";
             this.LblDeleteDhaeID.Visible = false;
@@ -891,29 +883,30 @@
             // LblTotalDhaeCount
             // 
             this.LblTotalDhaeCount.AutoSize = true;
-            this.LblTotalDhaeCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblTotalDhaeCount.Location = new System.Drawing.Point(830, 207);
+            this.LblTotalDhaeCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblTotalDhaeCount.Location = new System.Drawing.Point(914, 143);
             this.LblTotalDhaeCount.Name = "LblTotalDhaeCount";
-            this.LblTotalDhaeCount.Size = new System.Drawing.Size(21, 24);
+            this.LblTotalDhaeCount.Size = new System.Drawing.Size(16, 16);
             this.LblTotalDhaeCount.TabIndex = 46;
             this.LblTotalDhaeCount.Text = "0";
             // 
             // label50
             // 
             this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(733, 215);
+            this.label50.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label50.Location = new System.Drawing.Point(770, 143);
             this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(91, 13);
+            this.label50.Size = new System.Drawing.Size(128, 16);
             this.label50.TabIndex = 45;
             this.label50.Text = "Total Dhae Count";
             // 
             // label42
             // 
             this.label42.AutoSize = true;
-            this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label42.Location = new System.Drawing.Point(17, 205);
+            this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label42.Location = new System.Drawing.Point(13, 130);
             this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(172, 20);
+            this.label42.Size = new System.Drawing.Size(150, 16);
             this.label42.TabIndex = 44;
             this.label42.Text = "Filter by Dhae Name";
             // 
@@ -922,10 +915,10 @@
             this.FilterByDhaeName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.FilterByDhaeName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.FilterByDhaeName.BackColor = System.Drawing.SystemColors.Info;
-            this.FilterByDhaeName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FilterByDhaeName.Location = new System.Drawing.Point(195, 202);
+            this.FilterByDhaeName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FilterByDhaeName.Location = new System.Drawing.Point(189, 124);
             this.FilterByDhaeName.Name = "FilterByDhaeName";
-            this.FilterByDhaeName.Size = new System.Drawing.Size(275, 26);
+            this.FilterByDhaeName.Size = new System.Drawing.Size(275, 22);
             this.FilterByDhaeName.TabIndex = 43;
             this.FilterByDhaeName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FilterByDhaeName_KeyUp);
             // 
@@ -959,27 +952,27 @@
             "Vavuniya"});
             this.TxtDistrictNames1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.TxtDistrictNames1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.TxtDistrictNames1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtDistrictNames1.Location = new System.Drawing.Point(143, 156);
+            this.TxtDistrictNames1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtDistrictNames1.Location = new System.Drawing.Point(139, 72);
             this.TxtDistrictNames1.Name = "TxtDistrictNames1";
-            this.TxtDistrictNames1.Size = new System.Drawing.Size(327, 26);
+            this.TxtDistrictNames1.Size = new System.Drawing.Size(327, 22);
             this.TxtDistrictNames1.TabIndex = 42;
             // 
             // TxtCityNames
             // 
             this.TxtCityNames.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.TxtCityNames.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.TxtCityNames.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtCityNames.Location = new System.Drawing.Point(706, 115);
+            this.TxtCityNames.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtCityNames.Location = new System.Drawing.Point(684, 44);
             this.TxtCityNames.Name = "TxtCityNames";
-            this.TxtCityNames.Size = new System.Drawing.Size(323, 26);
+            this.TxtCityNames.Size = new System.Drawing.Size(342, 22);
             this.TxtCityNames.TabIndex = 21;
             // 
             // btnAddNewCity
             // 
             this.btnAddNewCity.BackColor = System.Drawing.Color.White;
             this.btnAddNewCity.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddNewCity.Location = new System.Drawing.Point(785, 165);
+            this.btnAddNewCity.Location = new System.Drawing.Point(763, 94);
             this.btnAddNewCity.Name = "btnAddNewCity";
             this.btnAddNewCity.Size = new System.Drawing.Size(155, 37);
             this.btnAddNewCity.TabIndex = 20;
@@ -991,9 +984,9 @@
             // txtAddNewCity
             // 
             this.txtAddNewCity.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAddNewCity.Location = new System.Drawing.Point(706, 142);
+            this.txtAddNewCity.Location = new System.Drawing.Point(684, 71);
             this.txtAddNewCity.Name = "txtAddNewCity";
-            this.txtAddNewCity.Size = new System.Drawing.Size(323, 22);
+            this.txtAddNewCity.Size = new System.Drawing.Size(342, 22);
             this.txtAddNewCity.TabIndex = 19;
             this.txtAddNewCity.Text = "Add New City Here";
             this.txtAddNewCity.Visible = false;
@@ -1007,19 +1000,19 @@
             this.DGVDhaeDetails.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders;
             this.DGVDhaeDetails.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.DGVDhaeDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGVDhaeDetails.Location = new System.Drawing.Point(6, 234);
+            this.DGVDhaeDetails.Location = new System.Drawing.Point(6, 176);
             this.DGVDhaeDetails.Name = "DGVDhaeDetails";
-            this.DGVDhaeDetails.Size = new System.Drawing.Size(1057, 189);
+            this.DGVDhaeDetails.Size = new System.Drawing.Size(1057, 247);
             this.DGVDhaeDetails.TabIndex = 18;
             this.DGVDhaeDetails.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVDhaeDetails_CellClick);
             // 
             // btnAddDhae
             // 
             this.btnAddDhae.BackColor = System.Drawing.Color.White;
-            this.btnAddDhae.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddDhae.Location = new System.Drawing.Point(501, 189);
+            this.btnAddDhae.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddDhae.Location = new System.Drawing.Point(470, 110);
             this.btnAddDhae.Name = "btnAddDhae";
-            this.btnAddDhae.Size = new System.Drawing.Size(199, 36);
+            this.btnAddDhae.Size = new System.Drawing.Size(212, 36);
             this.btnAddDhae.TabIndex = 17;
             this.btnAddDhae.Text = "Add";
             this.btnAddDhae.UseVisualStyleBackColor = false;
@@ -1028,8 +1021,8 @@
             // btnAddCity
             // 
             this.btnAddCity.BackColor = System.Drawing.Color.White;
-            this.btnAddCity.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddCity.Location = new System.Drawing.Point(1031, 115);
+            this.btnAddCity.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddCity.Location = new System.Drawing.Point(1032, 44);
             this.btnAddCity.Name = "btnAddCity";
             this.btnAddCity.Size = new System.Drawing.Size(31, 27);
             this.btnAddCity.TabIndex = 16;
@@ -1040,110 +1033,74 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(17, 160);
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(13, 76);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(66, 20);
+            this.label6.Size = new System.Drawing.Size(56, 16);
             this.label6.TabIndex = 13;
             this.label6.Text = "District";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(599, 118);
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(579, 44);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(39, 20);
+            this.label7.Size = new System.Drawing.Size(34, 16);
             this.label7.TabIndex = 12;
             this.label7.Text = "City";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(17, 118);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(110, 20);
-            this.label8.TabIndex = 11;
-            this.label8.Text = "Street Name";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(599, 74);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(88, 20);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "House No";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(17, 74);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(13, 47);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(120, 20);
+            this.label3.Size = new System.Drawing.Size(101, 16);
             this.label3.TabIndex = 9;
             this.label3.Text = "Dhae Contact";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(599, 33);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(579, 15);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(103, 20);
+            this.label2.Size = new System.Drawing.Size(90, 16);
             this.label2.TabIndex = 8;
             this.label2.Text = "Dhae Name";
             // 
-            // txtStreetName
-            // 
-            this.txtStreetName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtStreetName.Location = new System.Drawing.Point(143, 112);
-            this.txtStreetName.Name = "txtStreetName";
-            this.txtStreetName.Size = new System.Drawing.Size(327, 26);
-            this.txtStreetName.TabIndex = 5;
-            // 
-            // txtHouseNo
-            // 
-            this.txtHouseNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtHouseNo.Location = new System.Drawing.Point(706, 71);
-            this.txtHouseNo.Name = "txtHouseNo";
-            this.txtHouseNo.Size = new System.Drawing.Size(323, 26);
-            this.txtHouseNo.TabIndex = 4;
-            // 
             // txtDhaeContact
             // 
-            this.txtDhaeContact.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDhaeContact.Location = new System.Drawing.Point(143, 71);
+            this.txtDhaeContact.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDhaeContact.Location = new System.Drawing.Point(139, 44);
             this.txtDhaeContact.Name = "txtDhaeContact";
-            this.txtDhaeContact.Size = new System.Drawing.Size(327, 26);
+            this.txtDhaeContact.Size = new System.Drawing.Size(327, 22);
             this.txtDhaeContact.TabIndex = 3;
             // 
             // txtDhaeName
             // 
-            this.txtDhaeName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDhaeName.Location = new System.Drawing.Point(706, 30);
+            this.txtDhaeName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDhaeName.Location = new System.Drawing.Point(684, 15);
             this.txtDhaeName.Name = "txtDhaeName";
-            this.txtDhaeName.Size = new System.Drawing.Size(323, 26);
+            this.txtDhaeName.Size = new System.Drawing.Size(342, 22);
             this.txtDhaeName.TabIndex = 2;
             // 
             // txtDhaeID
             // 
-            this.txtDhaeID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDhaeID.Location = new System.Drawing.Point(143, 31);
+            this.txtDhaeID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDhaeID.Location = new System.Drawing.Point(139, 15);
             this.txtDhaeID.Name = "txtDhaeID";
-            this.txtDhaeID.Size = new System.Drawing.Size(327, 26);
+            this.txtDhaeID.Size = new System.Drawing.Size(327, 22);
             this.txtDhaeID.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(17, 33);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(13, 17);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(76, 20);
+            this.label1.Size = new System.Drawing.Size(64, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "Dhae ID";
             // 
@@ -2344,16 +2301,12 @@
         private System.Windows.Forms.TabPage JummaSchedule;
         private System.Windows.Forms.TextBox txtDhaeID;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtStreetName;
-        private System.Windows.Forms.TextBox txtHouseNo;
         private System.Windows.Forms.TextBox txtDhaeContact;
         private System.Windows.Forms.TextBox txtDhaeName;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
       //  private dbJummah_ManagementDataSetTableAdapters.tbl_CityTableAdapter tbl_CityTableAdapter;
         private System.Windows.Forms.Button btnAddCity;
         private System.Windows.Forms.DataGridView DGVDhaeDetails;
