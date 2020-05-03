@@ -18,11 +18,11 @@ namespace JummahManagement
 {
     public partial class main : Form
     {
-        DhaeBAL db = new DhaeBAL();
-        BranchBAL bb = new BranchBAL();
-        ReportsBAL rb = new ReportsBAL();
-        DhaeData dd = new DhaeData();
-        JummahReports jr = new JummahReports();
+        private DhaeBAL db = new DhaeBAL();
+        private BranchBAL bb = new BranchBAL();
+        private ReportsBAL rb = new ReportsBAL();
+        private DhaeData dd = new DhaeData();
+        private JummahReports jr = new JummahReports();
         public string City_ID;
         public string City;
         public string Temp_Schedule_ID;
@@ -122,15 +122,6 @@ namespace JummahManagement
             }
         }
 
-        //private async void BlinkDatePicker()
-        //{
-        //    while (true)
-        //    {
-        //        await Task(1000);
-        //        LblDTPicker.BackColor = LblDTPicker.BackColor == Color.White ? Color.Black : Color.White;            
-        //    }
-        //}
-
         public void LoadTextBoxes()
         {
             lblMessage.Text = "";
@@ -139,6 +130,7 @@ namespace JummahManagement
             L3.Text = "";
             L4.Text = "";
         }
+
         public void LoadDGVDtJummahSchedule()
         {
             dtJummaSchedule.DataSource = jr.LoadDGVdtJummaSchedule();
@@ -146,7 +138,8 @@ namespace JummahManagement
 
         public void LoadFilterByDhaeNameReport()
         {
-            dtPickerScheduleReport.CustomFormat = "mm/DD/yyyy";
+            dtPickerScheduleReport.Format = DateTimePickerFormat.Custom;
+            dtPickerScheduleReport.CustomFormat = "yyyy-MM-dd";
             string SelectedDate = dtPickerScheduleReport.Value.ToShortDateString();
             AutoCompleteStringCollection DhaeNames = new AutoCompleteStringCollection();
             DataTable dtb = rb.JummaScheduleReportByDate(SelectedDate);
@@ -159,7 +152,8 @@ namespace JummahManagement
 
         public void LoadFilterByDhaeContactNumber()
         {
-            dtPickerScheduleReport.CustomFormat = "mm/DD/yyyy";
+            dtPickerScheduleReport.Format = DateTimePickerFormat.Custom;
+            dtPickerScheduleReport.CustomFormat = "yyyy-MM-dd";
             string SelectedDate = dtPickerScheduleReport.Value.ToShortDateString();
             AutoCompleteStringCollection DhaeNumbers = new AutoCompleteStringCollection();
             DataTable dtb = rb.JummaScheduleReportByDate(SelectedDate);
@@ -172,7 +166,8 @@ namespace JummahManagement
 
         public void LoadFilterByBranchNameReport()
         {
-            dtPickerScheduleReport.CustomFormat = "mm/DD/yyyy";
+            dtPickerScheduleReport.Format = DateTimePickerFormat.Custom;
+            dtPickerScheduleReport.CustomFormat = "yyyy-MM-dd";
             string SelectedDate = dtPickerScheduleReport.Value.ToShortDateString();
             AutoCompleteStringCollection BranchNames = new AutoCompleteStringCollection();
             DataTable dtb = rb.JummaScheduleReportByDate(SelectedDate);
@@ -185,7 +180,8 @@ namespace JummahManagement
 
         public void LoadFilterByJummahInchargePerson()
         {
-            dtPickerScheduleReport.CustomFormat = "mm/DD/yyyy";
+            dtPickerScheduleReport.Format = DateTimePickerFormat.Custom;
+            dtPickerScheduleReport.CustomFormat = "yyyy-MM-dd";
             string SelectedDate = dtPickerScheduleReport.Value.ToShortDateString();
             AutoCompleteStringCollection JIP = new AutoCompleteStringCollection();
             DataTable dtb = rb.JummaScheduleReportByDate(SelectedDate);
@@ -198,7 +194,8 @@ namespace JummahManagement
 
         public void LoadFilter()
         {
-            dtPickerScheduleReport.CustomFormat = "mm/DD/yyyy";
+            dtPickerScheduleReport.Format = DateTimePickerFormat.Custom;
+            dtPickerScheduleReport.CustomFormat = "yyyy-MM-dd";
             string SelectedDate = dtPickerScheduleReport.Value.ToShortDateString();
             AutoCompleteStringCollection DhaeNumbers = new AutoCompleteStringCollection();
             DataTable dtb = rb.JummaScheduleReportByDate(SelectedDate);
@@ -231,7 +228,6 @@ namespace JummahManagement
             FilterByBranchName.AutoCompleteCustomSource = BranchNames;
         }
 
-
         public void LoadDhaeNames()
         {
             AutoCompleteStringCollection DhaeNames = new AutoCompleteStringCollection();
@@ -253,7 +249,6 @@ namespace JummahManagement
             }
             FilterByDhaeName.AutoCompleteCustomSource = DhaeNames;
         }
-
 
         public void LoadCityNames()
         {
@@ -286,7 +281,7 @@ namespace JummahManagement
             dtInchargeReport.Columns.Add("Incharge_Contact", "Incharge Contact");
             dtInchargeReport.Columns.Add("Date", "Jummah Date ,Dhae Details ");
         }
-        
+
         //Function to Relaod All DGV
         private void Reload()
         {
@@ -315,7 +310,6 @@ namespace JummahManagement
             {
                 lblMessage.Text = ex.Message;
             }
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -369,7 +363,6 @@ namespace JummahManagement
                 {
                     MessageBox.Show(ex.Message);
                 }
-
             }
             else
             {
@@ -428,7 +421,7 @@ namespace JummahManagement
                     lblMessage.Text = "Branch ID Should not be Blank";
                     txtBranchID.Focus();
                 }
-                else if(txtBranchName.Text.Trim()=="")
+                else if (txtBranchName.Text.Trim() == "")
                 {
                     lblMessage.Text = "Branch Name Should not be Blank";
                     txtBranchName.Focus();
@@ -568,7 +561,6 @@ namespace JummahManagement
             {
                 lblMessage.Text = ex.Message;
             }
-
         }
 
         private void txtUpdateBranchID_Click(object sender, EventArgs e)
@@ -609,7 +601,6 @@ namespace JummahManagement
             {
                 lblMessage.Text = ex.Message;
             }
-
         }
 
         private void btnDhaeDetailsReset_Click(object sender, EventArgs e)
@@ -661,7 +652,6 @@ namespace JummahManagement
             {
                 lblMessage.Text = ex.Message;
             }
-
         }
 
         private void txtJummaBranchName_TextChanged(object sender, EventArgs e)
@@ -687,32 +677,32 @@ namespace JummahManagement
             {
                 LblOverDTPicker.Visible = true;
                 LblSelectedJummahDate.Visible = true;
-                JummaDtPicker.CustomFormat = "yyyy/MM/dd";
+                JummaDtPicker.CustomFormat = "yyyy-MM-dd";
                 string SelectedDate = JummaDtPicker.Value.ToShortDateString();
                 lblSelectedDate.Text = SelectedDate;
 
                 DateTime lastFriday = JummaDtPicker.Value.AddDays(-1);
                 while (lastFriday.DayOfWeek != DayOfWeek.Friday)
                     lastFriday = lastFriday.AddDays(-1);
-                string LFDay = lastFriday.Date.ToString("yyyy/MM/dd").Trim();
+                string LFDay = lastFriday.Date.ToString("yyyy-MM-dd").Trim();
                 label45.Text = LFDay;
 
                 DateTime PreviousFriday = lastFriday.Date.AddDays(-1);
                 while (PreviousFriday.DayOfWeek != DayOfWeek.Friday)
                     PreviousFriday = PreviousFriday.AddDays(-1);
-                string PFDay = PreviousFriday.Date.ToString("yyyy/MM/dd").Trim();
+                string PFDay = PreviousFriday.Date.ToString("yyyy-MM-dd").Trim();
                 label46.Text = PFDay;
 
                 DateTime ThirdFriday = PreviousFriday.Date.AddDays(-1);
                 while (ThirdFriday.DayOfWeek != DayOfWeek.Friday)
                     ThirdFriday = ThirdFriday.AddDays(-1);
-                string TFDay = ThirdFriday.Date.ToString("yyyy/MM/dd").Trim();
+                string TFDay = ThirdFriday.Date.ToString("yyyy-MM-dd").Trim();
                 label47.Text = TFDay;
 
                 DateTime FourthFriday = ThirdFriday.Date.AddDays(-1);
                 while (FourthFriday.DayOfWeek != DayOfWeek.Friday)
                     FourthFriday = FourthFriday.AddDays(-1);
-                string FFDay = FourthFriday.Date.ToString("yyyy/MM/dd").Trim();
+                string FFDay = FourthFriday.Date.ToString("yyyy-MM-dd").Trim();
                 label48.Text = FFDay;
 
                 if (JummaDtPicker.Value.DayOfWeek == DayOfWeek.Friday)
@@ -731,7 +721,6 @@ namespace JummahManagement
             {
                 lblMessage.Text = ex.Message;
             }
-
         }
 
         //Function to load temporary branches left table
@@ -786,7 +775,6 @@ namespace JummahManagement
                     lblMessage.Text = "Please Try Again";
                     txtJummaBranchName.Focus();
                 }
-
             }
             catch (Exception ex)
             {
@@ -835,7 +823,8 @@ namespace JummahManagement
         //function to view jummah schedule report
         private void dtJummahReport_ValueChanged(object sender, EventArgs e)
         {
-            dtJummahReport.CustomFormat = "mm/DD/yyyy";
+            dtJummahReport.Format = DateTimePickerFormat.Custom;
+            dtJummahReport.CustomFormat = "yyyy-MM-dd";
             dtDhaeReport.Rows.Clear();
             dtInchargeReport.Rows.Clear();
             string SelectedDate = dtJummahReport.Value.ToShortDateString();
@@ -887,7 +876,7 @@ namespace JummahManagement
                 Clipboard.SetDataObject(dataObj);
         }
 
-        //Class to Copy datagrid view to excell 
+        //Class to Copy datagrid view to excell
         private void copyInchargeReport()
         {
             dtInchargeReport.SelectAll();
@@ -896,8 +885,7 @@ namespace JummahManagement
                 Clipboard.SetDataObject(dataObj);
         }
 
-
-        //This class will copy all Dhae details from datagridview to excell 
+        //This class will copy all Dhae details from datagridview to excell
         private void pBoxDhaeReport_Click(object sender, EventArgs e)
         {
             try
@@ -921,10 +909,9 @@ namespace JummahManagement
             {
                 lblMessage.Text = ex.Message;
             }
-
         }
 
-        //This class will copy all Jumma Inchrage Person details data from datagridview to excell 
+        //This class will copy all Jumma Inchrage Person details data from datagridview to excell
         private void pBoxJummahInchargeReport_Click(object sender, EventArgs e)
         {
             try
@@ -948,7 +935,6 @@ namespace JummahManagement
             {
                 lblMessage.Text = ex.Message;
             }
-
         }
 
         //Function to load city names to text box
@@ -971,7 +957,7 @@ namespace JummahManagement
             }
         }
 
-        //function to filter city names 
+        //function to filter city names
         private void txtSearchCity_KeyUp(object sender, KeyEventArgs e)
         {
             try
@@ -993,7 +979,8 @@ namespace JummahManagement
                 LoadFilterByBranchNameReport();
                 LoadFilterByDhaeContactNumber();
                 LoadFilterByJummahInchargePerson();
-                dtPickerScheduleReport.CustomFormat = "mm/DD/yyyy";
+                dtPickerScheduleReport.Format = DateTimePickerFormat.Custom;
+                dtPickerScheduleReport.CustomFormat = "yyyy-MM-dd";
                 string SelectedDate = dtPickerScheduleReport.Value.ToShortDateString();
                 dtScheduleReport.DataSource = rb.JummaScheduleReportByDate(SelectedDate);
                 dtScheduleReport.Columns["Row_count"].Visible = false;
@@ -1040,7 +1027,6 @@ namespace JummahManagement
             {
                 lblMessage.Text = ex.Message;
             }
-
         }
 
         //Function to filter Schedule by Dhae Name
@@ -1073,7 +1059,6 @@ namespace JummahManagement
             {
                 lblMessage.Text = ex.Message;
             }
-
         }
 
         //Function to Clear all the Temporary Schedule From Data grid view and Temp Table
@@ -1099,7 +1084,6 @@ namespace JummahManagement
                         case DialogResult.No:
                             break;
                     }
-
                 }
                 catch (Exception ex)
                 {
@@ -1110,11 +1094,9 @@ namespace JummahManagement
             {
                 lblMessage.Text = "Schedule List is Already Empty";
             }
-
-
         }
 
-        //Function to Update City Names 
+        //Function to Update City Names
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             int CityID = Convert.ToInt32(lblCityID.Text);
@@ -1174,18 +1156,16 @@ namespace JummahManagement
             }
             catch (Exception)
             {
-
                 throw;
             }
-
-
         }
 
         private void DateTimePDFReportGenerator_ValueChanged(object sender, EventArgs e)
         {
             try
             {
-                DateTimePDFReportGenerator.CustomFormat = "mm/DD/yyyy";
+                DateTimePDFReportGenerator.Format = DateTimePickerFormat.Custom;
+                DateTimePDFReportGenerator.CustomFormat = "yyyy-MM-dd";
                 string SelectedDate = DateTimePDFReportGenerator.Value.ToShortDateString();
                 DGVPDFReport.DataSource = rb.PDFJummaScheduleReportByDate(SelectedDate);
                 DGVPDFReport.RowHeadersVisible = false;
@@ -1239,7 +1219,7 @@ namespace JummahManagement
             document.Close();
         }
 
-        static PdfPageTemplateElement CreateHeaderTemplate(Spire.Pdf.PdfDocument doc, PdfMargins margins)
+        private static PdfPageTemplateElement CreateHeaderTemplate(Spire.Pdf.PdfDocument doc, PdfMargins margins)
         {
             //get page size
             SizeF pageSize = doc.PageSettings.Size;
@@ -1343,7 +1323,8 @@ namespace JummahManagement
                     lblMessage.Text = "Selected Row Deleted";
                     try
                     {
-                        dtPickerScheduleReport.CustomFormat = "mm/DD/yyyy";
+                        dtPickerScheduleReport.Format = DateTimePickerFormat.Custom;
+                        dtPickerScheduleReport.CustomFormat = "yyyy-MM-dd";
                         string SelectedDate = dtPickerScheduleReport.Value.ToShortDateString();
                         dtScheduleReport.DataSource = rb.JummaScheduleReportByDate(SelectedDate);
                         dtScheduleReport.Columns["Row_count"].Visible = false;
@@ -1366,7 +1347,6 @@ namespace JummahManagement
 
         private void FilterByDhaeNameReport_Click(object sender, EventArgs e)
         {
-
             if (FilterByDhaeNameReport.Focus() == true)
             {
                 FilterByBranchNameReport.Text = "Filter by Branch Name";
@@ -1551,8 +1531,6 @@ namespace JummahManagement
             TimerSlider.Start();
         }
 
-
-
         private void BtnViewAllReport_Click(object sender, EventArgs e)
         {
             dtScheduleReport.DataSource = rb.GetAll();
@@ -1614,7 +1592,6 @@ namespace JummahManagement
                     LabelSlider.Location = new Point(xpos, ypos);
                     xpos += 2;
                 }
-
             }
         }
 
@@ -1622,7 +1599,7 @@ namespace JummahManagement
         {
             FilterByBranchNameReport.Text = "Filter by Branch Name";
             FilterByDhaeContactNumber.Text = "Filter by Dhae Contact Number";
-            FilterByInchargePersonReport.Text = "Filter By Incharge Person Name";        
+            FilterByInchargePersonReport.Text = "Filter By Incharge Person Name";
         }
 
         private void SuggestedDhaeNames_Tick(object sender, EventArgs e)
@@ -1683,7 +1660,7 @@ namespace JummahManagement
             }
         }
 
-        //Class to Copy datagrid view to excell 
+        //Class to Copy datagrid view to excell
         private void CopyReports()
         {
             dtScheduleReport.SelectAll();
@@ -1829,7 +1806,6 @@ namespace JummahManagement
 
         private void BtnReload_Click(object sender, EventArgs e)
         {
-
         }
 
         private void TimerShowBranches_Tick(object sender, EventArgs e)
@@ -1943,7 +1919,6 @@ namespace JummahManagement
 
         private void tabPage8_Click(object sender, EventArgs e)
         {
-
         }
 
         private void CopyPDFReport()
@@ -1981,7 +1956,7 @@ namespace JummahManagement
 
         private void BtnDeleteBranch_Click(object sender, EventArgs e)
         {
-            string Branch_ID =  LblSelectedBranchIDToDelete.Text.Trim();
+            string Branch_ID = LblSelectedBranchIDToDelete.Text.Trim();
             int result = bb.InsertBranchDetailsToDeleted(Branch_ID);
             try
             {
@@ -2011,9 +1986,9 @@ namespace JummahManagement
 
         private void AddBranch_Click(object sender, EventArgs e)
         {
-
         }
     }
+
     public static class MyExtensions
     {
         public static string AppendTimeStamp(this string fileName)
@@ -2025,5 +2000,4 @@ namespace JummahManagement
                 );
         }
     }
-
 }
