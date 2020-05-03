@@ -1019,9 +1019,11 @@ namespace JummahManagement
         {
             try
             {
-                BindingSource bsDvd = new BindingSource();
-                bsDvd.DataSource = dtJummaSchedule.DataSource;
-                bsDvd.Filter = string.Format("JIP_Name LIKE '{0}%' OR JIP_Name LIKE '% {0}%'", txtFilterByJIPName.Text);
+                BindingSource bsDvd = new BindingSource
+                {
+                    DataSource = dtJummaSchedule.DataSource,
+                    Filter = string.Format("JIP_Name LIKE '{0}%' OR JIP_Name LIKE '% {0}%'", txtFilterByJIPName.Text)
+                };
             }
             catch (Exception ex)
             {
