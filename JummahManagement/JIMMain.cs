@@ -1,18 +1,18 @@
-﻿using JummahManagement.Business;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using JummahManagement.Business;
 using JummahManagement.Data;
+using Spire.Pdf;
+using Spire.Pdf.Graphics;
 using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Windows.Forms;
-using Excell = Microsoft.Office.Interop.Excel;
-using iTextSharp.text.pdf;
-using iTextSharp.text;
-using System.IO;
-using Document = iTextSharp.text.Document;
 using System.Drawing;
-using Spire.Pdf;
-using Spire.Pdf.Graphics;
+using System.IO;
 using System.Threading;
+using System.Windows.Forms;
+using Document = iTextSharp.text.Document;
+using Excell = Microsoft.Office.Interop.Excel;
 
 namespace JummahManagement
 {
@@ -815,7 +815,6 @@ namespace JummahManagement
             }
             catch (Exception ex)
             {
-                // lblMessage.Text = ex.Message;
                 MessageBox.Show(ex.Message);
             }
         }
@@ -1190,7 +1189,7 @@ namespace JummahManagement
         {
             Document document = new Document();
             string filename = "Jumma_Report.PDF".AppendTimeStamp();
-            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(filename, FileMode.Create));
+            PdfWriter.GetInstance(document, new FileStream(filename, FileMode.Create));
             document.Open();
             iTextSharp.text.Font font5 = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12);
             PdfPTable table = new PdfPTable(dt.Columns.Count);
@@ -1209,8 +1208,11 @@ namespace JummahManagement
             {
                 if (dt.Rows.Count > 0)
                 {
-                    table.AddCell(new Phrase(r[0].ToString(), font5));
-                    table.AddCell(new Phrase(r[1].ToString(), font5));
+                    if (r[0] != null && r[1] != null)
+                    {
+                        table.AddCell(new Phrase(r[0].ToString(), font5));
+                        table.AddCell(new Phrase(r[1].ToString(), font5));
+                    }
                 }
             }
             document.Add(header);
