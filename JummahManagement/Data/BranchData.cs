@@ -29,31 +29,37 @@ namespace JummahManagement.Data
 					{
 						try
 						{
-							MessageBox.Show("This Branch is already exisits in the System");
+							MessageBox.Show(@"This Branch is already exist in the System");
 							return result;
 						}
-						catch (Exception)
+						catch (Exception ex)
 						{
-							throw;
+							MessageBox.Show(ex.Message);
+                            return result;
 						}
 					}
 					else
 					{
-						try
-						{
-							if (newCon.Con.State == ConnectionState.Closed)
-							{
-								newCon.Con.Open();
-							}
-							SqlCommand cmd = new SqlCommand("INSERT INTO tbl_Branches (Branch_ID,Branch_Name,JIP_Name,JIP_Contact,No,Street_Name,City,District) VALUES ('" + Branch_ID + "','" + Branch_Name + "','" + JIP_Name + "','" + JIP_Contact + "','" + Building_No + "','" + Street_Name + "','" + City + "','" + District + "')", newCon.Con);
-							cmd.ExecuteNonQuery();
-							result = 1;
-							return result;
-						}
-						catch (Exception)
-						{
-							return result;
-						}
+                        try
+                        {
+                            if (newCon.Con.State == ConnectionState.Closed)
+                            {
+                                newCon.Con.Open();
+                            }
+
+                            SqlCommand cmd = new SqlCommand(
+                                "INSERT INTO tbl_Branches (Branch_ID,Branch_Name,JIP_Name,JIP_Contact,No,Street_Name,City,District) VALUES ('" +
+                                Branch_ID + "','" + Branch_Name + "','" + JIP_Name + "','" + JIP_Contact + "','" +
+                                Building_No + "','" + Street_Name + "','" + City + "','" + District + "')", newCon.Con);
+                            cmd.ExecuteNonQuery();
+                            result = 1;
+                            return result;
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                            return result;
+                        }
 					}
 
 
