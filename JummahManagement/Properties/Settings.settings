@@ -1,18 +1,18 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="JummahManagement.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="dbJummah_ManagementConnectionString" Type="(Connection string)" Scope="Application">
-      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SerializableConnectionString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+      <DesignTimeValue Profile="(Default)">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;
+&lt;SerializableConnectionString xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;
   &lt;ConnectionString&gt;Data Source=JummahManagement.mssql.somee.com;Initial Catalog=JummahManagement; user id=nirzaf_SQLLogin_1; password=ng1mkfixd4; MultipleActiveResultSets = True&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=JummahManagement.mssql.somee.com;Initial Catalog=JummahManagement; user id=nirzaf_SQLLogin_1; password=ng1mkfixd4; MultipleActiveResultSets = True</Value>
     </Setting>
     <Setting Name="dbJummah_ManagementConnectionString1" Type="(Connection string)" Scope="Application">
-      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SerializableConnectionString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+      <DesignTimeValue Profile="(Default)">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;
+&lt;SerializableConnectionString xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;
   &lt;ConnectionString&gt;Data Source=JummahManagement.mssql.somee.com;Initial Catalog=JummahManagement; user id=nirzaf_SQLLogin_1; password=ng1mkfixd4; MultipleActiveResultSets = True&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
@@ -20,3 +20,4 @@
     </Setting>
   </Settings>
 </SettingsFile>
+
